@@ -1,0 +1,13 @@
+.DS_Store
+Thumbs.db
+.system_generated/
+*.tmp
+*.webp
+*.png
+# Ignore workspace-specific brain folders or system logs
+.gemini/
+brain/
+*click_feedback*
+*birthday_section*
+*birthday_details*
+*love_site_verification*
