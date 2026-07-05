@@ -6,8 +6,8 @@ document.addEventListener('DOMContentLoaded', () => {
     (function createParticles() {
         const bg = document.getElementById('particles-bg');
         if (!bg) return;
-        const colors = ['#ff4d6d','#f4c430','#ffb3c1','#c77dff','#ff8fab','#ffe082'];
-        const hearts = ['♥','✦','✿','❋','·'];
+        const colors = ['#ff4d6d', '#f4c430', '#ffb3c1', '#c77dff', '#ff8fab', '#ffe082'];
+        const hearts = ['♥', '✦', '✿', '❋', '·'];
         for (let i = 0; i < 40; i++) {
             const el = document.createElement('div');
             el.classList.add('particle');
@@ -39,22 +39,22 @@ document.addEventListener('DOMContentLoaded', () => {
         if (diff < 0) return;
 
         const totalSecs = Math.floor(diff / 1000);
-        const secs  = totalSecs % 60;
-        const mins  = Math.floor(totalSecs / 60) % 60;
+        const secs = totalSecs % 60;
+        const mins = Math.floor(totalSecs / 60) % 60;
         const hours = Math.floor(totalSecs / 3600) % 24;
-        const days  = Math.floor(totalSecs / 86400);
+        const days = Math.floor(totalSecs / 86400);
 
         const pad = (n, d = 2) => String(n).padStart(d, '0');
 
-        const elDays  = document.getElementById('cnt-days');
+        const elDays = document.getElementById('cnt-days');
         const elHours = document.getElementById('cnt-hours');
-        const elMins  = document.getElementById('cnt-mins');
-        const elSecs  = document.getElementById('cnt-secs');
+        const elMins = document.getElementById('cnt-mins');
+        const elSecs = document.getElementById('cnt-secs');
 
-        if (elDays)  elDays.textContent  = pad(days, 3);
+        if (elDays) elDays.textContent = pad(days, 3);
         if (elHours) elHours.textContent = pad(hours);
-        if (elMins)  elMins.textContent  = pad(mins);
-        if (elSecs)  elSecs.textContent  = pad(secs);
+        if (elMins) elMins.textContent = pad(mins);
+        if (elSecs) elSecs.textContent = pad(secs);
     }
     updateCounter();
     setInterval(updateCounter, 1000);
@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
             cx += (mx - cx) * 0.15;
             cy += (my - cy) * 0.15;
             cursor.style.left = cx + 'px';
-            cursor.style.top  = cy + 'px';
+            cursor.style.top = cy + 'px';
             requestAnimationFrame(moveCursor);
         })();
     }
@@ -102,23 +102,41 @@ document.addEventListener('DOMContentLoaded', () => {
     revealEls.forEach(el => revealObserver.observe(el));
 
     /* =========================================================
-       6. BIRTHDAY BALLOONS
+       6. BIRTHDAY BALLOONS & SYMBOLS
     ========================================================= */
     (function createBalloons() {
         const container = document.getElementById('balloons');
         if (!container) return;
-        const colors = ['#ff4d6d','#f4c430','#c77dff','#ff8fab','#4cc9f0','#80ffdb'];
-        for (let i = 0; i < 16; i++) {
+        const colors = ['#ff4d6d', '#f4c430', '#c77dff', '#ff8fab', '#4cc9f0', '#80ffdb'];
+        const additionalSymbols = ['👑', '🌸', '✨', '💖', '']; // User requested her symbols
+        for (let i = 0; i < 20; i++) {
             const b = document.createElement('div');
-            b.classList.add('balloon');
-            b.style.cssText = `
-                left: ${Math.random() * 95}%;
-                background: ${colors[Math.floor(Math.random() * colors.length)]};
-                animation-duration: ${Math.random() * 8 + 6}s;
-                animation-delay: ${Math.random() * 12}s;
-                width: ${Math.random() * 20 + 35}px;
-                height: ${Math.random() * 25 + 44}px;
-            `;
+            const useSymbol = Math.random() > 0.5;
+
+            if (useSymbol) {
+                b.classList.add('floating-symbol');
+                b.textContent = additionalSymbols[Math.floor(Math.random() * additionalSymbols.length)];
+                b.style.cssText = `
+                    position: absolute; bottom: -80px;
+                    left: ${Math.random() * 95}%;
+                    font-size: ${Math.random() * 20 + 20}px;
+                    animation: riseUp linear infinite;
+                    animation-duration: ${Math.random() * 8 + 6}s;
+                    animation-delay: ${Math.random() * 12}s;
+                    background: transparent;
+                `;
+            } else {
+                b.classList.add('balloon');
+                b.style.cssText = `
+                    left: ${Math.random() * 95}%;
+                    background: ${colors[Math.floor(Math.random() * colors.length)]};
+                    animation: riseUp linear infinite, blinkAnim 3s infinite;
+                    animation-duration: ${Math.random() * 8 + 6}s;
+                    animation-delay: ${Math.random() * 12}s;
+                    width: ${Math.random() * 20 + 35}px;
+                    height: ${Math.random() * 25 + 44}px;
+                `;
+            }
             container.appendChild(b);
         }
     })();
@@ -142,7 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
        8. MOBILE DRAWER
     ========================================================= */
     const menuBtn = document.getElementById('nav-menu-btn');
-    const drawer  = document.getElementById('mobile-drawer');
+    const drawer = document.getElementById('mobile-drawer');
     const drawerClose = document.getElementById('drawer-close');
     const drawerLinks = document.querySelectorAll('.drawer-link');
 
@@ -158,8 +176,8 @@ document.addEventListener('DOMContentLoaded', () => {
     /* =========================================================
        9. MUSIC TOGGLE
     ========================================================= */
-    const musicBtn  = document.getElementById('music-toggle');
-    const bgMusic   = document.getElementById('bg-music');
+    const musicBtn = document.getElementById('music-toggle');
+    const bgMusic = document.getElementById('bg-music');
     let musicOn = false;
     let musicInited = false;
 
@@ -167,20 +185,38 @@ document.addEventListener('DOMContentLoaded', () => {
         musicBtn.addEventListener('click', () => {
             if (!musicInited) {
                 bgMusic.volume = 0.4;
-                bgMusic.play().catch(() => {});
+                bgMusic.play().catch(() => { });
                 musicInited = true;
                 musicOn = true;
             } else if (musicOn) {
                 bgMusic.pause();
                 musicOn = false;
             } else {
-                bgMusic.play().catch(() => {});
+                bgMusic.play().catch(() => { });
                 musicOn = true;
             }
             musicBtn.querySelector('.music-text').textContent = musicOn ? 'Music On' : 'Music Off';
             musicBtn.style.borderColor = musicOn ? '#ff4d6d' : 'rgba(255,77,109,0.4)';
         });
     }
+
+    /* Hero Photos Auto-Cycler */
+    (function initHeroPhotosCycler() {
+        const photos = document.querySelectorAll('.stack-photo');
+        if (!photos.length) return;
+        
+        // Initial setup
+        const positions = ['pos-1', 'pos-2', 'pos-3'];
+        photos.forEach((p, i) => p.classList.add(positions[i]));
+
+        setInterval(() => {
+            // Rotate the positions array
+            positions.unshift(positions.pop());
+            photos.forEach((p, i) => {
+                p.className = 'stack-photo ' + positions[i];
+            });
+        }, 2500); // 2.5 seconds cycle frequency
+    })();
 
 });
 
@@ -192,64 +228,76 @@ document.addEventListener('DOMContentLoaded', () => {
    manifest JSON (auto-generated placeholder approach).
    For local file usage, we attempt to load images 1.jpg
    through 20.jpg and show ones that exist.
-========================================================= */
+ ========================================================= */
 
 // Folder metadata
 const FOLDERS = {
-    'love-confession':   {
+    'love-confession': {
         title: '💌 Love Confession Day — September 18, 2025',
-        path:  'photos/love-confession/'
+        path: 'photos/love-confession/'
     },
     'first-meet-day1': {
-        title: '🛕 Day 1 — Simhachalam Temple Visit, Vizag',
-        path:  'photos/first-meet-vizag/'
+        title: '🛕 Day 1 — Simhachalam Temple Visit with Karamma (Karishma)',
+        path: 'photos/first-meet-vizag/temple/'
     },
     'first-meet-day2': {
-        title: '🌊 Day 2 — Vizag Beaches & Parks',
-        path:  'photos/first-meet-vizag/'
+        title: '🌊 Day 2 — Vizag Beaches & Parks with Karamma',
+        path: 'photos/first-meet-vizag/'
     },
     'fav-pics': {
-        title: '📸 My Favorite Pics of Her',
-        path:  'photos/fav-pics/'
+        title: '📸 Bunny\'s Favorite Pics of Karamma ✨',
+        path: 'photos/fav-pics/'
     },
     'second-meet-cafe': {
-        title: '☕ 2nd Meet — The Cafe Day',
-        path:  'photos/second-meet-cafe/'
+        title: '☕ 2nd Meet — Cafe Day (At Karamma\'s Place)',
+        path: 'photos/second-meet-cafe/'
     },
     'third-meet-vizag': {
         title: '🌅 3rd Meet — Vizag TTD & Beaches',
-        path:  'photos/third-meet-vizag/'
+        path: 'photos/third-meet-vizag/'
     },
     'fourth-meet-wedding': {
-        title: '💒 4th Meet — My Brother\'s Wedding',
-        path:  'photos/fourth-meet-wedding/'
+        title: '💒 4th Meet — Bunny\'s Brother\'s Wedding',
+        path: 'photos/fourth-meet-wedding/'
     },
     'video-calls': {
-        title: '📱 Long Distance Video Call Screenshots',
-        path:  'photos/video-calls/'
+        title: '📱 Long Distance — Bunny & Karamma\'s Video Chats',
+        path: 'photos/video-calls/'
     },
     'flowers': {
-        title: '🌹 My Daily Flower Collection',
-        path:  'photos/flowers/'
+        title: '🌹 Flowers Bunny Sent to Karamma',
+        path: 'photos/flowers/'
+    },
+    'journey': {
+        title: '🚂 Bunny & Karamma\'s First Journey Together — June 2026',
+        path: 'photos/journey/'
     }
 };
 
 let currentFolderImages = [];
-let currentViewerIndex  = 0;
+let currentViewerIndex = 0;
 
 // Reads directly from PHOTO_DATA global (generated by generate_manifests.sh)
 // This works on file:// protocol with no fetch() needed
 function openLightbox(folderKey) {
+    if (folderKey === 'love-confession' || folderKey === 'video-calls') {
+        const pwd = prompt("Please enter the password to open this chapter");
+        if (pwd !== "1919") {
+            alert("Incorrect password! Access not allowed.");
+            return;
+        }
+    }
+
     const folder = FOLDERS[folderKey];
     if (!folder) return;
 
     const overlay = document.getElementById('lightbox-overlay');
     const titleEl = document.getElementById('lightbox-title');
-    const grid    = document.getElementById('lightbox-grid');
+    const grid = document.getElementById('lightbox-grid');
     const emptyEl = document.getElementById('lightbox-empty');
 
     titleEl.textContent = folder.title;
-    grid.innerHTML      = '';
+    grid.innerHTML = '';
     emptyEl.style.display = 'none';
     currentFolderImages = [];
 
@@ -320,6 +368,12 @@ function autoDetectImages(basePath, grid, emptyEl) {
     }
 }
 
+function isVideoFile(url) {
+    const videoExts = ['.mp4', '.mov', '.webm', '.avi', '.mkv', '.m4v', '.3gp'];
+    const lowercase = url.toLowerCase();
+    return videoExts.some(ext => lowercase.endsWith(ext) || lowercase.includes(ext + '?'));
+}
+
 function encodeFilePath(basePath, file) {
     // Encode each path segment individually so spaces/special chars work
     return basePath + file.split('/').map(encodeURIComponent).join('/');
@@ -330,15 +384,48 @@ function renderPhotos(files, basePath, grid) {
     files.forEach((file, idx) => {
         const div = document.createElement('div');
         div.className = 'lb-photo';
-        const img = document.createElement('img');
-        img.src = encodeFilePath(basePath, file);
-        img.alt = `Photo ${idx + 1}`;
-        img.loading = 'lazy';
-        // Show a placeholder colour while loading
-        div.style.background = 'rgba(255,77,109,0.08)';
-        img.onload  = () => div.style.background = '';
-        img.onerror = () => { div.style.opacity = '0.3'; img.alt = 'Could not load'; };
-        div.appendChild(img);
+        div.style.position = 'relative';
+
+        const fileUrl = encodeFilePath(basePath, file);
+
+        if (isVideoFile(fileUrl)) {
+            const video = document.createElement('video');
+            video.src = fileUrl;
+            video.muted = true;
+            video.loop = true;
+            video.playsInline = true;
+            video.autoplay = true;
+            video.setAttribute('preload', 'metadata');
+            video.style.width = '100%';
+            video.style.height = '100%';
+            video.style.objectFit = 'cover';
+
+            // Show placeholder/handle load
+            div.style.background = 'rgba(255,77,109,0.08)';
+            video.onloadeddata = () => div.style.background = '';
+            video.onerror = () => { div.style.opacity = '0.3'; };
+            div.appendChild(video);
+
+            // Add a small video badge/icon overlay
+            const badge = document.createElement('div');
+            badge.className = 'media-video-badge';
+            badge.innerHTML = '▶';
+            div.appendChild(badge);
+
+            // Trigger play
+            video.play().catch(() => { });
+        } else {
+            const img = document.createElement('img');
+            img.src = fileUrl;
+            img.alt = `Photo ${idx + 1}`;
+            img.loading = 'lazy';
+
+            div.style.background = 'rgba(255,77,109,0.08)';
+            img.onload = () => div.style.background = '';
+            img.onerror = () => { div.style.opacity = '0.3'; img.alt = 'Could not load'; };
+            div.appendChild(img);
+        }
+
         div.addEventListener('click', () => openViewer(idx));
         grid.appendChild(div);
     });
@@ -360,32 +447,91 @@ function closeLightbox() {
     }
 }
 
-/* Viewer */
+/* Viewer functions */
 function openViewer(idx) {
     currentViewerIndex = idx;
     const viewer = document.getElementById('photo-viewer');
-    const img    = document.getElementById('viewer-img');
-    img.src      = currentFolderImages[idx];
+    const img = document.getElementById('viewer-img');
+    const vid = document.getElementById('viewer-vid');
+    const url = currentFolderImages[idx];
+
+    if (vid) {
+        vid.pause();
+        vid.src = '';
+        vid.style.display = 'none';
+    }
+    if (img) {
+        img.style.display = 'none';
+        img.src = '';
+    }
+
+    if (isVideoFile(url)) {
+        if (vid) {
+            vid.src = url;
+            vid.style.display = 'block';
+            vid.play().catch(() => { });
+        }
+    } else {
+        if (img) {
+            img.src = url;
+            img.style.display = 'block';
+        }
+    }
+
     viewer.style.display = 'flex';
     viewer.classList.add('open');
 }
 
 function closeViewer() {
     const viewer = document.getElementById('photo-viewer');
+    const vid = document.getElementById('viewer-vid');
+    if (vid) {
+        vid.pause();
+        vid.src = '';
+    }
     viewer.style.display = 'none';
     viewer.classList.remove('open');
+}
+
+function updateViewerMedia() {
+    const img = document.getElementById('viewer-img');
+    const vid = document.getElementById('viewer-vid');
+    const url = currentFolderImages[currentViewerIndex];
+
+    if (vid) {
+        vid.pause();
+        vid.src = '';
+        vid.style.display = 'none';
+    }
+    if (img) {
+        img.style.display = 'none';
+        img.src = '';
+    }
+
+    if (isVideoFile(url)) {
+        if (vid) {
+            vid.src = url;
+            vid.style.display = 'block';
+            vid.play().catch(() => { });
+        }
+    } else {
+        if (img) {
+            img.src = url;
+            img.style.display = 'block';
+        }
+    }
 }
 
 function prevPhoto() {
     if (currentFolderImages.length === 0) return;
     currentViewerIndex = (currentViewerIndex - 1 + currentFolderImages.length) % currentFolderImages.length;
-    document.getElementById('viewer-img').src = currentFolderImages[currentViewerIndex];
+    updateViewerMedia();
 }
 
 function nextPhoto() {
     if (currentFolderImages.length === 0) return;
     currentViewerIndex = (currentViewerIndex + 1) % currentFolderImages.length;
-    document.getElementById('viewer-img').src = currentFolderImages[currentViewerIndex];
+    updateViewerMedia();
 }
 
 // Keyboard support
@@ -395,6 +541,35 @@ document.addEventListener('keydown', e => {
         if (viewer && viewer.classList.contains('open')) closeViewer();
         else closeLightbox();
     }
-    if (e.key === 'ArrowLeft')  prevPhoto();
+    if (e.key === 'ArrowLeft') prevPhoto();
     if (e.key === 'ArrowRight') nextPhoto();
 });
+
+function blastAndShowNote() {
+    const blastBtn = document.getElementById('blast-btn');
+    const noteContainer = document.getElementById('secret-note-container');
+    const fireworks = document.getElementById('fireworks');
+
+    if (blastBtn) blastBtn.style.display = 'none';
+
+    // Create a blast effect on screen
+    const blast = document.createElement('div');
+    blast.className = 'screen-blast';
+    document.body.appendChild(blast);
+
+    setTimeout(() => {
+        blast.classList.add('explode');
+        if (noteContainer) {
+            noteContainer.style.display = 'block';
+            noteContainer.classList.add('visible'); // If it uses reveal-up
+        }
+        if (fireworks) {
+            fireworks.style.display = 'block';
+        }
+    }, 100);
+
+    setTimeout(() => {
+        if (blast.parentNode) blast.parentNode.removeChild(blast);
+    }, 1500);
+}
+
