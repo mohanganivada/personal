@@ -174,20 +174,37 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* =========================================================
-       9. MUSIC TOGGLE
+       9. MUSIC TOGGLE & AUTOPLAY ON INTERACTION
     ========================================================= */
     const musicBtn = document.getElementById('music-toggle');
     const bgMusic = document.getElementById('bg-music');
     let musicOn = false;
     let musicInited = false;
 
-    if (musicBtn && bgMusic) {
-        musicBtn.addEventListener('click', () => {
-            if (!musicInited) {
-                bgMusic.volume = 0.4;
-                bgMusic.play().catch(() => { });
+    function playMusic() {
+        if (!musicInited && bgMusic) {
+            bgMusic.volume = 0.4;
+            bgMusic.play().then(() => {
                 musicInited = true;
                 musicOn = true;
+                if (musicBtn) {
+                    musicBtn.querySelector('.music-text').textContent = 'Music On';
+                    musicBtn.style.borderColor = '#ff4d6d';
+                }
+            }).catch(() => { });
+        }
+    }
+
+    // Attempt to start music on first screen interaction
+    document.addEventListener('click', playMusic, { once: true });
+    document.addEventListener('touchstart', playMusic, { once: true });
+    document.addEventListener('scroll', playMusic, { once: true });
+
+    if (musicBtn && bgMusic) {
+        musicBtn.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent triggering the document click
+            if (!musicInited) {
+                playMusic();
             } else if (musicOn) {
                 bgMusic.pause();
                 musicOn = false;
