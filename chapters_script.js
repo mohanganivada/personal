@@ -102,6 +102,49 @@ document.addEventListener('DOMContentLoaded', () => {
     revealEls.forEach(el => revealObserver.observe(el));
 
     /* =========================================================
+       5b. SCROLLSPY — active nav link + chapter indicator
+    ========================================================= */
+    (function initScrollspy() {
+        const sections = Array.from(document.querySelectorAll('main section[id]'));
+        if (!sections.length) return;
+
+        const navLinks = Array.from(document.querySelectorAll('.nav-links a'));
+        const drawerLinks = Array.from(document.querySelectorAll('.drawer-link'));
+        const indicator = document.getElementById('chapter-indicator');
+        const indicatorText = document.getElementById('chapter-indicator-text');
+
+        // Friendly labels for the indicator pill
+        const LABELS = {
+            'hero': 'Welcome',
+            'love-day': 'Chapter 01 · The Beginning',
+            'first-meet': 'Chapter 02 · First Meet',
+            'fav-pics': 'Chapter 03 · Her Pics',
+            'second-meet': 'Chapter 04 · The Cafe',
+            'third-meet': 'Chapter 05 · Vizag Again',
+            'fourth-meet': 'Chapter 06 · The Wedding',
+            'video-calls': 'Chapter 07 · Video Calls',
+            'flowers': 'Chapter 08 · Flowers',
+            'journey': 'Chapter 09 · Our Journey',
+            'birthday-wish': 'The Letter'
+        };
+
+        function setActive(id) {
+            navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
+            drawerLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
+            if (indicatorText) indicatorText.textContent = LABELS[id] || id;
+            if (indicator) indicator.classList.toggle('visible', id !== 'hero');
+        }
+
+        const spy = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) setActive(entry.target.id);
+            });
+        }, { rootMargin: '-40% 0px -50% 0px', threshold: 0 });
+
+        sections.forEach(sec => spy.observe(sec));
+    })();
+
+    /* =========================================================
        6. BIRTHDAY BALLOONS & SYMBOLS
     ========================================================= */
     (function createBalloons() {
@@ -221,7 +264,7 @@ document.addEventListener('DOMContentLoaded', () => {
     (function initHeroPhotosCycler() {
         const photos = document.querySelectorAll('.stack-photo');
         if (!photos.length) return;
-        
+
         // Initial setup
         const positions = ['pos-1', 'pos-2', 'pos-3'];
         photos.forEach((p, i) => p.classList.add(positions[i]));
@@ -562,31 +605,60 @@ document.addEventListener('keydown', e => {
     if (e.key === 'ArrowRight') nextPhoto();
 });
 
-function blastAndShowNote() {
-    const blastBtn = document.getElementById('blast-btn');
+/* =========================================================
+   11. THE LETTER SURPRISE — seal break, staggered reveal, P.S.
+   ========================================================= */
+document.addEventListener('DOMContentLoaded', () => {
+    const sealBtn = document.getElementById('wax-seal-btn');
+    const envelopeStage = document.getElementById('envelope-stage');
     const noteContainer = document.getElementById('secret-note-container');
     const fireworks = document.getElementById('fireworks');
+    const psSurprise = document.getElementById('ps-surprise');
+    const psBtn = document.getElementById('ps-btn');
+    const psReveal = document.getElementById('ps-reveal');
 
-    if (blastBtn) blastBtn.style.display = 'none';
+    if (sealBtn) {
+        sealBtn.addEventListener('click', breakSeal, { once: true });
+    }
 
-    // Create a blast effect on screen
-    const blast = document.createElement('div');
-    blast.className = 'screen-blast';
-    document.body.appendChild(blast);
+    function breakSeal() {
+        sealBtn.classList.add('cracked');
 
-    setTimeout(() => {
-        blast.classList.add('explode');
-        if (noteContainer) {
-            noteContainer.style.display = 'block';
-            noteContainer.classList.add('visible'); // If it uses reveal-up
-        }
-        if (fireworks) {
-            fireworks.style.display = 'block';
-        }
-    }, 100);
+        // Screen flash, matching the theme's existing blast effect
+        const blast = document.createElement('div');
+        blast.className = 'screen-blast';
+        document.body.appendChild(blast);
 
-    setTimeout(() => {
-        if (blast.parentNode) blast.parentNode.removeChild(blast);
-    }, 1500);
-}
+        setTimeout(() => {
+            blast.classList.add('explode');
+            if (envelopeStage) envelopeStage.classList.add('opened');
+            if (noteContainer) noteContainer.classList.add('open');
+            revealLetterLines();
+        }, 400);
 
+        setTimeout(() => {
+            if (blast.parentNode) blast.parentNode.removeChild(blast);
+        }, 1900);
+    }
+
+    function revealLetterLines() {
+        const lines = document.querySelectorAll('#luxury-letter .letter-line');
+        lines.forEach((line, i) => {
+            setTimeout(() => line.classList.add('visible'), 350 + i * 260);
+        });
+
+        // After the last line has appeared, close the moment with fireworks + the P.S. option
+        const totalDelay = 350 + lines.length * 260 + 400;
+        setTimeout(() => {
+            if (fireworks) fireworks.classList.add('show');
+            if (psSurprise) psSurprise.classList.add('show');
+        }, totalDelay);
+    }
+
+    if (psBtn) {
+        psBtn.addEventListener('click', () => {
+            if (psReveal) psReveal.classList.add('open');
+            psBtn.classList.add('used');
+        });
+    }
+});

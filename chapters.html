@@ -11,116 +11,6 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Outfit:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
         rel="stylesheet">
-    <!-- ULTRA PREMIUM UI UPGRADE -->
-    <style id="luxury-upgrade-styles">
-        :root {
-            --glass-bg: rgba(18, 5, 12, 0.45) !important;
-            --glass-border: rgba(255, 180, 200, 0.25) !important;
-            --card-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), 0 0 30px rgba(255, 77, 109, 0.15) !important;
-        }
-
-        body {
-            background: #050103 radial-gradient(circle at top center, #260f1f 0%, #050103 100%) !important;
-            color: #fce8ef !important;
-        }
-
-        .glass-card,
-        .glass-container,
-        .story-card,
-        .photo-folder {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.01) 100%) !important;
-            backdrop-filter: blur(35px) saturate(150%) !important;
-            -webkit-backdrop-filter: blur(35px) saturate(150%) !important;
-            border: 1px solid rgba(255, 255, 255, 0.15) !important;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
-            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s ease, border-color 0.6s ease !important;
-            border-radius: 28px !important;
-        }
-
-        .glass-card:hover,
-        .glass-container:hover,
-        .story-card:hover,
-        .photo-folder:hover {
-            transform: translateY(-8px) scale(1.02) !important;
-            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.7), 0 0 50px rgba(255, 77, 109, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.4) !important;
-            border-color: rgba(255, 180, 200, 0.5) !important;
-            z-index: 20;
-        }
-
-        h1,
-        h2,
-        h3,
-        .login-hero-title,
-        .animated-heading,
-        .section-title {
-            background: linear-gradient(to right, #ffffff, #ffb3c6, #ffd1df) !important;
-            -webkit-background-clip: text !important;
-            background-clip: text !important;
-            -webkit-text-fill-color: transparent !important;
-            text-shadow: 0 4px 20px rgba(255, 77, 109, 0.4) !important;
-            letter-spacing: -0.02em !important;
-        }
-
-        p,
-        .login-hero-sub,
-        .section-sub,
-        .polaroid-caption {
-            color: rgba(255, 255, 255, 0.9) !important;
-        }
-
-        button,
-        .cta-btn,
-        .lux-glow-btn,
-        .magic-btn-wish {
-            background: linear-gradient(135deg, #ff4d6d, #c77dff) !important;
-            box-shadow: 0 10px 30px rgba(255, 77, 109, 0.4) !important;
-            border: 1px solid rgba(255, 255, 255, 0.3) !important;
-            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
-            color: white !important;
-        }
-
-        button:hover,
-        .cta-btn:hover,
-        .lux-glow-btn:hover,
-        .magic-btn-wish:hover {
-            transform: translateY(-5px) scale(1.05) !important;
-            box-shadow: 0 15px 40px rgba(255, 77, 109, 0.7), 0 0 20px rgba(199, 125, 255, 0.5) !important;
-            filter: brightness(1.1);
-        }
-
-        .keypad-button {
-            background: rgba(255, 255, 255, 0.05) !important;
-            border: 1px solid rgba(255, 255, 255, 0.1) !important;
-            color: #fff !important;
-        }
-
-        .keypad-button:hover {
-            background: rgba(255, 255, 255, 0.2) !important;
-            transform: scale(1.12) !important;
-            border-color: rgba(255, 77, 109, 0.5) !important;
-        }
-
-        .login-card,
-        .live-call-ui,
-        .day-card {
-            background: rgba(13, 0, 8, 0.4) !important;
-            border-radius: 32px !important;
-        }
-
-        /* Make scrollbars elegant */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #0d0008;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(to bottom, #ff4d6d, #c77dff);
-            border-radius: 10px;
-        }
-    </style>
 </head>
 
 <body>
@@ -640,178 +530,85 @@
         </section>
 
         <!-- ===== BIRTHDAY WISH SECTION ===== -->
-        <style>
-            /* Premium Innovative Wish Section */
-            .wish-section {
-                position: relative;
-                overflow: hidden;
-                padding: 4rem 2rem;
-            }
-
-            .glass-wish-card {
-                background: rgba(255, 255, 255, 0.05);
-                backdrop-filter: blur(20px);
-                border: 1px solid rgba(255, 255, 255, 0.2);
-                border-radius: 30px;
-                padding: 3rem;
-                box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2), inset 0 0 20px rgba(255, 255, 255, 0.05);
-                text-align: center;
-                position: relative;
-                z-index: 10;
-                max-width: 800px;
-                margin: 0 auto;
-            }
-
-            .magic-btn-wish {
-                background: linear-gradient(45deg, #ff6b6b, #ff8e8b) !important;
-                border: none !important;
-                box-shadow: 0 10px 20px rgba(255, 107, 107, 0.4) !important;
-                transition: transform 0.3s, box-shadow 0.3s;
-                position: relative;
-                overflow: hidden;
-                color: white;
-                padding: 15px 30px;
-                border-radius: 50px;
-                font-weight: bold;
-                font-size: 1.1rem;
-                cursor: pointer;
-            }
-
-            .magic-btn-wish:hover {
-                transform: translateY(-5px) scale(1.05);
-                box-shadow: 0 15px 30px rgba(255, 107, 107, 0.6) !important;
-            }
-
-            .secret-envelope {
-                margin-top: 3rem;
-                perspective: 1200px;
-            }
-
-            .luxury-letter {
-                background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 240, 245, 0.95));
-                border-left: 6px solid #ff4757;
-                border-radius: 15px;
-                padding: 3rem;
-                color: #333;
-                box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
-                position: relative;
-                transform-origin: top;
-                animation: openLetter 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-            }
-
-            @keyframes openLetter {
-                0% {
-                    transform: rotateX(-90deg);
-                    opacity: 0;
-                }
-
-                100% {
-                    transform: rotateX(0deg);
-                    opacity: 1;
-                }
-            }
-
-            .wax-seal {
-                position: absolute;
-                top: -25px;
-                left: 50%;
-                transform: translateX(-50%);
-                background: linear-gradient(135deg, #ff4757, #c0392b);
-                width: 50px;
-                height: 50px;
-                border-radius: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                color: white;
-                font-size: 1.5rem;
-                box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.4), 0 8px 15px rgba(0, 0, 0, 0.3);
-                border: 2px solid rgba(255, 255, 255, 0.2);
-            }
-
-            .letter-text {
-                font-family: 'Playfair Display', serif;
-                font-size: 1.2rem;
-                line-height: 1.9;
-                margin-bottom: 1.5rem;
-                color: #2d3436;
-                text-align: left;
-            }
-
-            .highlight-text {
-                font-weight: 700;
-                background: linear-gradient(to right, #e84393, #d63031);
-                background-clip: text;
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-                font-size: 1.35rem;
-                text-align: center;
-                margin-top: 2rem;
-            }
-
-            .handwritten {
-                font-family: 'Dancing Script', cursive;
-                font-size: 2.2rem;
-                color: #d63031;
-                text-align: right;
-                margin-top: 2rem;
-            }
-        </style>
         <section id="birthday-wish" class="wish-section">
-            <div class="wish-inner glass-wish-card">
-                <div class="wish-candles">🕯️ 🎂 🕯️</div>
+            <div class="wish-inner">
+                <div class="wish-candles reveal-up">🕯️ 🎂 🕯️</div>
                 <h2 class="wish-title reveal-up">Happy Birthday Kari ✨</h2>
+                <p class="wish-lead reveal-up">There's one more thing I've been saving just for this moment.</p>
 
-                <button id="blast-btn" class="cta-btn magic-btn-wish reveal-up" onclick="blastAndShowNote()">
-                    Open Special Letter 💌
-                </button>
+                <!-- Sealed envelope: the surprise hasn't happened yet -->
+                <div class="envelope-stage reveal-up" id="envelope-stage">
+                    <div class="envelope-card">
+                        <div class="envelope-icon">💌</div>
+                        <button id="wax-seal-btn" class="wax-seal-btn" aria-label="Break the seal to open your letter">
+                            <span class="seal-heart">❤</span>
+                        </button>
+                        <p class="envelope-hint">Break the seal to open your letter</p>
+                    </div>
+                </div>
 
-                <div id="secret-note-container" style="display:none;" class="secret-envelope">
-                    <div class="wish-card luxury-letter reveal-up">
-                        <div class="wax-seal">❤️</div>
-                        <p class="letter-text highlight-text">My Beautiful Karammmaaa ❤️,</p>
-                        <p class="letter-text highlight-text">
+                <!-- Revealed only after the seal is broken -->
+                <div class="secret-note-container" id="secret-note-container">
+                    <div class="wish-card luxury-letter" id="luxury-letter">
+                        <p class="letter-open-line">My Beautiful Karammmaaa ❤️,</p>
+
+                        <p class="letter-line letter-text">
                             Twenty years ago, the universe gifted this world someone truly special—you. And years later,
                             it gifted me the greatest blessing of all: you in my life.
                         </p>
-                        <p class="letter-text highlight-text">
+                        <p class="letter-line letter-text">
                             Before you came into my world, days were just days. But after you, everything became more
                             beautiful. My mornings feel brighter, my heart feels fuller, and every little moment has a
                             meaning because you're a part of it.
                         </p>
-                        <p class="letter-text highlight-text">
+                        <p class="letter-line letter-text">
                             When I look back at our journey, every memory makes me smile. From our Bengaluru to
                             Hyderabad adventures, our train ride to Vizag, peaceful temple visits, walking hand in hand
                             on the beach, endless late-night video calls, and all the little moments in between... every
                             single one is a memory I'll cherish forever. They aren't just memories—they are pieces of my
                             happiest life.
                         </p>
-                        <p class="letter-text highlight-text">
+                        <p class="letter-line letter-text">
                             You are my peace, my comfort, my biggest happiness, and my favorite person. Thank you for
                             loving me, understanding me, supporting me, and making my life so incredibly beautiful.
                         </p>
-                        <p class="letter-text highlight-text">
+                        <p class="letter-line letter-text">
                             On your special day, I pray that every dream you carry in your heart comes true. May you
                             always smile the way you make me smile. May life bless you with endless happiness, good
                             health, success, and all the love you deserve.
                         </p>
-                        <p class="letter-text highlight-text">
+                        <p class="letter-line letter-emphasis">
                             And I want you to know one thing...
                         </p>
-                        <p class="letter-text highlight-text">
+                        <p class="letter-line letter-emphasis">
                             No matter where life takes us, I promise to stand beside you, hold your hand through every
                             high and low, protect you, support you, and love you with all my heart—today, tomorrow, and
                             every day after.
                         </p>
-                        <p class="letter-text highlight-text">
+                        <p class="letter-line letter-text">
                             Happy 20th Birthday, my beautiful Karammmaaa. ❤️
                         </p>
-                        <p class="letter-text highlight-text">
+                        <p class="letter-line letter-text">
                             Forever and always,
                         </p>
-                        <div class="wish-signature handwritten"><b>Your Bunny 🐰❤️</b></div>
+                        <div class="wish-signature handwritten">Your Bunny 🐰❤️</div>
                     </div>
-                    <div class="fireworks-row" id="fireworks" style="display:none;">
+
+                    <!-- A second, smaller surprise she has to choose to open -->
+                    <div class="ps-surprise" id="ps-surprise">
+                        <button class="ps-btn" id="ps-btn">One more secret… 🤫</button>
+                        <div class="ps-reveal" id="ps-reveal">
+                            <div class="ps-stamp">💯</div>
+                            <p class="ps-text">
+                                P.S. — Everything above is true, every single word. But here's the part I didn't write
+                                down anywhere else: however far apart we are, however hard a day gets, you are the
+                                person
+                                I keep choosing, again and again. Forever isn't nearly long enough, Karamma. 🐰❤️
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="fireworks-row" id="fireworks">
                         <span>🎆</span><span>✨</span><span>🎇</span><span>💫</span><span>🎆</span>
                     </div>
                 </div>
@@ -849,6 +646,11 @@
         <span class="music-icon">🎵</span>
         <span class="music-text">Music</span>
     </button>
+
+    <!-- Chapter position indicator -->
+    <div class="chapter-indicator" id="chapter-indicator">
+        <span id="chapter-indicator-text">Chapter 01 · Our Story</span>
+    </div>
 
     <!-- Audio -->
     <div style="display:none;">
