@@ -370,136 +370,167 @@ body {
     }
 }
 
+/* Ultra-Luxury Alabaster Satin Polaroid Outer Border Architecture */
 .small-polaroid {
-    /* Classic white polaroid body */
-    background: #fff;
-    padding: 10px 10px 50px 10px;
-    border-radius: 3px;
-    width: clamp(145px, 16vw, 230px);
-    height: clamp(165px, 18vw, 260px);
     position: relative;
-    /* Gradient glow border via box-shadow layers */
-    box-shadow:
-        0 0 0 2px rgba(255, 77, 109, 0.6),
-        0 0 0 4px rgba(199, 125, 255, 0.35),
-        0 0 18px rgba(255, 77, 109, 0.45),
-        0 20px 50px rgba(0, 0, 0, 0.5),
-        inset 0 0 0 1px rgba(255, 255, 255, 0.9);
-    transition: transform 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.45s ease;
+    background: linear-gradient(155deg, #ffffff 0%, #faf6f5 45%, #f2ebe6 100%);
+    padding: 12px 12px 54px 12px;
+    border-radius: 10px;
+    width: clamp(155px, 17vw, 240px);
+    height: clamp(175px, 19vw, 270px);
+    border: 1px solid rgba(255, 225, 230, 0.85);
+    box-shadow: 
+        0 18px 45px -12px rgba(0, 0, 0, 0.45),
+        0 25px 60px -18px rgba(255, 77, 109, 0.3),
+        inset 0 1px 1px rgba(255, 255, 255, 0.95),
+        inset 0 -1px 2px rgba(0, 0, 0, 0.05);
+    transition: transform 0.5s cubic-bezier(0.2, 0.9, 0.3, 1.2), box-shadow 0.5s ease, filter 0.5s ease;
     overflow: visible;
+    cursor: pointer;
+    perspective: 1200px;
+    transform-style: preserve-3d;
+    will-change: transform;
 }
 
-/* Animated gradient outline ring */
+/* 1. Dynamic Soft Ambient Edge Glow Halo */
 .small-polaroid::before {
     content: '';
     position: absolute;
     inset: -3px;
-    border-radius: 5px;
-    background: linear-gradient(135deg, #ff4d6d, #c77dff, #f4c430, #ff4d6d);
+    border-radius: 13px;
+    background: linear-gradient(135deg, rgba(255, 77, 109, 0.65), rgba(244, 196, 48, 0.55), rgba(199, 125, 255, 0.65), rgba(255, 179, 193, 0.65));
     background-size: 300% 300%;
-    animation: borderRotate 4s linear infinite;
+    animation: borderGlowRotate 6s linear infinite;
     z-index: -1;
-    filter: blur(3px);
-    opacity: 0.75;
+    filter: blur(7px);
+    opacity: 0.65;
+    transition: opacity 0.4s ease, filter 0.4s ease;
 }
 
-@keyframes borderRotate {
-    0% {
-        background-position: 0% 50%;
-    }
-
-    50% {
-        background-position: 100% 50%;
-    }
-
-    100% {
-        background-position: 0% 50%;
-    }
+@keyframes borderGlowRotate {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
-/* Tape strips — top corners */
+/* 2. Frosted Washi Tape Accent with Micro Drop Shadow */
 .small-polaroid::after {
     content: '';
     position: absolute;
-    top: -10px;
+    top: -11px;
     left: 50%;
-    transform: translateX(-50%) rotate(-2deg);
-    width: 48px;
-    height: 18px;
-    background: rgba(255, 255, 255, 0.35);
-    backdrop-filter: blur(4px);
-    border-radius: 3px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    transform: translateX(-50%) rotate(-1.5deg);
+    width: 52px;
+    height: 20px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.7), rgba(255, 240, 245, 0.5));
+    background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.45), rgba(255,255,255,0.45) 4px, rgba(255,255,255,0.18) 4px, rgba(255,255,255,0.18) 8px);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 2px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.65);
+    pointer-events: none;
+    z-index: 5;
+}
+
+/* 3. Mouse-tracked Specular Light Sheen */
+.polaroid-light-sheen {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.55) 0%, transparent 65%);
+    pointer-events: none;
+    z-index: 4;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.small-polaroid:hover .polaroid-light-sheen {
+    opacity: 1;
 }
 
 .small-polaroid:hover {
-    transform: scale(1.08) rotate(0deg) translateY(-8px) !important;
     box-shadow:
-        0 0 0 2px rgba(255, 77, 109, 0.9),
-        0 0 0 5px rgba(199, 125, 255, 0.5),
-        0 0 35px rgba(255, 77, 109, 0.7),
-        0 30px 70px rgba(0, 0, 0, 0.55),
-        inset 0 0 0 1px rgba(255, 255, 255, 0.9);
+        0 30px 70px -15px rgba(0, 0, 0, 0.55),
+        0 35px 80px -20px rgba(255, 77, 109, 0.45),
+        inset 0 1px 1px rgba(255, 255, 255, 1);
     z-index: 20;
 }
 
+.small-polaroid:hover::before {
+    opacity: 0.95;
+    filter: blur(10px);
+}
+
+/* 4. Recessed Inner Photo Frame Socket */
 .small-polaroid .polaroid-img-container {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    width: calc(100% - 20px);
-    height: calc(100% - 60px);
+    position: relative;
+    width: 100%;
+    height: calc(100% - 38px);
     overflow: hidden;
-    background: #d8d0d5;
-    border-radius: 2px;
-    box-shadow: inset 0 0 16px rgba(0, 0, 0, 0.15);
+    background: #11080d;
+    border-radius: 4px;
+    box-shadow: 
+        inset 0 3px 8px rgba(0, 0, 0, 0.35),
+        inset 0 0 0 1px rgba(0, 0, 0, 0.15),
+        0 1px 0 rgba(255, 255, 255, 0.8);
 }
 
 .small-polaroid img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 1px;
-    transition: transform 0.6s ease;
-    filter: contrast(1.06) saturate(1.08);
+    border-radius: 2px;
+    transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease;
+    filter: contrast(1.05) saturate(1.08);
 }
 
 .small-polaroid:hover img {
-    transform: scale(1.06);
+    transform: scale(1.07);
+    filter: contrast(1.08) saturate(1.12);
 }
 
-/* Heart emoji in bottom caption area */
-.polaroid-heart-label {
+/* 5. Gold Foil Monogram Stamp Seal */
+.polaroid-gold-seal {
     position: absolute;
     bottom: 8px;
-    left: 0;
-    right: 0;
-    text-align: center;
-    font-size: 1.05rem;
-    opacity: 0.75;
-    letter-spacing: 2px;
-    animation: labelPulse 2.5s ease infinite;
+    right: 10px;
+    font-family: var(--font-body);
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    background: linear-gradient(135deg, #d4af37 0%, #fff3b0 50%, #aa7c11 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-transform: uppercase;
+    opacity: 0.9;
+    pointer-events: none;
+    z-index: 3;
+    filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.15));
 }
 
-@keyframes labelPulse {
-
-    0%,
-    100% {
-        opacity: 0.6;
-        transform: scale(1);
-    }
-
-    50% {
-        opacity: 1;
-        transform: scale(1.12);
-    }
+/* 6. Romantic Handwritten Bottom Caption Label */
+.polaroid-heart-label {
+    position: absolute;
+    bottom: 10px;
+    left: 12px;
+    font-family: var(--font-handwritten);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #4a202d;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    letter-spacing: 0.5px;
+    z-index: 3;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.85);
 }
 
 .polaroid-shimmer {
     position: absolute;
     inset: 0;
-    background: linear-gradient(105deg, transparent 40%, rgba(255, 255, 255, 0.28) 50%, transparent 60%);
+    background: linear-gradient(105deg, transparent 40%, rgba(255, 255, 255, 0.35) 50%, transparent 60%);
     animation: polaroidShimmerEffect 5s infinite ease-in-out;
     border-radius: inherit;
     pointer-events: none;
@@ -1076,17 +1107,78 @@ body {
 }
 
 .gallery-polaroid {
-    background: var(--glass-bg);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    padding: 12px 12px 36px 12px;
-    border-radius: 8px;
-    /* Slightly more rounded for glassmorphism */
-    box-shadow: var(--card-shadow);
+    background: linear-gradient(155deg, #ffffff 0%, #faf6f5 45%, #f2ebe6 100%);
+    padding: 12px 12px 42px 12px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 225, 230, 0.85);
+    box-shadow: 
+        0 18px 45px -12px rgba(0, 0, 0, 0.45),
+        0 25px 60px -18px rgba(255, 77, 109, 0.3),
+        inset 0 1px 1px rgba(255, 255, 255, 0.95),
+        inset 0 -1px 2px rgba(0, 0, 0, 0.05);
     cursor: pointer;
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: transform 0.5s cubic-bezier(0.2, 0.9, 0.3, 1.2), box-shadow 0.5s ease;
     position: relative;
-    border: 1px solid var(--glass-border);
+    overflow: visible;
+    perspective: 1200px;
+    transform-style: preserve-3d;
+}
+
+.gallery-polaroid::before {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 13px;
+    background: linear-gradient(135deg, rgba(255, 77, 109, 0.65), rgba(244, 196, 48, 0.55), rgba(199, 125, 255, 0.65), rgba(255, 179, 193, 0.65));
+    background-size: 300% 300%;
+    animation: borderGlowRotate 6s linear infinite;
+    z-index: -1;
+    filter: blur(7px);
+    opacity: 0.65;
+    transition: opacity 0.4s ease, filter 0.4s ease;
+}
+
+.gallery-polaroid::after {
+    content: '';
+    position: absolute;
+    top: -11px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-1.5deg);
+    width: 52px;
+    height: 20px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.7), rgba(255, 240, 245, 0.5));
+    background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.45), rgba(255,255,255,0.45) 4px, rgba(255,255,255,0.18) 4px, rgba(255,255,255,0.18) 8px);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 2px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.65);
+    pointer-events: none;
+    z-index: 5;
+}
+
+.gallery-polaroid:hover {
+    transform: scale(1.06) translateY(-12px) rotate(1deg);
+    box-shadow: 
+        0 30px 70px -15px rgba(0, 0, 0, 0.55),
+        0 35px 80px -20px rgba(255, 77, 109, 0.45),
+        inset 0 1px 1px rgba(255, 255, 255, 1);
+    z-index: 10;
+}
+
+.gallery-polaroid:hover::before {
+    opacity: 0.95;
+    filter: blur(10px);
+}
+
+.gallery-caption {
+    font-family: var(--font-handwritten);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #4a202d;
+    text-align: center;
+    margin-top: 10px;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.85);
 }
 
 .gallery-polaroid:hover {

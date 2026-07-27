@@ -580,6 +580,7 @@ Cannot wait for your Birthday My Karammmaaa ❤️`;
             const isVideo = item.url.toLowerCase().endsWith('.mp4') || item.url.toLowerCase().endsWith('.mov');
 
             polaroid.innerHTML = `
+                <div class="polaroid-light-sheen"></div>
                 <div class="gallery-img-wrap">
                     ${isVideo ? `
                         <video src="${item.url}" muted playsinline loop style="width:100%;height:100%;object-fit:cover;"></video>
@@ -589,22 +590,28 @@ Cannot wait for your Birthday My Karammmaaa ❤️`;
                     `}
                 </div>
                 <div class="gallery-caption">${item.title}</div>
+                <div class="polaroid-gold-seal">✦ M &amp; K ✦</div>
             `;
 
-            // Hover parallax tilt actions
+            // Hover parallax tilt & light sheen cursor tracking actions
             polaroid.addEventListener('mousemove', (e) => {
                 const rect = polaroid.getBoundingClientRect();
-                const x = e.clientX - rect.left; // x coordinate inside element
-                const y = e.clientY - rect.top;  // y coordinate inside element
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
                 
                 const midX = rect.width / 2;
                 const midY = rect.height / 2;
                 
                 // Tilt ranges
-                const tiltX = -(y - midY) / 10;
-                const tiltY = (x - midX) / 10;
+                const tiltX = -(y - midY) / 12;
+                const tiltY = (x - midX) / 12;
                 
-                polaroid.style.transform = `scale(1.05) rotateX(${tiltX}deg) rotateY(${tiltY}deg) rotate(0deg)`;
+                const px = (x / rect.width) * 100;
+                const py = (y / rect.height) * 100;
+                polaroid.style.setProperty('--mouse-x', px + '%');
+                polaroid.style.setProperty('--mouse-y', py + '%');
+                
+                polaroid.style.transform = `scale(1.06) rotateX(${tiltX}deg) rotateY(${tiltY}deg) rotate(0deg)`;
             });
 
             polaroid.addEventListener('mouseleave', () => {
@@ -984,5 +991,60 @@ Cannot wait for your Birthday My Karammmaaa ❤️`;
             window.open('chapters.html', '_blank');
         }, 400);
     });
+
+    /* =========================================================
+       13. INTERACTIVE LUXURY POLAROID SPECULAR SHEEN & HEART BURST
+       ========================================================= */
+    const smallPolaroids = document.querySelectorAll('.small-polaroid');
+    smallPolaroids.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const px = ((e.clientX - rect.left) / rect.width) * 100;
+            const py = ((e.clientY - rect.top) / rect.height) * 100;
+            card.style.setProperty('--mouse-x', px + '%');
+            card.style.setProperty('--mouse-y', py + '%');
+        });
+    });
+
+    // Global heart sparkle burst listener for all polaroid cards
+    document.addEventListener('click', (e) => {
+        const card = e.target.closest('.small-polaroid, .gallery-polaroid');
+        if (!card) return;
+
+        createPolaroidHeartBurst(e.clientX, e.clientY);
+    });
+
+    function createPolaroidHeartBurst(x, y) {
+        const symbols = ['❤️', '💖', '✨', '💕', '🌸', '💫'];
+        for (let i = 0; i < 12; i++) {
+            const p = document.createElement('span');
+            p.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+            p.style.cssText = `
+                position: fixed;
+                left: ${x}px;
+                top: ${y}px;
+                font-size: ${Math.random() * 1.1 + 0.8}rem;
+                pointer-events: none;
+                z-index: 99999;
+                transition: all 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+                transform: translate(-50%, -50%) scale(0.5);
+                opacity: 1;
+                filter: drop-shadow(0 2px 8px rgba(255, 77, 109, 0.6));
+            `;
+            document.body.appendChild(p);
+
+            const angle = Math.random() * Math.PI * 2;
+            const dist = Math.random() * 75 + 35;
+            const tx = Math.cos(angle) * dist;
+            const ty = Math.sin(angle) * dist - 35;
+
+            requestAnimationFrame(() => {
+                p.style.transform = `translate(calc(-50% + ${tx}px), calc(-50% + ${ty}px)) scale(1.35) rotate(${Math.random() * 60 - 30}deg)`;
+                p.style.opacity = '0';
+            });
+
+            setTimeout(() => p.remove(), 800);
+        }
+    }
 
 });
