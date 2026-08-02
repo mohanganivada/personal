@@ -251,41 +251,29 @@ document.addEventListener('DOMContentLoaded', () => {
     let musicOn = false;
     let musicInited = false;
 
-    function playMusic() {
+    if (musicBtn) musicBtn.style.display = 'none';
+
+    function toggleMusic() {
         if (!musicInited && bgMusic) {
             bgMusic.volume = 0.4;
             bgMusic.play().then(() => {
                 musicInited = true;
                 musicOn = true;
-                if (musicBtn) {
-                    musicBtn.querySelector('.music-text').textContent = 'Music On';
-                    musicBtn.style.borderColor = '#ff4d6d';
-                }
             }).catch(() => { });
-        }
-    }
-
-    // Attempt to start music on first screen interaction
-    document.addEventListener('click', playMusic, { once: true });
-    document.addEventListener('touchstart', playMusic, { once: true });
-    document.addEventListener('scroll', playMusic, { once: true });
-
-    if (musicBtn && bgMusic) {
-        musicBtn.addEventListener('click', (e) => {
-            e.stopPropagation(); // Prevent triggering the document click
-            if (!musicInited) {
-                playMusic();
-            } else if (musicOn) {
+        } else if (musicInited) {
+            if (musicOn) {
                 bgMusic.pause();
                 musicOn = false;
             } else {
-                bgMusic.play().catch(() => { });
+                bgMusic.play().catch(() => {});
                 musicOn = true;
             }
-            musicBtn.querySelector('.music-text').textContent = musicOn ? 'Music On' : 'Music Off';
-            musicBtn.style.borderColor = musicOn ? '#ff4d6d' : 'rgba(255,77,109,0.4)';
-        });
+        }
     }
+
+    // Toggle blindly on any tap or click
+    document.addEventListener('click', toggleMusic);
+    document.addEventListener('touchstart', toggleMusic);
 
     /* Hero Photos Auto-Cycler */
     (function initHeroPhotosCycler() {
@@ -293,7 +281,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!photos.length) return;
 
         // Initial setup
-        const positions = ['pos-1', 'pos-2', 'pos-3'];
+        const positions = ['pos-1', 'pos-2', 'pos-3', 'pos-4'];
         photos.forEach((p, i) => p.classList.add(positions[i]));
 
         setInterval(() => {
