@@ -184,22 +184,37 @@
             @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Cinzel:wght@400;600&display=swap');
 
             .cinematic-vrindavan {
-                position: fixed; top: 0; left: 0; width: 100%; height: 100dvh;
-                background: #020813; background-image: radial-gradient(circle at 50% 0%, #0d1b2a 0%, #020813 100%);
-                overflow: hidden; perspective: 2000px;
-                z-index: 50; transition: transform 2s cubic-bezier(0.4, 0, 0.2, 1), opacity 1.5s, filter 1.5s;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100dvh;
+                background: #020813;
+                background-image: radial-gradient(circle at 50% 0%, #0d1b2a 0%, #020813 100%);
+                overflow: hidden;
+                perspective: 2000px;
+                z-index: 50;
+                transition: transform 2s cubic-bezier(0.4, 0, 0.2, 1), opacity 1.5s, filter 1.5s;
                 font-family: 'Cormorant Garamond', serif;
                 color: #FDF6E3;
-                display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
             }
+
             .cinematic-vrindavan:not(.active) {
-                pointer-events: none; opacity: 0; visibility: hidden;
+                pointer-events: none;
+                opacity: 0;
+                visibility: hidden;
             }
 
             /* --- 1. DEEP NIGHT SKY & STARS --- */
             .vr-sky {
-                position: absolute; inset: -20%; pointer-events: none;
-                background-image: 
+                position: absolute;
+                inset: -20%;
+                pointer-events: none;
+                background-image:
                     radial-gradient(1.5px 1.5px at 15% 15%, rgba(255, 255, 255, 0.8), transparent),
                     radial-gradient(2px 2px at 75% 25%, rgba(244, 196, 48, 0.9), transparent),
                     radial-gradient(2.5px 2.5px at 45% 65%, rgba(255, 255, 255, 0.6), transparent),
@@ -208,198 +223,592 @@
                 animation: starTwinkle 8s infinite alternate;
                 transform: translate(calc(var(--px) * -0.15), calc(var(--py) * -0.15));
             }
-            @keyframes starTwinkle { 0% { opacity: 0.6; } 100% { opacity: 1; filter: brightness(1.5); } }
+
+            @keyframes starTwinkle {
+                0% {
+                    opacity: 0.6;
+                }
+
+                100% {
+                    opacity: 1;
+                    filter: brightness(1.5);
+                }
+            }
 
             /* --- 2. ENORMOUS CINEMATIC MOON --- */
             .vr-moon-container {
-                position: absolute; top: -10px; left: 50%; width: 280px; height: 280px;
+                position: absolute;
+                top: -10px;
+                left: 50%;
+                width: 280px;
+                height: 280px;
                 transform: translateX(-50%) translate(calc(var(--px) * -0.05), calc(var(--py) * -0.05));
                 pointer-events: none;
             }
+
             .vr-moon {
-                width: 100%; height: 100%; border-radius: 50%;
+                width: 100%;
+                height: 100%;
+                border-radius: 50%;
                 background: radial-gradient(circle at 30% 30%, #FFFDF2 0%, #F5E6CC 40%, #E0C895 100%);
-                box-shadow: 0 0 150px 50px rgba(245, 230, 204, 0.25), inset -20px -20px 40px rgba(0,0,0,0.2);
+                box-shadow: 0 0 150px 50px rgba(245, 230, 204, 0.25), inset -20px -20px 40px rgba(0, 0, 0, 0.2);
             }
+
             /* Volumetric God Rays from Moon */
             .vr-moon-rays {
-                position: absolute; top: 50%; left: 50%; width: 700px; height: 700px;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 700px;
+                height: 700px;
                 transform: translate(-50%, -50%);
-                background: repeating-conic-gradient(from 0deg, rgba(245,230,204,0.05) 0deg, transparent 10deg, rgba(245,230,204,0.05) 20deg);
-                border-radius: 50%; filter: blur(20px); animation: slowSpin 60s linear infinite; mix-blend-mode: screen;
+                background: repeating-conic-gradient(from 0deg, rgba(245, 230, 204, 0.05) 0deg, transparent 10deg, rgba(245, 230, 204, 0.05) 20deg);
+                border-radius: 50%;
+                filter: blur(20px);
+                animation: slowSpin 60s linear infinite;
+                mix-blend-mode: screen;
             }
-            @keyframes slowSpin { from { transform: translate(-50%, -50%) rotate(0deg); } to { transform: translate(-50%, -50%) rotate(360deg); } }
+
+            @keyframes slowSpin {
+                from {
+                    transform: translate(-50%, -50%) rotate(0deg);
+                }
+
+                to {
+                    transform: translate(-50%, -50%) rotate(360deg);
+                }
+            }
 
             /* Moving Mist / Clouds */
             .vr-mist {
-                position: absolute; top: 15%; left: -50%; width: 200%; height: 150px;
+                position: absolute;
+                top: 15%;
+                left: -50%;
+                width: 200%;
+                height: 150px;
                 background: radial-gradient(ellipse at center, rgba(140, 160, 200, 0.1) 0%, transparent 70%);
-                filter: blur(30px); opacity: 0.6; animation: cloudDrift 40s linear infinite alternate;
-                transform: translate(calc(var(--px) * -0.1), 0); mix-blend-mode: screen; pointer-events: none;
+                filter: blur(30px);
+                opacity: 0.6;
+                animation: cloudDrift 40s linear infinite alternate;
+                transform: translate(calc(var(--px) * -0.1), 0);
+                mix-blend-mode: screen;
+                pointer-events: none;
             }
-            @keyframes cloudDrift { 0% { transform: translateX(0); } 100% { transform: translateX(20%); } }
+
+            @keyframes cloudDrift {
+                0% {
+                    transform: translateX(0);
+                }
+
+                100% {
+                    transform: translateX(20%);
+                }
+            }
 
             /* --- 3. TEMPLE & RIVER SCENE --- */
             .vr-landscape {
-                position: absolute; bottom: 0; width: 100%; height: 45vh; min-height: 350px;
-                display: flex; flex-direction: column; justify-content: flex-end; pointer-events: none;
+                position: absolute;
+                bottom: 0;
+                width: 100%;
+                height: 45vh;
+                min-height: 350px;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-end;
+                pointer-events: none;
             }
+
             .vr-temple-silhouette {
-                position: absolute; bottom: 30vh; width: 100vw; height: auto; min-height: 150px;
+                position: absolute;
+                bottom: 30vh;
+                width: 100vw;
+                height: auto;
+                min-height: 150px;
                 opacity: 0.9;
                 transform: translate(calc(var(--px) * 0.1), calc(var(--py) * 0.05));
             }
+
             /* Pure SVG Temple filling horizon */
-            .vr-temple-svg { width: 100%; height: 100%; object-fit: cover; fill: #040A18; filter: drop-shadow(0 -10px 30px rgba(0,0,0,0.8)); }
-            
-            .vr-yamuna-river {
-                height: 32vh; width: 100%; position: relative;
-                background: linear-gradient(to bottom, #010612 0%, #0B192C 100%);
-                border-top: 1px solid rgba(255,233,184,0.1);
-                overflow: hidden; pointer-events: none;
+            .vr-temple-svg {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                fill: #040A18;
+                filter: drop-shadow(0 -10px 30px rgba(0, 0, 0, 0.8));
             }
+
+            .vr-yamuna-river {
+                height: 32vh;
+                width: 100%;
+                position: relative;
+                background: linear-gradient(to bottom, #010612 0%, #0B192C 100%);
+                border-top: 1px solid rgba(255, 233, 184, 0.1);
+                overflow: hidden;
+                pointer-events: none;
+            }
+
             /* River reflection ripples */
             .river-ripple {
-                position: absolute; width: 40px; height: 2px; background: rgba(245, 230, 204, 0.4);
-                border-radius: 50%; filter: blur(1px); animation: riverFlow 6s infinite linear; opacity: 0;
+                position: absolute;
+                width: 40px;
+                height: 2px;
+                background: rgba(245, 230, 204, 0.4);
+                border-radius: 50%;
+                filter: blur(1px);
+                animation: riverFlow 6s infinite linear;
+                opacity: 0;
             }
-            @keyframes riverFlow { 0% { transform: translateX(100px); opacity: 0; } 50% { opacity: 0.6; } 100% { transform: translateX(-100px); opacity: 0; } }
+
+            @keyframes riverFlow {
+                0% {
+                    transform: translateX(100px);
+                    opacity: 0;
+                }
+
+                50% {
+                    opacity: 0.6;
+                }
+
+                100% {
+                    transform: translateX(-100px);
+                    opacity: 0;
+                }
+            }
 
             /* Floating Wooden Boat with Golden Lantern */
             .vr-boat-container {
-                position: absolute; bottom: 15vh; left: -100px;
-                animation: boatSail 45s linear infinite; z-index: 10;
+                position: absolute;
+                bottom: 15vh;
+                left: -100px;
+                animation: boatSail 45s linear infinite;
+                z-index: 10;
             }
-            .vr-boat-svg { width: 120px; height: auto; fill: #07101E; filter: drop-shadow(0 5px 10px rgba(0,0,0,0.8)); }
+
+            .vr-boat-svg {
+                width: 120px;
+                height: auto;
+                fill: #07101E;
+                filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.8));
+            }
+
             .vr-lantern-glow {
-                position: absolute; top: 15px; left: 40px; width: 10px; height: 14px;
-                background: #FFB347; border-radius: 5px; box-shadow: 0 0 30px 10px rgba(255, 179, 71, 0.8);
+                position: absolute;
+                top: 15px;
+                left: 40px;
+                width: 10px;
+                height: 14px;
+                background: #FFB347;
+                border-radius: 5px;
+                box-shadow: 0 0 30px 10px rgba(255, 179, 71, 0.8);
                 animation: lanternFlicker 3s infinite alternate;
             }
-            @keyframes boatSail { 0% { transform: translateX(-100px) translateY(0); } 50% { transform: translateX(60vw) translateY(5px); } 100% { transform: translateX(120vw) translateY(0); } }
-            @keyframes lanternFlicker { 0%, 100% { opacity: 0.8; box-shadow: 0 0 30px 10px rgba(255, 179, 71, 0.8); } 50% { opacity: 1; box-shadow: 0 0 40px 15px rgba(255, 200, 100, 1); } }
+
+            @keyframes boatSail {
+                0% {
+                    transform: translateX(-100px) translateY(0);
+                }
+
+                50% {
+                    transform: translateX(60vw) translateY(5px);
+                }
+
+                100% {
+                    transform: translateX(120vw) translateY(0);
+                }
+            }
+
+            @keyframes lanternFlicker {
+
+                0%,
+                100% {
+                    opacity: 0.8;
+                    box-shadow: 0 0 30px 10px rgba(255, 179, 71, 0.8);
+                }
+
+                50% {
+                    opacity: 1;
+                    box-shadow: 0 0 40px 15px rgba(255, 200, 100, 1);
+                }
+            }
 
             /* --- 4. FOREGROUND LUXURY VINES (No Emojis) --- */
             .vr-vines {
-                position: absolute; top: -10px; width: 40vw; max-width: 250px; opacity: 0.8;
-                pointer-events: none; filter: drop-shadow(0 15px 30px rgba(0,0,0,0.8)); z-index: 20;
-                transform-origin: top center; animation: vineSway 8s ease-in-out infinite alternate;
+                position: absolute;
+                top: -10px;
+                width: 40vw;
+                max-width: 250px;
+                opacity: 0.8;
+                pointer-events: none;
+                filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.8));
+                z-index: 20;
+                transform-origin: top center;
+                animation: vineSway 8s ease-in-out infinite alternate;
             }
-            .vr-vines.left { left: -10px; }
-            .vr-vines.right { right: -10px; transform: scaleX(-1); animation-delay: -4s; }
-            @keyframes vineSway { 0% { transform: rotate(-3deg); } 100% { transform: rotate(3deg); } }
-            .vr-vines.right { 0% { transform: scaleX(-1) rotate(-3deg); } 100% { transform: scaleX(-1) rotate(3deg); } }
+
+            .vr-vines.left {
+                left: -10px;
+            }
+
+            .vr-vines.right {
+                right: -10px;
+                transform: scaleX(-1);
+                animation-delay: -4s;
+            }
+
+            @keyframes vineSway {
+                0% {
+                    transform: rotate(-3deg);
+                }
+
+                100% {
+                    transform: rotate(3deg);
+                }
+            }
+
+            @keyframes vineSwayRight {
+                0% {
+                    transform: scaleX(-1) rotate(-3deg);
+                }
+
+                100% {
+                    transform: scaleX(-1) rotate(3deg);
+                }
+            }
 
             /* --- 5. TITLES --- */
             .vr-hero-text {
-                position: relative; margin-top: 25vh; text-align: center; z-index: 30; pointer-events: none;
+                position: relative;
+                margin-top: 25vh;
+                text-align: center;
+                z-index: 30;
+                pointer-events: none;
                 transform: translate(calc(var(--px) * 0.05), calc(var(--py) * 0.05));
             }
+
             .vr-title {
-                font-family: 'Cinzel', serif; font-size: 3.5rem; font-weight: 600;
+                font-family: 'Cinzel', serif;
+                font-size: 3.5rem;
+                font-weight: 600;
                 background: linear-gradient(135deg, #F9D423, #FCF6BA, #D4AF37);
-                -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-                filter: drop-shadow(0 10px 20px rgba(212,175,55,0.3));
-                opacity: 0; transform: translateY(30px); animation: cinematicReveal 3s cubic-bezier(0.2, 0.8, 0.2, 1) forwards 0.5s;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                filter: drop-shadow(0 10px 20px rgba(212, 175, 55, 0.3));
+                opacity: 0;
+                transform: translateY(30px);
+                animation: cinematicReveal 3s cubic-bezier(0.2, 0.8, 0.2, 1) forwards 0.5s;
             }
+
             .vr-subtitle {
-                font-size: 1.2rem; letter-spacing: 4px; color: #FDF6E3; text-transform: uppercase;
-                margin-top: 15px; opacity: 0; transform: translateY(20px);
+                font-size: 1.2rem;
+                letter-spacing: 4px;
+                color: #FDF6E3;
+                text-transform: uppercase;
+                margin-top: 15px;
+                opacity: 0;
+                transform: translateY(20px);
                 animation: cinematicReveal 3s cubic-bezier(0.2, 0.8, 0.2, 1) forwards 2s;
             }
-            @keyframes cinematicReveal { to { opacity: 1; transform: translateY(0); } }
+
+            @keyframes cinematicReveal {
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
 
             /* --- 6. MAGICAL LOTUS ALTAR (The Password Interface) --- */
             .vr-altar-section {
-                position: absolute; bottom: 15vh; display: flex; flex-direction: column; align-items: center; z-index: 40;
-                transform: translate(calc(var(--px) * 0.15), calc(var(--py) * 0.15)); width: 100%;
+                position: absolute;
+                bottom: 15vh;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                z-index: 40;
+                transform: translate(calc(var(--px) * 0.15), calc(var(--py) * 0.15));
+                width: 100%;
             }
 
             .vr-lotus-trigger {
-                width: 140px; height: 140px; cursor: pointer; position: relative;
+                width: 140px;
+                height: 140px;
+                cursor: pointer;
+                position: relative;
                 transition: transform 1.5s cubic-bezier(0.1, 1, 0.3, 1), filter 1s;
-                filter: drop-shadow(0 0 30px rgba(234,105,139,0.5)); outline: none; border: none; background: transparent;
+                filter: drop-shadow(0 0 30px rgba(234, 105, 139, 0.5));
+                outline: none;
+                border: none;
+                background: transparent;
             }
-            .vr-lotus-flower-svg { width: 100%; height: 100%; transition: all 1s; fill: url(#lotusGrad); }
-            
+
+            .vr-lotus-flower-svg {
+                width: 100%;
+                height: 100%;
+                transition: all 1s;
+                fill: url(#lotusGrad);
+            }
+
             /* Sacred Altar Pedestal */
             .vr-pedestal {
-                width: 250px; height: 2px; background: radial-gradient(circle, rgba(212,175,55,0.8) 0%, transparent 100%);
-                margin-top: -10px; box-shadow: 0 5px 20px 5px rgba(212,175,55,0.4);
+                width: 250px;
+                height: 2px;
+                background: radial-gradient(circle, rgba(212, 175, 55, 0.8) 0%, transparent 100%);
+                margin-top: -10px;
+                box-shadow: 0 5px 20px 5px rgba(212, 175, 55, 0.4);
             }
 
-            .vr-lotus-trigger:hover { transform: scale(1.05) translateY(-5px); filter: drop-shadow(0 0 50px rgba(234,105,139,0.8)); }
-            .vr-lotus-trigger.opened { transform: scale(1.3) translateY(-40px); pointer-events: none; filter: drop-shadow(0 0 60px rgba(234,105,139,1)); }
+            .vr-lotus-trigger:hover {
+                transform: scale(1.05) translateY(-5px);
+                filter: drop-shadow(0 0 50px rgba(234, 105, 139, 0.8));
+            }
+
+            .vr-lotus-trigger.opened {
+                transform: scale(1.15) translateY(-90px);
+                pointer-events: none;
+                filter: drop-shadow(0 0 70px rgba(234, 105, 139, 1));
+            }
+
             /* Animate SVG petals when opened */
-            .vr-lotus-trigger.opened .petal-outer { transform: scaleY(0.7) translateY(10px); transform-origin: bottom center; fill: #FFA6C9; transition: all 2s; }
-            .vr-lotus-trigger.opened .petal-inner { transform: scaleY(0.9); transform-origin: bottom center; fill: #FFF0F5; transition: all 1.5s; }
+            .vr-lotus-trigger.opened .petal-outer {
+                transform: scaleY(0.7) translateY(10px);
+                transform-origin: bottom center;
+                fill: #FFA6C9;
+                transition: all 2s;
+            }
+
+            .vr-lotus-trigger.opened .petal-inner {
+                transform: scaleY(0.9);
+                transform-origin: bottom center;
+                fill: #FFF0F5;
+                transition: all 1.5s;
+            }
 
             /* --- Glowing Capsule Input --- */
+            /* --- Glowing Capsule Input --- */
             .vr-auth-wrapper {
-                position: absolute; bottom: 0; width: 320px; height: 0; opacity: 0; visibility: hidden;
-                display: flex; flex-direction: column; align-items: center;
-                transition: all 1.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+                position: absolute;
+                bottom: 0;
+                width: 360px;
+                height: 0;
+                opacity: 0;
+                visibility: hidden;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                transition: all 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+                z-index: 50;
             }
-            .vr-lotus-trigger.opened ~ .vr-auth-wrapper {
-                height: 180px; opacity: 1; visibility: visible; bottom: -30px;
+
+            .vr-lotus-trigger.opened~.vr-auth-wrapper {
+                height: 200px;
+                opacity: 1;
+                visibility: visible;
+                bottom: -60px;
             }
 
             .vr-capsule-input {
-                width: 100%; background: rgba(255,255,255,0.03); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-                border: 1px solid rgba(212,175,55,0.4); border-radius: 40px;
-                color: #F4C430; font-family: 'Cinzel', serif; font-size: 1.6rem;
-                text-align: center; padding: 18px 25px; outline: none; letter-spacing: 6px;
-                box-shadow: inset 0 0 20px rgba(212,175,55,0.05), 0 10px 30px rgba(0,0,0,0.5);
-                transition: all 0.5s ease;
+                width: 100%;
+                background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.015));
+                backdrop-filter: blur(25px);
+                -webkit-backdrop-filter: blur(25px);
+                border: 1px solid rgba(212, 175, 55, 0.35);
+                border-radius: 50px;
+                color: #FDF6E3;
+                font-family: 'Cinzel', serif;
+                font-size: 1.4rem;
+                text-align: center;
+                padding: 18px 25px;
+                outline: none;
+                letter-spacing: 8px;
+                box-shadow: 
+                    0 15px 35px rgba(0, 0, 0, 0.4), 
+                    inset 0 0 20px rgba(212, 175, 55, 0.1);
+                transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
             }
-            .vr-capsule-input::placeholder { color: rgba(253, 246, 227, 0.3); font-size: 1.1rem; letter-spacing: 3px; font-family: 'Outfit', sans-serif; text-transform: uppercase; }
-            .vr-capsule-input:focus { border-color: rgba(212,175,55,1); box-shadow: inset 0 0 30px rgba(212,175,55,0.1), 0 15px 40px rgba(212,175,55,0.2); }
+
+            .vr-capsule-input::placeholder {
+                color: rgba(253, 246, 227, 0.45);
+                font-size: 1.05rem;
+                letter-spacing: 4px;
+                font-family: 'Outfit', sans-serif;
+                text-transform: uppercase;
+                transition: all 0.3s ease;
+            }
+            
+            .vr-capsule-input:focus::placeholder {
+                opacity: 0;
+                transform: translateY(-8px);
+            }
+
+            .vr-capsule-input:focus {
+                border-color: rgba(212, 175, 55, 0.9);
+                background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04));
+                box-shadow: 
+                    0 20px 45px rgba(0, 0, 0, 0.5),
+                    0 0 40px rgba(212, 175, 55, 0.25),
+                    inset 0 0 25px rgba(212, 175, 55, 0.15);
+                transform: translateY(-2px);
+            }
 
             .vr-divine-btn {
-                margin-top: 25px; background: linear-gradient(135deg, rgba(212,175,55,0.1), transparent);
-                border: 1px solid rgba(212,175,55,0.6); border-radius: 30px;
-                color: #D4AF37; font-family: 'Cormorant Garamond', serif; font-size: 1.1rem;
-                letter-spacing: 5px; text-transform: uppercase; cursor: pointer;
-                padding: 12px 35px; transition: all 0.4s; position: relative; overflow: hidden;
+                margin-top: 25px;
+                background: linear-gradient(135deg, #D4AF37, #F9D423, #B8860B);
+                border: none;
+                border-radius: 40px;
+                color: #020813;
+                font-family: 'Cinzel', serif;
+                font-size: 1.15rem;
+                font-weight: 700;
+                letter-spacing: 5px;
+                text-transform: uppercase;
+                cursor: pointer;
+                padding: 15px 45px;
+                transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+                position: relative;
+                overflow: hidden;
+                box-shadow: 0 10px 20px rgba(212, 175, 55, 0.35);
             }
+
             .vr-divine-btn::before {
-                content:''; position: absolute; top:0; left:-100%; width: 50%; height: 100%;
-                background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-                transition: left 0.6s cubic-bezier(0.1, 1, 0.3, 1);
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+                transition: left 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
             }
-            .vr-divine-btn:hover { background: rgba(212,175,55,0.2); box-shadow: 0 0 20px rgba(212,175,55,0.4); color: #FFF; }
-            .vr-divine-btn:hover::before { left: 100%; }
+
+            .vr-divine-btn:hover {
+                transform: translateY(-3px) scale(1.03);
+                box-shadow: 0 15px 35px rgba(212, 175, 55, 0.5);
+                color: #000;
+            }
+
+            .vr-divine-btn:hover::before {
+                left: 100%;
+            }
+            
+            .vr-divine-btn:active {
+                transform: translateY(1px);
+                box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+            }
 
             .vr-error-msg {
-                margin-top: 15px; font-family: 'Outfit', sans-serif; font-size: 0.8rem; font-weight: 300; letter-spacing: 3px;
-                color: rgba(255, 77, 109, 0.8); opacity: 0; transition: opacity 1s; height: 15px; text-transform: uppercase;
+                margin-top: 15px;
+                font-family: 'Outfit', sans-serif;
+                font-size: 0.85rem;
+                font-weight: 500;
+                letter-spacing: 3px;
+                color: rgba(255, 77, 109, 1);
+                background: rgba(255, 77, 109, 0.12);
+                border: 1px solid rgba(255, 77, 109, 0.25);
+                border-radius: 20px;
+                padding: 6px 18px;
+                opacity: 0;
+                transition: opacity 0.5s;
+                text-transform: uppercase;
+                backdrop-filter: blur(5px);
+                box-shadow: 0 5px 15px rgba(255, 77, 109, 0.15);
             }
 
             /* --- 7. FIREFLIES & MAGIC PARTICLES --- */
             .vr-firefly {
-                position: absolute; width: 3px; height: 3px; background: #E2FF99; border-radius: 50%;
-                box-shadow: 0 0 10px 2px #E2FF99; filter: blur(1px); animation: flyWander 15s linear infinite;
-                opacity: 0; pointer-events: none; z-index: 35;
+                position: absolute;
+                width: 3px;
+                height: 3px;
+                background: #E2FF99;
+                border-radius: 50%;
+                box-shadow: 0 0 10px 2px #E2FF99;
+                filter: blur(1px);
+                animation: flyWander 15s linear infinite;
+                opacity: 0;
+                pointer-events: none;
+                z-index: 35;
             }
-            @keyframes flyWander { 0% { transform: translate(0, 0) scale(0.8); opacity: 0; } 20% { opacity: 1; } 50% { transform: translate(100px, -150px) scale(1.2); opacity: 0.5; } 80% { opacity: 1; } 100% { transform: translate(-50px, -300px) scale(0.8); opacity: 0; } }
+
+            @keyframes flyWander {
+                0% {
+                    transform: translate(0, 0) scale(0.8);
+                    opacity: 0;
+                }
+
+                20% {
+                    opacity: 1;
+                }
+
+                50% {
+                    transform: translate(100px, -150px) scale(1.2);
+                    opacity: 0.5;
+                }
+
+                80% {
+                    opacity: 1;
+                }
+
+                100% {
+                    transform: translate(-50px, -300px) scale(0.8);
+                    opacity: 0;
+                }
+            }
 
             @media (max-width: 768px) {
-                .vr-moon-container { width: 160px; height: 160px; top: -10px; }
-                .vr-title { font-size: 2.2rem; }
-                .vr-subtitle { font-size: 0.9rem; margin-top: 10px; }
-                .vr-hero-text { margin-top: 25vh; }
-                .vr-lotus-trigger { width: 110px; height: 110px; }
-                .vr-altar-section { bottom: 25vh; } /* Much higher spacing */
-                .vr-capsule-input { font-size: 1.2rem; padding: 12px 20px; width: 280px; }
-                .vr-auth-wrapper { width: 280px; }
-                .vr-temple-silhouette { bottom: 25vh; }
-                .vr-vines { width: 150px; }
+                .vr-moon-container {
+                    width: 160px;
+                    height: 160px;
+                    top: -10px;
+                }
+
+                .vr-title {
+                    font-size: 2.2rem;
+                }
+
+                .vr-subtitle {
+                    font-size: 0.9rem;
+                    margin-top: 10px;
+                }
+
+                .vr-hero-text {
+                    margin-top: 25vh;
+                }
+
+                .vr-lotus-trigger {
+                    width: 110px;
+                    height: 110px;
+                }
+
+                .vr-altar-section {
+                    bottom: 25vh;
+                }
+
+                /* Much higher spacing */
+                .vr-capsule-input {
+                    font-size: 1.1rem;
+                    padding: 15px 20px;
+                    width: 290px;
+                }
+
+                .vr-auth-wrapper {
+                    width: 290px;
+                }
+                
+                .vr-lotus-trigger.opened~.vr-auth-wrapper {
+                    bottom: -30px; 
+                }
+
+                .vr-temple-silhouette {
+                    bottom: 25vh;
+                }
+
+                .vr-vines {
+                    width: 150px;
+                }
             }
         </style>
 
         <div class="vr-sky"></div>
         <div class="vr-mist"></div>
-        
+
         <div class="vr-moon-container">
             <div class="vr-moon"></div>
             <div class="vr-moon-rays"></div>
@@ -407,18 +816,20 @@
 
         <!-- Vines (SVG replaced emojis) -->
         <svg class="vr-vines left" viewBox="0 0 200 400" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0,0 C50,100 0,200 50,300 C80,360 40,400 40,400" fill="none" stroke="rgba(40,60,40,0.8)" stroke-width="4"/>
-            <path d="M20,50 C40,40 60,60 50,80 C30,90 10,70 20,50" fill="rgba(80,120,80,0.7)"/>
-            <path d="M10,150 C30,130 50,150 40,180 C10,190 -10,170 10,150" fill="rgba(60,100,60,0.7)"/>
-            <path d="M40,250 C70,230 80,260 60,290 C30,300 20,270 40,250" fill="rgba(70,110,70,0.8)"/>
-            <path d="M15,350 C35,330 55,350 45,380 C15,390 -5,370 15,350" fill="rgba(80,110,50,0.7)"/>
+            <path d="M0,0 C50,100 0,200 50,300 C80,360 40,400 40,400" fill="none" stroke="rgba(40,60,40,0.8)"
+                stroke-width="4" />
+            <path d="M20,50 C40,40 60,60 50,80 C30,90 10,70 20,50" fill="rgba(80,120,80,0.7)" />
+            <path d="M10,150 C30,130 50,150 40,180 C10,190 -10,170 10,150" fill="rgba(60,100,60,0.7)" />
+            <path d="M40,250 C70,230 80,260 60,290 C30,300 20,270 40,250" fill="rgba(70,110,70,0.8)" />
+            <path d="M15,350 C35,330 55,350 45,380 C15,390 -5,370 15,350" fill="rgba(80,110,50,0.7)" />
         </svg>
         <svg class="vr-vines right" viewBox="0 0 200 400" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0,0 C50,100 0,200 50,300 C80,360 40,400 40,400" fill="none" stroke="rgba(40,60,40,0.8)" stroke-width="4"/>
-            <path d="M20,50 C40,40 60,60 50,80 C30,90 10,70 20,50" fill="rgba(80,120,80,0.7)"/>
-            <path d="M10,150 C30,130 50,150 40,180 C10,190 -10,170 10,150" fill="rgba(60,100,60,0.7)"/>
-            <path d="M40,250 C70,230 80,260 60,290 C30,300 20,270 40,250" fill="rgba(70,110,70,0.8)"/>
-            <path d="M15,350 C35,330 55,350 45,380 C15,390 -5,370 15,350" fill="rgba(80,110,50,0.7)"/>
+            <path d="M0,0 C50,100 0,200 50,300 C80,360 40,400 40,400" fill="none" stroke="rgba(40,60,40,0.8)"
+                stroke-width="4" />
+            <path d="M20,50 C40,40 60,60 50,80 C30,90 10,70 20,50" fill="rgba(80,120,80,0.7)" />
+            <path d="M10,150 C30,130 50,150 40,180 C10,190 -10,170 10,150" fill="rgba(60,100,60,0.7)" />
+            <path d="M40,250 C70,230 80,260 60,290 C30,300 20,270 40,250" fill="rgba(70,110,70,0.8)" />
+            <path d="M15,350 C35,330 55,350 45,380 C15,390 -5,370 15,350" fill="rgba(80,110,50,0.7)" />
         </svg>
 
         <div class="vr-hero-text">
@@ -429,18 +840,19 @@
         <div class="vr-landscape">
             <!-- Temple Silhouette -->
             <div class="vr-temple-silhouette">
-                <svg class="vr-temple-svg" viewBox="0 0 1200 300" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M0,300 L0,200 Q50,180 100,200 T200,160 T300,180 L300,300 Z"/>
-                    <path d="M250,300 L250,120 Q300,50 350,120 L350,300 Z"/>
-                    <path d="M320,300 L320,80 Q400,-20 480,80 L480,300 Z"/> <!-- Main Dome -->
-                    <path d="M450,300 L450,140 Q500,80 550,140 L550,300 Z"/>
-                    <path d="M700,300 L700,100 Q760,20 820,100 L820,300 Z"/> <!-- Second Dome -->
-                    <path d="M800,300 L800,150 Q850,100 900,150 L900,300 Z"/>
-                    <path d="M900,300 L900,200 Q1000,170 1100,220 T1200,180 L1200,300 Z"/>
-                    <circle cx="400" cy="15" r="5" fill="#D4AF37"/>
-                    <line x1="400" y1="15" x2="400" y2="40" stroke="#D4AF37" stroke-width="2"/>
-                    <circle cx="760" cy="35" r="4" fill="#D4AF37"/>
-                    <line x1="760" y1="35" x2="760" y2="55" stroke="#D4AF37" stroke-width="2"/>
+                <svg class="vr-temple-svg" viewBox="0 0 1200 300" preserveAspectRatio="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0,300 L0,200 Q50,180 100,200 T200,160 T300,180 L300,300 Z" />
+                    <path d="M250,300 L250,120 Q300,50 350,120 L350,300 Z" />
+                    <path d="M320,300 L320,80 Q400,-20 480,80 L480,300 Z" /> <!-- Main Dome -->
+                    <path d="M450,300 L450,140 Q500,80 550,140 L550,300 Z" />
+                    <path d="M700,300 L700,100 Q760,20 820,100 L820,300 Z" /> <!-- Second Dome -->
+                    <path d="M800,300 L800,150 Q850,100 900,150 L900,300 Z" />
+                    <path d="M900,300 L900,200 Q1000,170 1100,220 T1200,180 L1200,300 Z" />
+                    <circle cx="400" cy="15" r="5" fill="#D4AF37" />
+                    <line x1="400" y1="15" x2="400" y2="40" stroke="#D4AF37" stroke-width="2" />
+                    <circle cx="760" cy="35" r="4" fill="#D4AF37" />
+                    <line x1="760" y1="35" x2="760" y2="55" stroke="#D4AF37" stroke-width="2" />
                 </svg>
             </div>
             <!-- River -->
@@ -451,8 +863,8 @@
                 <!-- Boat -->
                 <div class="vr-boat-container">
                     <svg class="vr-boat-svg" viewBox="0 0 100 50" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M10,20 C40,40 60,40 90,20 L80,40 C60,50 40,50 20,40 Z"/>
-                        <path d="M48,5 L48,25" stroke="#333" stroke-width="2"/>
+                        <path d="M10,20 C40,40 60,40 90,20 L80,40 C60,50 40,50 20,40 Z" />
+                        <path d="M48,5 L48,25" stroke="#333" stroke-width="2" />
                     </svg>
                     <div class="vr-lantern-glow"></div>
                 </div>
@@ -469,14 +881,15 @@
                         </linearGradient>
                     </defs>
                     <path class="petal-outer" d="M50,90 C20,70 10,40 50,10 C90,40 80,70 50,90 Z" />
-                    <path class="petal-inner" d="M50,90 C30,75 25,50 50,20 C75,50 70,75 50,90 Z" fill="#FFA6C9"/>
-                    <path class="petal-core" d="M50,90 C40,80 35,60 50,30 C65,60 60,80 50,90 Z" fill="#FFEBF0"/>
+                    <path class="petal-inner" d="M50,90 C30,75 25,50 50,20 C75,50 70,75 50,90 Z" fill="#FFA6C9" />
+                    <path class="petal-core" d="M50,90 C40,80 35,60 50,30 C65,60 60,80 50,90 Z" fill="#FFEBF0" />
                 </svg>
             </button>
             <div class="vr-pedestal"></div>
 
             <div class="vr-auth-wrapper">
-                <input type="text" id="vr-secret-input" class="vr-capsule-input" placeholder="Type softly..." autocomplete="off">
+                <input type="text" id="vr-secret-input" class="vr-capsule-input" placeholder="Type softly..."
+                    autocomplete="off">
                 <button id="vr-unlock-trigger" class="vr-divine-btn">Awaken</button>
                 <div id="vr-error-toast" class="vr-error-msg">Silence... Try again.</div>
             </div>
@@ -488,7 +901,7 @@
         <script>
             document.addEventListener('DOMContentLoaded', () => {
                 const doc = document.documentElement;
-                
+
                 const handleMove = (x, y) => {
                     doc.style.setProperty('--px', (x - 0.5) * 2);
                     doc.style.setProperty('--py', (y - 0.5) * 2);
@@ -496,10 +909,10 @@
                 document.addEventListener('mousemove', (e) => {
                     handleMove(e.clientX / window.innerWidth, e.clientY / window.innerHeight);
                 });
-                
+
                 const fContainer = document.getElementById('vr-fireflies-container');
                 setInterval(() => {
-                    if(document.querySelector('.cinematic-vrindavan:not(.active)')) return;
+                    if (document.querySelector('.cinematic-vrindavan:not(.active)')) return;
                     const f = document.createElement('div');
                     f.className = 'vr-firefly';
                     f.style.left = Math.random() * 100 + 'vw';
@@ -514,9 +927,9 @@
                 const btn = document.getElementById('vr-unlock-trigger');
                 const err = document.getElementById('vr-error-toast');
                 const gate = document.getElementById('master-password-experience');
-                
+
                 lotus.addEventListener('click', () => {
-                    if(lotus.classList.contains('opened')) return;
+                    if (lotus.classList.contains('opened')) return;
                     lotus.classList.add('opened');
                     setTimeout(() => inp.focus(), 1200);
                     try { if (window.sounds?.tap) window.sounds.tap(); } catch (e) { }
@@ -529,39 +942,49 @@
                         inp.blur();
                         err.style.opacity = '0';
                         btn.disabled = true;
-                        
+
                         try { if (window.sounds?.success) window.sounds.success(); } catch (e) { }
 
-                        for (let i = 0; i < 40; i++) {
-                            setTimeout(() => {
+                        // Emoji blast for 4 seconds
+                        const emojis = ['🌸', '💖', '✨', '🌺', '💕', '🌷', '💘', '🦋', '❤️'];
+                        const showerInterval = setInterval(() => {
+                            for (let i = 0; i < 12; i++) {
                                 const b = document.createElement('div');
+                                b.innerText = emojis[Math.floor(Math.random() * emojis.length)];
                                 b.style.position = 'fixed'; b.style.left = '50%'; b.style.top = '50%';
-                                b.style.width = '4px'; b.style.height = '4px'; b.style.background = '#F4C430';
-                                b.style.boxShadow = '0 0 15px 5px #F4C430'; b.style.borderRadius = '50%';
-                                b.style.transition = 'all 3s cubic-bezier(0.1, 1, 0.3, 1)';
-                                b.style.zIndex = '1000'; document.body.appendChild(b);
+                                b.style.fontSize = (Math.random() * 25 + 15) + 'px';
+                                b.style.pointerEvents = 'none';
+                                b.style.transition = 'all 2.5s cubic-bezier(0.1, 1, 0.3, 1)';
+                                b.style.zIndex = '9999';
+                                b.style.transform = 'translate(-50%, -50%) scale(0.1)';
+                                b.style.opacity = '1';
+                                document.body.appendChild(b);
 
                                 setTimeout(() => {
-                                    const ang = Math.random() * Math.PI * 2; const rad = Math.random() * (window.innerWidth);
-                                    b.style.transform = `translate(${Math.cos(ang) * rad}px, ${Math.sin(ang) * rad}px) scale(3)`;
+                                    const ang = Math.random() * Math.PI * 2; 
+                                    const rad = Math.random() * (window.innerWidth * 0.7);
+                                    b.style.transform = `translate(calc(-50% + ${Math.cos(ang) * rad}px), calc(-50% + ${Math.sin(ang) * rad}px)) scale(${Math.random() * 1.5 + 1}) rotate(${Math.random() * 360}deg)`;
                                     b.style.opacity = '0';
                                 }, 20);
-                                setTimeout(() => b.remove(), 3000);
-                            }, i * 20);
-                        }
+                                setTimeout(() => b.remove(), 2500);
+                            }
+                        }, 100);
+
+                        setTimeout(() => clearInterval(showerInterval), 3000);
 
                         const gBtn = document.getElementById('floating-music-btn');
                         if (gBtn && !gBtn.classList.contains('playing')) gBtn.click();
+                        
                         setTimeout(() => {
                             gate.style.transform = 'scale(3) translateY(25%)'; gate.style.opacity = '0'; gate.style.filter = 'blur(20px)';
-                        }, 500);
+                        }, 2500);
 
                         setTimeout(() => {
                             gate.classList.remove('active');
                             gate.style.display = 'none';
                             document.getElementById('login-experience').classList.add('active');
-                            window.scrollTo(0, 0); 
-                        }, 1500);
+                            window.scrollTo(0, 0);
+                        }, 3500);
 
                     } else {
                         err.style.opacity = '1';
@@ -583,235 +1006,492 @@
         </script>
     </div>
 
-    <!-- ================= PAGE 1: LOGIN EXPERIENCE ================= -->
-    <div id="login-experience" class="page-container">
+    <!-- ================= PAGE 1: DIVINE LOGIN EXPERIENCE ================= -->
+    <div id="login-experience" class="page-container vrindavan-theme">
 
-        <!-- Left Side: 4 Polaroid Photos Grid & Romantic Quote -->
-        <div class="login-left">
+        <!-- Custom Styling for Page 1 Vrindavan Theme -->
+        <style>
+            .vrindavan-theme {
+                background: radial-gradient(circle at top left, #0d1b2a 0%, #020813 100%);
+                color: #FDF6E3;
+                position: relative;
+                overflow: hidden;
+            }
 
-            <!-- Decorative vertical neon divider (right edge) -->
-            <div class="login-divider"></div>
+            .divine-floating-particle {
+                position: absolute;
+                pointer-events: none;
+                z-index: 1;
+                filter: drop-shadow(0 0 10px rgba(255, 233, 184, 0.4));
+                animation: divineRise linear infinite forwards;
+            }
 
-            <!-- Hero love text -->
-            <div class="login-hero-text reveal-in" style="--reveal-delay: 0.1s;">
-                <!-- <div class="login-hero-tag">✦ we ✦</div> -->
-                <h2 class="login-hero-title">Mohan <span class="heart-glow">♥</span> Kari</h2>
-                <p class="login-hero-sub">Every photo holds a lifetime of love 📸</p>
-            </div>
+            @keyframes divineRise {
+                0% { transform: translateY(110vh) rotate(0deg) scale(0.8); opacity: 0; }
+                10% { opacity: 0.6; }
+                90% { opacity: 0.6; }
+                100% { transform: translateY(-10vh) rotate(360deg) scale(1.2); opacity: 0; }
+            }
 
-            <!-- Innovative 3D Flipping Polaroids -->
-            <style>
+            .divine-divider {
+                position: absolute;
+                top: 10%;
+                right: 0;
+                width: 2px;
+                height: 80%;
+                background: linear-gradient(to bottom, transparent, #F4C430, #FFB347, #F4C430, transparent);
+                box-shadow: 0 0 15px #F4C430;
+                opacity: 0.5;
+            }
+
+            /* Divine Hero Text */
+            .divine-hero-title {
+                font-family: 'Playfair Display', serif;
+                font-size: clamp(2rem, 4vw, 3.5rem);
+                font-weight: 700;
+                background: linear-gradient(135deg, #F9D423, #FCF6BA, #D4AF37);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                margin-bottom: 5px;
+                text-shadow: 0 10px 20px rgba(212, 175, 55, 0.2);
+            }
+
+            .clear-blink-heart {
+                display: inline-block;
+                font-size: 0.85em;
+                animation: divineHeartbeat 1.5s infinite ease-in-out;
+                -webkit-text-fill-color: initial; 
+                margin: 0 4px;
+                filter: none;
+            }
+
+            @keyframes divineHeartbeat {
+                0%, 100% { transform: scale(1); opacity: 0.85; filter: drop-shadow(0 0 5px rgba(255, 179, 71, 0.8)); }
+                50% { transform: scale(1.2); opacity: 1; filter: drop-shadow(0 0 15px rgba(244, 196, 48, 1)); }
+            }
+
+            .divine-hero-sub {
+                font-family: 'Outfit', sans-serif;
+                font-size: 1.15rem;
+                font-weight: 300;
+                color: #E0C895;
+                letter-spacing: 2px;
+                font-style: italic;
+            }
+
+            /* Magical Polaroids */
+            .vr-scattered-gallery {
+                position: relative;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                perspective: 1500px;
+                height: 420px;
+                margin: 30px 0 20px 0;
+            }
+
+            .vr-polaroid-wrapper {
+                position: absolute;
+                width: 250px;
+                height: 320px;
+                cursor: pointer;
+                z-index: 5;
+                transition: transform 1s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.9s, filter 0.5s;
+                transform-origin: center center;
+                opacity: 0;
+                filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.8));
+            }
+
+            .vr-polaroid-wrapper.active {
+                z-index: 20;
+                opacity: 1;
+                transform: rotate(0deg) scale(1.15);
+                filter: drop-shadow(0 0 30px rgba(212, 175, 55, 0.4));
+            }
+
+            .vr-polaroid-wrapper.leaving {
+                z-index: 25;
+                opacity: 0;
+                transform: translateX(-150px) translateY(-50px) rotate(-90deg) scale(0.9);
+            }
+
+            .vr-polaroid-wrapper.next {
+                z-index: 10;
+                opacity: 0.9;
+                transform: rotate(10deg) scale(1.05);
+            }
+
+            .vr-polaroid-wrapper.next-next {
+                z-index: 5;
+                opacity: 0.7;
+                transform: rotate(20deg) scale(0.95);
+            }
+
+            .vr-polaroid-wrapper.idle {
+                z-index: 2;
+                opacity: 0.4;
+                transform: rotate(30deg) scale(0.9);
+            }
+
+            .vr-polaroid-inner {
+                position: relative;
+                width: 100%;
+                height: 100%;
+                transform-style: preserve-3d;
+                transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+            }
+
+            .vr-polaroid-wrapper.active:hover .vr-polaroid-inner {
+                transform: translateY(-20px) scale(1.1) rotateY(180deg);
+            }
+
+            .vr-face {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                -webkit-backface-visibility: hidden;
+                backface-visibility: hidden;
+                border-radius: 12px;
+                /* Soft glowing moonlight rim instead of hard solid border */
+                box-shadow: inset 0 0 0 1px rgba(255, 233, 184, 0.2), inset 0 0 20px rgba(244, 196, 48, 0.05), 0 15px 35px rgba(0, 0, 0, 0.6);
+            }
+
+            .vr-front {
+                /* A frosty, deeply translucent midnight glass, allowing the background to subtly bleed through */
+                background: rgba(8, 15, 30, 0.45);
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                padding: 12px 12px 55px 12px;
+            }
+
+            /* A delicate inner floating border for the image */
+            .vr-front::before {
+                content: '';
+                position: absolute;
+                top: 12px;
+                left: 12px;
+                right: 12px;
+                bottom: 55px;
+                border: 1px solid rgba(255, 233, 184, 0.15);
+                border-radius: 4px;
+                z-index: 2;
+                pointer-events: none;
+            }
+
+            .vr-front img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 4px;
+                /* Remove harsh sepia/contrast, use a delicate warm bloom */
+                filter: sepia(0.05) saturate(1.05) brightness(1.02);
+            }
+
+            .vr-front-label {
+                position: absolute;
+                bottom: 15px;
+                left: 0;
+                width: 100%;
+                text-align: center;
+                font-family: 'Cinzel', serif;
+                font-size: 1.1rem;
+                color: #FFF3CC;
+                letter-spacing: 3px;
+                text-shadow: 0 0 10px rgba(244, 196, 48, 0.4);
+            }
+
+            /* Instead of heavy emoji clips, a subtle golden cosmic dust floating above the card */
+            .vr-flower-clip {
+                position: absolute;
+                top: -20px;
+                left: 50%;
+                transform: translateX(-50%);
+                font-size: 24px;
+                filter: drop-shadow(0 0 12px rgba(244, 196, 48, 0.8));
+                opacity: 0.85;
+                z-index: 10;
+                animation: floatClip 3s ease-in-out infinite alternate;
+            }
+
+            @keyframes floatClip {
+                0% {
+                    transform: translate(-50%, 0);
+                }
+
+                100% {
+                    transform: translate(-50%, -4px);
+                }
+            }
+
+            .vr-back {
+                background: rgba(4, 10, 20, 0.55);
+                backdrop-filter: blur(15px);
+                -webkit-backdrop-filter: blur(15px);
+                /* Radial soft glow behind the text */
+                background-image: radial-gradient(circle at center, rgba(230, 180, 80, 0.08) 0%, transparent 70%);
+                transform: rotateY(180deg);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 30px;
+            }
+
+            .vr-handwritten {
+                font-family: 'Caveat', cursive;
+                font-size: 1.8rem;
+                color: #FDF6E3;
+                text-align: center;
+                line-height: 1.6;
+                text-shadow: 0 2px 10px rgba(0, 0, 0, 1), 0 0 15px rgba(244, 196, 48, 0.3);
+                font-weight: 600;
+                letter-spacing: 0.5px;
+            }
+
+            /* Make the wax seal modern and ethereal */
+            .vr-wax-seal {
+                position: absolute;
+                bottom: 15px;
+                right: 15px;
+                width: 35px;
+                height: 35px;
+                background: linear-gradient(135deg, rgba(244, 196, 48, 0.2), rgba(212, 175, 55, 0.05));
+                border: 1px solid rgba(244, 196, 48, 0.4);
+                border-radius: 50%;
+                box-shadow: inset 0 0 10px rgba(212, 175, 55, 0.2), 0 0 10px rgba(244, 196, 48, 0.3);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: #FFF3CC;
+                font-size: 14px;
+                font-family: 'Cinzel', serif;
+                font-weight: 300;
+                backdrop-filter: blur(5px);
+                -webkit-backdrop-filter: blur(5px);
+            }
+
+            /* Divine PIN Lock Screen */
+            .divine-lock-card {
+                background: rgba(4, 10, 24, 0.6) !important;
+                backdrop-filter: blur(25px);
+                -webkit-backdrop-filter: blur(25px);
+                border: 1px solid rgba(212, 175, 55, 0.4) !important;
+                border-radius: 30px !important;
+                box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), inset 0 0 40px rgba(212, 175, 55, 0.1) !important;
+                color: #FDF6E3;
+                overflow: hidden;
+                position: relative;
+            }
+
+            .divine-lock-card::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 5px;
+                background: linear-gradient(90deg, transparent, #F4C430, transparent);
+            }
+
+            .divine-profile-ring {
+                width: 80px;
+                height: 80px;
+                margin: 0 auto 15px;
+                border-radius: 50%;
+                padding: 4px;
+                background: linear-gradient(135deg, #F4C430, #FFB347, #F4C430);
+                box-shadow: 0 0 25px rgba(244, 196, 48, 0.5);
+                position: relative;
+                animation: ringFloat 4s ease-in-out infinite;
+            }
+
+            @keyframes ringFloat {
+
+                0%,
+                100% {
+                    transform: translateY(0);
+                }
+
+                50% {
+                    transform: translateY(-8px);
+                    box-shadow: 0 0 35px rgba(244, 196, 48, 0.7);
+                }
+            }
+
+            .divine-lock-title {
+                font-family: 'Cinzel', serif;
+                font-size: 2rem;
+                color: #F4C430;
+                margin-bottom: 5px;
+                text-shadow: 0 2px 10px rgba(212, 175, 55, 0.5);
+            }
+
+            .divine-lock-sub {
+                font-family: 'Cormorant Garamond', serif;
+                font-size: 1.1rem;
+                color: #E0C895;
+                font-style: italic;
+            }
+
+            .pin-indicator-container {
+                display: flex;
+                justify-content: center;
+                gap: 15px;
+                margin: 25px 0;
+            }
+
+            .pin-dot.divine-dot {
+                width: 14px;
+                height: 14px;
+                border-radius: 50%;
+                border: 2px solid rgba(212, 175, 55, 0.5);
+                background: transparent;
+                transition: all 0.4s;
+                box-shadow: none;
+            }
+
+            .pin-dot.divine-dot.filled {
+                background: #F4C430;
+                border-color: #F4C430;
+                box-shadow: 0 0 15px #F4C430;
+                transform: scale(1.2);
+            }
+
+            .keypad-grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 18px;
+                max-width: 280px;
+                margin: 0 auto;
+            }
+
+            .keypad-button.divine-key-btn {
+                background: transparent;
+                border: 1px solid rgba(212, 175, 55, 0.3);
+                border-radius: 50%;
+                width: 75px;
+                height: 75px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+                transition: all 0.3s;
+                position: relative;
+                overflow: hidden;
+                box-shadow: none;
+                margin: auto;
+                padding: 0;
+            }
+
+            .keypad-button.divine-key-btn::after {
+                content: '';
+                position: absolute;
+                inset: 0;
+                border-radius: 50%;
+                background: radial-gradient(circle, rgba(212, 175, 55, 0.4) 0%, transparent 70%);
+                opacity: 0;
+                transition: opacity 0.3s;
+            }
+
+            .keypad-button.divine-key-btn:hover {
+                background: transparent;
+                border-color: #F4C430;
+                box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+                transform: scale(1.05);
+            }
+
+            .keypad-button.divine-key-btn:hover::after {
+                opacity: 1;
+            }
+
+            .keypad-button.divine-key-btn:active {
+                transform: scale(0.95);
+            }
+
+            .divine-key-num {
+                font-family: 'Cinzel', serif;
+                font-size: 1.8rem;
+                color: #F4C430;
+                z-index: 2;
+                position: relative;
+                line-height: 1;
+            }
+
+            .divine-key-letters {
+                font-family: 'Outfit', sans-serif;
+                font-size: 0.65rem;
+                color: #E0C895;
+                letter-spacing: 2px;
+                z-index: 2;
+                position: relative;
+                margin-top: 4px;
+                line-height: 1;
+                text-transform: uppercase;
+            }
+
+            .divine-hint {
+                font-family: 'Outfit', sans-serif;
+                font-size: 0.85rem;
+                color: rgba(224, 200, 149, 0.6);
+                text-transform: uppercase;
+                margin-top: 25px;
+                letter-spacing: 2px;
+            }
+
+            @media (max-width: 768px) {
                 .vr-scattered-gallery {
-                    position: relative;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    perspective: 1500px;
-                    height: 400px;
-                    margin: 20px 0 10px 0;
+                    height: 350px;
                 }
 
                 .vr-polaroid-wrapper {
-                    position: absolute;
-                    width: 240px;
-                    height: 300px;
-                    cursor: pointer;
-                    z-index: 5;
-                    perspective: 1500px;
-                    transition: transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.9s, z-index 0s;
-                    transform-origin: center center;
-                    opacity: 0;
+                    width: 190px;
+                    height: 250px;
                 }
 
-                /* Circular Stack States (One on One) */
-                .vr-polaroid-wrapper.active {
-                    z-index: 20;
-                    opacity: 1;
-                    transform: rotate(0deg) scale(1.1);
+                .divine-lock-card {
+                    padding: 30px 20px !important;
                 }
 
-                .vr-polaroid-wrapper.leaving {
-                    z-index: 25;
-                    /* Stays above as it leaves */
-                    opacity: 0;
-                    /* Rotates Anti-Clockwise in a circular motion out */
-                    transform: translateX(-150px) translateY(-50px) rotate(-90deg) scale(0.9);
+                .keypad-grid {
+                    gap: 12px;
                 }
 
-                .vr-polaroid-wrapper.next {
-                    z-index: 10;
-                    opacity: 0.9;
-                    /* Sits right beneath, subtly forming a circular fan */
-                    transform: rotate(12deg) scale(1.05);
+                .keypad-button.divine-key-btn {
+                    width: 65px;
+                    height: 65px;
                 }
 
-                .vr-polaroid-wrapper.next-next {
-                    z-index: 5;
-                    opacity: 0.7;
-                    transform: rotate(24deg) scale(1);
-                }
-
-                .vr-polaroid-wrapper.idle {
-                    z-index: 2;
-                    opacity: 0.4;
-                    transform: rotate(36deg) scale(0.95);
-                }
-
-                /* Inner container handles the flip */
-                .vr-polaroid-inner {
-                    position: relative;
-                    width: 100%;
-                    height: 100%;
-                    transform-style: preserve-3d;
-                    transition: transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
-                }
-
-                /* Hover flip (flips to read handwritten note on the ACTIVE card) */
-                .vr-polaroid-wrapper.active:hover .vr-polaroid-inner {
-                    transform: translateY(-20px) scale(1.2) rotateY(180deg);
-                }
-
-                .vr-face {
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    -webkit-backface-visibility: hidden;
-                    backface-visibility: hidden;
-                    border-radius: 4px;
-                    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
-                }
-
-                .vr-front {
-                    background: #FFFCF9;
-                    padding: 8px 8px 45px 8px;
-                    border: 1px solid rgba(0, 0, 0, 0.05);
-                    z-index: 2;
-                }
-
-                .vr-front img {
-                    width: 100%;
-                    height: 100%;
-                    object-fit: cover;
-                    border-radius: 2px;
-                    filter: sepia(0.15) contrast(1.1);
-                }
-
-                .vr-front-label {
-                    position: absolute;
-                    bottom: 12px;
-                    left: 0;
-                    width: 100%;
-                    text-align: center;
-                    font-family: 'Dancing Script', cursive;
-                    font-size: 1.6rem;
-                    color: #4A2F1D;
-                }
-
-                .vr-back {
-                    background: #FFF5EC;
-                    background-image: repeating-linear-gradient(transparent, transparent 24px, rgba(200, 100, 100, 0.1) 25px);
-                    transform: rotateY(180deg);
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    padding: 20px;
-                    border: 1px solid rgba(200, 150, 100, 0.3);
-                }
-
-                .vr-handwritten {
-                    font-family: 'Caveat', cursive;
+                .divine-key-num {
                     font-size: 1.5rem;
-                    color: #3B2A1E;
-                    text-align: center;
-                    line-height: 1.4;
-                    transform: rotate(-2deg);
                 }
+            }
+        </style>
 
-                .vr-wax-seal {
-                    position: absolute;
-                    bottom: 15px;
-                    right: 15px;
-                    width: 35px;
-                    height: 35px;
-                    background: radial-gradient(circle, #C9184A, #800F2F);
-                    border-radius: 50%;
-                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3), inset 0 2px 4px rgba(255, 255, 255, 0.4);
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    color: #F4C430;
-                    font-size: 14px;
-                    font-family: 'Playfair Display', serif;
-                    font-weight: bold;
-                }
+        <!-- Left Side: Interactive Divine Polaroids -->
+        <div class="login-left">
 
-                .vr-flower-clip {
-                    position: absolute;
-                    top: -15px;
-                    left: 50%;
-                    transform: translateX(-50%);
-                    font-size: 28px;
-                    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.4));
-                    z-index: 10;
-                }
+            <div class="divine-divider"></div>
 
-                @media (max-width: 768px) {
-                    .vr-scattered-gallery {
-                        height: 320px;
-                        margin: 10px 0;
-                    }
-
-                    .vr-polaroid-wrapper {
-                        width: 170px;
-                        height: 215px;
-                    }
-
-                    /* Tighter circular sweep on mobile */
-                    .vr-polaroid-wrapper.active {
-                        transform: rotate(0deg) scale(1.05);
-                    }
-
-                    .vr-polaroid-wrapper.leaving {
-                        transform: translateX(-100px) translateY(-30px) rotate(-90deg) scale(0.85);
-                    }
-
-                    .vr-polaroid-wrapper.active:hover .vr-polaroid-inner {
-                        transform: translateY(-15px) scale(1.15) rotateY(180deg);
-                    }
-
-                    .vr-front-label {
-                        font-size: 1.25rem;
-                        bottom: 8px;
-                    }
-
-                    .vr-handwritten {
-                        font-size: 1.15rem;
-                        line-height: 1.2;
-                        padding: 0 10px;
-                    }
-
-                    .vr-flower-clip {
-                        font-size: 26px;
-                        top: -14px;
-                    }
-                }
-            </style>
+            <div class="login-hero-text reveal-in" style="--reveal-delay: 0.1s;">
+                <h2 class="divine-hero-title">Mohan <span class="clear-blink-heart">🤍</span> Kari</h2>
+                <p class="divine-hero-sub">Soulmates woven across a million lifetimes...</p>
+            </div>
 
             <div class="vr-scattered-gallery reveal-in" style="--reveal-delay: 0.28s;">
                 <!-- Polaroid 1 -->
                 <div class="vr-polaroid-wrapper">
                     <div class="vr-polaroid-inner">
                         <div class="vr-face vr-front">
-                            <div class="vr-flower-clip">🌸</div>
+                            <div class="vr-flower-clip">🪷</div>
                             <img src="photos/login page photo/WhatsApp Image 2026-07-12 at 1.04.08 PM (1).jpeg"
                                 alt="Us Together">
-                            <div class="vr-front-label">Us ✨</div>
+                            <div class="vr-front-label">Divine Union</div>
                         </div>
                         <div class="vr-face vr-back">
-                            <div class="vr-handwritten">"Where my peace begins..."</div>
-                            <div class="vr-wax-seal">B</div>
+                            <div class="vr-handwritten">"Where my soul finally rests..."</div>
+                            <div class="vr-wax-seal">M</div>
                         </div>
                     </div>
                 </div>
@@ -820,13 +1500,13 @@
                 <div class="vr-polaroid-wrapper">
                     <div class="vr-polaroid-inner">
                         <div class="vr-face vr-front">
-                            <div class="vr-flower-clip">🪷</div>
+                            <div class="vr-flower-clip">✨</div>
                             <img src="photos/first page karamma/WhatsApp_Image_2026-06-28_at_12.22.53_PM.jpeg"
                                 alt="Karamma">
-                            <div class="vr-front-label">Her 💖</div>
+                            <div class="vr-front-label">Her Grace</div>
                         </div>
                         <div class="vr-face vr-back">
-                            <div class="vr-handwritten">"The most beautiful view in the world."</div>
+                            <div class="vr-handwritten">"A beauty transcending realms."</div>
                             <div class="vr-wax-seal">K</div>
                         </div>
                     </div>
@@ -836,14 +1516,14 @@
                 <div class="vr-polaroid-wrapper">
                     <div class="vr-polaroid-inner">
                         <div class="vr-face vr-front">
-                            <div class="vr-flower-clip">🌺</div>
+                            <div class="vr-flower-clip">🌙</div>
                             <img src="photos/first page karamma/WhatsApp_Image_2026-06-28_at_12.22.53_PM_1_.jpeg"
                                 alt="Karamma Glow">
-                            <div class="vr-front-label">Glow 💫</div>
+                            <div class="vr-front-label">Moonlight Glow</div>
                         </div>
                         <div class="vr-face vr-back">
-                            <div class="vr-handwritten">"Your smile outshines the moon, Karamma."</div>
-                            <div class="vr-wax-seal">B</div>
+                            <div class="vr-handwritten">"Your smile outshines the stars."</div>
+                            <div class="vr-wax-seal">M</div>
                         </div>
                     </div>
                 </div>
@@ -852,30 +1532,29 @@
                 <div class="vr-polaroid-wrapper">
                     <div class="vr-polaroid-inner">
                         <div class="vr-face vr-front">
-                            <div class="vr-flower-clip">🦋</div>
+                            <div class="vr-flower-clip">🦚</div>
                             <img src="photos/login page photo/WhatsApp Image 2026-07-12 at 1.06.44 PM.jpeg"
                                 alt="Us Together">
-                            <div class="vr-front-label">Forever 💜</div>
+                            <div class="vr-front-label">Eternal</div>
                         </div>
                         <div class="vr-face vr-back">
-                            <div class="vr-handwritten">"A million lifetimes wouldn't be enough."</div>
+                            <div class="vr-handwritten">"Like Radha to her Krishna..."</div>
                             <div class="vr-wax-seal">K</div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Polaroid 5 (New Upload) -->
+                <!-- Polaroid 5 -->
                 <div class="vr-polaroid-wrapper">
                     <div class="vr-polaroid-inner">
                         <div class="vr-face vr-front">
                             <div class="vr-flower-clip">🌿</div>
-                            <img src="photos/new_uploads/media__1785662455958.jpg"
-                                alt="Us at Bookstore">
-                            <div class="vr-front-label">Peace 🤍</div>
+                            <img src="photos/new_uploads/media__1785662455958.jpg" alt="Us at Bookstore">
+                            <div class="vr-front-label">Sacred Peace</div>
                         </div>
                         <div class="vr-face vr-back">
-                            <div class="vr-handwritten">"In your silence, I found my favorite song."</div>
-                            <div class="vr-wax-seal">B</div>
+                            <div class="vr-handwritten">"In your silence, I found my devotion."</div>
+                            <div class="vr-wax-seal">M</div>
                         </div>
                     </div>
                 </div>
@@ -884,15 +1563,14 @@
             <script>
                 document.addEventListener('DOMContentLoaded', () => {
                     const gallery = document.querySelector('.vr-scattered-gallery');
+                    if (!gallery) return;
                     const wrappers = gallery.querySelectorAll('.vr-polaroid-wrapper');
                     let currentIndex = 0;
                     let rotateInterval;
-
                     const total = wrappers.length;
 
                     function updateClasses() {
                         wrappers.forEach(w => w.className = 'vr-polaroid-wrapper');
-
                         let leavingIdx = (currentIndex - 1 + total) % total;
                         let nextIdx = (currentIndex + 1) % total;
                         let nextNextIdx = (currentIndex + 2) % total;
@@ -903,123 +1581,139 @@
                         wrappers[nextNextIdx].classList.add('next-next');
                     }
 
-                    // Initial call
                     updateClasses();
 
                     function startRotation() {
                         rotateInterval = setInterval(() => {
                             currentIndex = (currentIndex + 1) % total;
                             updateClasses();
-                        }, 2200); // 2.2s gives graceful time for the spin
+                        }, 2500);
                     }
 
-                    // Start auto-rotation
                     startRotation();
-
-                    // Pause rotation on hover
-                    gallery.addEventListener('mouseenter', () => {
-                        clearInterval(rotateInterval);
-                    });
-
-                    // Resume rotation when hover ends
-                    gallery.addEventListener('mouseleave', () => {
-                        startRotation();
-                    });
+                    gallery.addEventListener('mouseenter', () => clearInterval(rotateInterval));
+                    gallery.addEventListener('mouseleave', startRotation);
+                    
+                    // Floating Divine Particles
+                    const loginExp = document.getElementById('login-experience');
+                    const particles = ['✨', '🦚', '🌸', '⭐', '💖', '🌺'];
+                    setInterval(() => {
+                        if (!loginExp.classList.contains('active')) return;
+                        const p = document.createElement('div');
+                        p.className = 'divine-floating-particle';
+                        p.innerText = particles[Math.floor(Math.random() * particles.length)];
+                        p.style.left = Math.random() * 100 + 'vw';
+                        p.style.fontSize = (Math.random() * 15 + 15) + 'px';
+                        p.style.animationDuration = (Math.random() * 10 + 15) + 's';
+                        p.style.animationDelay = (Math.random() * 2) + 's';
+                        loginExp.appendChild(p);
+                        setTimeout(() => p.remove(), 25000);
+                    }, 500); // spawn a subtle particle every half second
                 });
             </script>
 
-            <!-- Quote -->
             <div class="polaroid-caption reveal-in"
-                style="--reveal-delay: 0.5s; font-family: 'Playfair Display', serif; font-style: italic; color: #F4C430; letter-spacing: 1px;">
-                "Every love story is beautiful,<br>but ours is my absolute favorite."
+                style="--reveal-delay: 0.5s; font-family: 'Playfair Display', serif; color: #F4C430; letter-spacing: 1px; text-shadow: 0 4px 10px rgba(0,0,0,0.8);">
+                "Every love story is sacred,<br>but ours is destined."
             </div>
         </div>
 
-
-        <!-- Right Side: PIN Lock Screen -->
+        <!-- Right Side: Divine Night PIN Lock -->
         <div class="login-right">
-            <div class="glass-card login-card reveal-in" id="lock-card" style="--reveal-delay: 0.32s;">
-                <div class="card-glow-bg"></div>
-                <div class="card-content">
-                    <div style="width: 65px; height: 65px; margin: 0 auto 15px; border-radius: 50%; padding: 3px; background: linear-gradient(135deg, #F4C430, #FF4D6D); box-shadow: 0 5px 15px rgba(244,196,48,0.3);">
-                        <img src="photos/new_uploads/media__1785662456055.jpg" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%; border: 2px solid white;" alt="Karamma">
-                    </div>
-                    <span class="login-card-kicker">Private &amp; just for you</span>
-                    <h1 class="login-title">❤️ Welcome My Love ❤️</h1>
-                    <p class="login-subtitle">"A tiny secret before your surprise..."</p>
+            <div class="glass-card login-card divine-lock-card reveal-in" id="lock-card"
+                style="--reveal-delay: 0.32s; padding: 40px; text-align: center;">
 
-                    <!-- PIN Indicator Circles -->
-                    <div class="pin-indicator-container">
-                        <div class="pin-dot" id="dot-0"></div>
-                        <div class="pin-dot" id="dot-1"></div>
-                        <div class="pin-dot" id="dot-2"></div>
-                        <div class="pin-dot" id="dot-3"></div>
-                        <div class="pin-dot" id="dot-4"></div>
-                        <div class="pin-dot" id="dot-5"></div>
-                    </div>
+                <svg width="200" height="200" viewBox="0 0 100 100"
+                    style="position: absolute; top:50%; left:50%; transform: translate(-50%,-50%); opacity:0.04; pointer-events: none; z-index: 0;">
+                    <circle cx="50" cy="50" r="40" stroke="#F4C430" stroke-width="1" fill="none" />
+                    <circle cx="50" cy="50" r="30" stroke="#F4C430" stroke-width="0.5" fill="none" />
+                    <path d="M50 10 L55 40 L90 50 L55 60 L50 90 L45 60 L10 50 L45 40 Z" fill="none" stroke="#F4C430"
+                        stroke-width="1" />
+                </svg>
 
-                    <!-- Lock Screen Error Alert -->
-                    <div class="pin-error-message" id="pin-error">
-                        Oops... Try again my love ❤️
-                    </div>
-
-                    <!-- Custom Numeric Keypad -->
-                    <div class="keypad-grid" id="numeric-keypad">
-                        <button class="keypad-button" data-val="1">
-                            <span class="num">1</span>
-                            <span class="letters">.&nbsp;</span>
-                        </button>
-                        <button class="keypad-button" data-val="2">
-                            <span class="num">2</span>
-                            <span class="letters">ABC</span>
-                        </button>
-                        <button class="keypad-button" data-val="3">
-                            <span class="num">3</span>
-                            <span class="letters">DEF</span>
-                        </button>
-
-                        <button class="keypad-button" data-val="4">
-                            <span class="num">4</span>
-                            <span class="letters">GHI</span>
-                        </button>
-                        <button class="keypad-button" data-val="5">
-                            <span class="num">5</span>
-                            <span class="letters">JKL</span>
-                        </button>
-                        <button class="keypad-button" data-val="6">
-                            <span class="num">6</span>
-                            <span class="letters">MNO</span>
-                        </button>
-
-                        <button class="keypad-button" data-val="7">
-                            <span class="num">7</span>
-                            <span class="letters">PQRS</span>
-                        </button>
-                        <button class="keypad-button" data-val="8">
-                            <span class="num">8</span>
-                            <span class="letters">TUV</span>
-                        </button>
-                        <button class="keypad-button" data-val="9">
-                            <span class="num">9</span>
-                            <span class="letters">WXYZ</span>
-                        </button>
-
-                        <button class="keypad-button heart-btn" data-val="heart">
-                            <span class="num">❤️</span>
-                            <span class="letters">LOVE</span>
-                        </button>
-                        <button class="keypad-button" data-val="0">
-                            <span class="num">0</span>
-                            <span class="letters">+</span>
-                        </button>
-                        <button class="keypad-button backspace-btn" data-val="backspace" aria-label="Backspace">
-                            <span class="num">⌫</span>
-                            <span class="letters">DEL</span>
-                        </button>
-                    </div>
-
-                    <p class="login-card-hint">Six taps stand between you and your surprise 💕</p>
+                <div class="divine-profile-ring" style="z-index: 1;">
+                    <img src="photos/new_uploads/media__1785662456055.jpg"
+                        style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%; border: 1px solid #111;"
+                        alt="Karamma">
                 </div>
+
+                <h1 class="divine-lock-title" style="z-index: 1; position: relative;">Sacred Gateway</h1>
+                <p class="divine-lock-sub" style="z-index: 1; position: relative;">Enter the golden melody of our
+                    hearts...</p>
+
+                <!-- PIN Indicator Circles -->
+                <div class="pin-indicator-container" style="z-index: 1; position: relative;">
+                    <div class="pin-dot divine-dot" id="dot-0"></div>
+                    <div class="pin-dot divine-dot" id="dot-1"></div>
+                    <div class="pin-dot divine-dot" id="dot-2"></div>
+                    <div class="pin-dot divine-dot" id="dot-3"></div>
+                    <div class="pin-dot divine-dot" id="dot-4"></div>
+                    <div class="pin-dot divine-dot" id="dot-5"></div>
+                </div>
+
+                <!-- Lock Screen Error Alert -->
+                <div class="pin-error-message" id="pin-error"
+                    style="color: #FF4D6D; font-family: 'Outfit'; font-size: 0.9rem; margin-bottom: 15px; height: 15px; z-index: 1; position: relative;">
+                    The melody missed... Try again ✨
+                </div>
+
+                <!-- Custom Numeric Keypad -->
+                <div class="keypad-grid" id="numeric-keypad" style="z-index: 1; position: relative;">
+                    <button class="keypad-button divine-key-btn" data-val="1">
+                        <span class="divine-key-num">1</span>
+                        <span class="divine-key-letters">.&nbsp;</span>
+                    </button>
+                    <button class="keypad-button divine-key-btn" data-val="2">
+                        <span class="divine-key-num">2</span>
+                        <span class="divine-key-letters">ABC</span>
+                    </button>
+                    <button class="keypad-button divine-key-btn" data-val="3">
+                        <span class="divine-key-num">3</span>
+                        <span class="divine-key-letters">DEF</span>
+                    </button>
+
+                    <button class="keypad-button divine-key-btn" data-val="4">
+                        <span class="divine-key-num">4</span>
+                        <span class="divine-key-letters">GHI</span>
+                    </button>
+                    <button class="keypad-button divine-key-btn" data-val="5">
+                        <span class="divine-key-num">5</span>
+                        <span class="divine-key-letters">JKL</span>
+                    </button>
+                    <button class="keypad-button divine-key-btn" data-val="6">
+                        <span class="divine-key-num">6</span>
+                        <span class="divine-key-letters">MNO</span>
+                    </button>
+
+                    <button class="keypad-button divine-key-btn" data-val="7">
+                        <span class="divine-key-num">7</span>
+                        <span class="divine-key-letters">PQRS</span>
+                    </button>
+                    <button class="keypad-button divine-key-btn" data-val="8">
+                        <span class="divine-key-num">8</span>
+                        <span class="divine-key-letters">TUV</span>
+                    </button>
+                    <button class="keypad-button divine-key-btn" data-val="9">
+                        <span class="divine-key-num">9</span>
+                        <span class="divine-key-letters">WXYZ</span>
+                    </button>
+
+                    <button class="keypad-button divine-key-btn heart-btn" data-val="heart">
+                        <span class="divine-key-num">🪷</span>
+                        <span class="divine-key-letters">LOVE</span>
+                    </button>
+                    <button class="keypad-button divine-key-btn" data-val="0">
+                        <span class="divine-key-num">0</span>
+                        <span class="divine-key-letters">+</span>
+                    </button>
+                    <button class="keypad-button divine-key-btn backspace-btn" data-val="backspace"
+                        aria-label="Backspace">
+                        <span class="divine-key-num">⌫</span>
+                        <span class="divine-key-letters">DEL</span>
+                    </button>
+                </div>
+
+                <p class="divine-hint" style="z-index: 1; position: relative;">Six strokes of destiny await ��</p>
             </div>
         </div>
     </div>
@@ -1461,7 +2155,7 @@
             if (!mBtn) return;
             let isDragging = false;
             let offsetX, offsetY;
-            
+
             // Initial safeguard position
             mBtn.style.position = 'fixed';
             mBtn.style.zIndex = '999999';
@@ -1477,7 +2171,7 @@
             const onStart = (e) => {
                 // Determine whether they are actually trying to pause/play (short click) or drag
                 // So we listen, but button click listener inherently takes over clicks smoothly!
-                if(e.target.closest('.gramophone-btn')) {
+                if (e.target.closest('.gramophone-btn')) {
                     isDragging = true;
                     const pos = e.touches ? e.touches[0] : e;
                     const rect = mBtn.getBoundingClientRect();
@@ -1492,14 +2186,14 @@
             };
 
             mBtn.addEventListener('mousedown', onStart);
-            mBtn.addEventListener('touchstart', onStart, {passive: false});
+            mBtn.addEventListener('touchstart', onStart, { passive: false });
             document.addEventListener('mousemove', onMove);
-            document.addEventListener('touchmove', onMove, {passive: false});
+            document.addEventListener('touchmove', onMove, { passive: false });
             document.addEventListener('mouseup', onEnd);
             document.addEventListener('touchend', onEnd);
         });
     </script>
-    
+
     <!-- Load the photo catalog -->
     <script src="photo_data.js"></script>
     <!-- Core logic script -->

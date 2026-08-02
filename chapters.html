@@ -17,57 +17,200 @@
     <style>
         /* Vrindavan Colors override */
         :root {
-            --rose: #FF4D6D; --gold: #F4C430; --bg: #0B192C; --bg2: #1A3636;
-            --vr-moon: #F4F1E1; --vr-green: #0E271B; --vr-blue: #1A0B2E;
+            --rose: #D4AF37;
+            /* Gold */
+            --rose-dk: #B8860B;
+            /* Dark Gold */
+            --gold: #F4C430;
+            /* Cosmic Gold */
+            --gold-lt: #FFF8DC;
+            /* Moonlight */
+            --blush: #FFEFD5;
+            /* Stars */
+            --lilac: #E0C895;
+            /* Ivory */
+            --bg: #020813;
+            /* Deep Cosmic Night */
+            --bg2: #0d1b2a;
+            /* Midnight Blue */
+            --surface: rgba(8, 15, 30, 0.45);
+            /* Ethereal Glass */
+            --border: rgba(212, 175, 55, 0.3);
+            /* Soft Gold Thread */
+            --text: #FDF6E3;
+            --muted: #E0C895;
+            --shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+            --shadow-g: 0 0 30px rgba(244, 196, 48, 0.2) !important;
         }
-        body { background: var(--bg); background-image: radial-gradient(circle at top right, var(--vr-blue), var(--bg)); }
-        
+
+        body {
+            background: var(--bg);
+            background-image: radial-gradient(circle at top right, var(--bg2), var(--bg));
+        }
+
+        /* Unify sub-themes into cosmic/divine palettes */
+        .memory-section {
+            background: linear-gradient(180deg, rgba(212, 175, 55, 0.06) 0%, transparent 100%) !important;
+        }
+
+        .section-tag {
+            color: var(--gold) !important;
+            border-color: rgba(212, 175, 55, 0.4) !important;
+            background: rgba(212, 175, 55, 0.1) !important;
+        }
+
+        /* Add glassmorphic backdrop filter overrides for manuscript cards */
+        .manuscript-card,
+        .story-card,
+        .day-card,
+        .photo-folder {
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+        }
+
+        /* Vrindavan Starry Night Overlay */
+        #particles-bg {
+            background: #020813 !important;
+            background-image:
+                radial-gradient(1.5px 1.5px at 15% 15%, rgba(255, 255, 255, 0.8), transparent),
+                radial-gradient(2px 2px at 75% 25%, rgba(244, 196, 48, 0.9), transparent),
+                radial-gradient(2.5px 2.5px at 45% 65%, rgba(255, 255, 255, 0.6), transparent),
+                radial-gradient(1.5px 1.5px at 85% 85%, rgba(244, 196, 48, 0.7), transparent),
+                radial-gradient(circle at 50% 0%, #0d1b2a 0%, #020813 100%) !important;
+            animation: starTwinkle 8s infinite alternate;
+        }
+
+        .particle {
+            background-color: var(--gold) !important;
+            box-shadow: 0 0 10px var(--gold) !important;
+        }
+
+        @keyframes starTwinkle {
+            0% {
+                opacity: 0.6;
+            }
+
+            100% {
+                opacity: 1;
+                filter: brightness(1.5);
+            }
+        }
+
         /* Magical Hanging Polaroids */
         .magical-gallery-ropes {
-            position: relative; padding-top: 120px; display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; margin-top: 40px;
+            position: relative;
+            padding-top: 120px;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-top: 40px;
         }
+
         .hanging-polaroid {
-            position: relative; width: 220px; background: #FFF9F2; padding: 12px 12px 45px 12px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.6);
-            transform-origin: top center; z-index: 5;
-            border-radius: 4px; border: 1px solid rgba(200,150,100,0.2);
+            position: relative;
+            width: 220px;
+            background: #FFF9F2;
+            padding: 12px 12px 45px 12px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
+            transform-origin: top center;
+            z-index: 5;
+            border-radius: 4px;
+            border: 1px solid rgba(200, 150, 100, 0.2);
             transition: all 0.4s ease;
         }
-        .hanging-polaroid.delay-1 { animation: swingPolaroid 5s ease-in-out infinite alternate; animation-delay: 0.5s; }
-        .hanging-polaroid.delay-2 { animation: swingPolaroid 4.5s ease-in-out infinite alternate-reverse; animation-delay: 1.2s; }
-        .hanging-polaroid.delay-3 { animation: swingPolaroid 5.2s ease-in-out infinite alternate; animation-delay: 0.2s; }
-        
+
+        .hanging-polaroid.delay-1 {
+            animation: swingPolaroid 5s ease-in-out infinite alternate;
+            animation-delay: 0.5s;
+        }
+
+        .hanging-polaroid.delay-2 {
+            animation: swingPolaroid 4.5s ease-in-out infinite alternate-reverse;
+            animation-delay: 1.2s;
+        }
+
+        .hanging-polaroid.delay-3 {
+            animation: swingPolaroid 5.2s ease-in-out infinite alternate;
+            animation-delay: 0.2s;
+        }
+
         .hanging-polaroid::before {
-            content:''; position:absolute; top: -120px; left: 50%;
-            width: 2px; height: 120px; background: linear-gradient(to bottom, rgba(244,196,48,0), rgba(244,196,48,0.8));
+            content: '';
+            position: absolute;
+            top: -120px;
+            left: 50%;
+            width: 2px;
+            height: 120px;
+            background: linear-gradient(to bottom, rgba(244, 196, 48, 0), rgba(244, 196, 48, 0.8));
         }
+
         .hanging-polaroid::after {
-            content: '🌸'; position:absolute; top: -18px; left: 50%; transform: translateX(-50%);
-            font-size: 28px; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.4)); z-index:10;
+            content: '🌸';
+            position: absolute;
+            top: -18px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 28px;
+            filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.4));
+            z-index: 10;
         }
-        .hanging-polaroid img { width: 100%; height: auto; border-radius: 2px; filter: sepia(0.2) contrast(1.1); }
+
+        .hanging-polaroid img {
+            width: 100%;
+            height: auto;
+            border-radius: 2px;
+            filter: sepia(0.2) contrast(1.1);
+        }
+
         .polaroid-caption {
-            position: absolute; bottom: 12px; left: 0; width: 100%; text-align: center;
-            font-family: 'Dancing Script', cursive; font-size: 1.3rem; color: #4A2F1D; z-index: 6;
+            position: absolute;
+            bottom: 12px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.3rem;
+            color: #4A2F1D;
+            z-index: 6;
         }
+
         .hanging-polaroid:hover {
-            transform: scale(1.1) rotate(0deg) !important; z-index: 20; animation-play-state: paused;
-            box-shadow: 0 30px 60px rgba(244,196,48,0.3);
+            transform: scale(1.1) rotate(0deg) !important;
+            z-index: 20;
+            animation-play-state: paused;
+            box-shadow: 0 30px 60px rgba(244, 196, 48, 0.3);
         }
+
         @keyframes swingPolaroid {
-            0% { transform: rotate(-6deg); }
-            100% { transform: rotate(6deg); }
+            0% {
+                transform: rotate(-6deg);
+            }
+
+            100% {
+                transform: rotate(6deg);
+            }
         }
-        
+
         /* Ancient Manuscript Card */
         .manuscript-card {
-            background: rgba(255, 249, 242, 0.05); backdrop-filter: blur(15px);
-            border: 1px solid rgba(244, 196, 48, 0.3); border-radius: 12px;
-            padding: 40px; box-shadow: 0 15px 35px rgba(0,0,0,0.5), inset 0 0 40px rgba(244,196,48,0.05);
-            position: relative; margin-bottom: 40px;
+            background: rgba(255, 249, 242, 0.05);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(244, 196, 48, 0.3);
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), inset 0 0 40px rgba(244, 196, 48, 0.05);
+            position: relative;
+            margin-bottom: 40px;
         }
+
         .manuscript-card::before {
-            content:''; position:absolute; inset:5px; border: 1px dashed rgba(244,196,48,0.4); border-radius: 8px; pointer-events: none;
+            content: '';
+            position: absolute;
+            inset: 5px;
+            border: 1px dashed rgba(244, 196, 48, 0.4);
+            border-radius: 8px;
+            pointer-events: none;
         }
     </style>
 </head>
@@ -128,8 +271,7 @@
                 <div class="hero-stacked-gallery reveal-up" id="hero-stack">
                     <img src="photos/top-images/WhatsApp_Image_2026-07-04_at_12.17.14_PM.jpeg" alt="Top Image 1"
                         class="stack-photo">
-                    <img src="photos/new_uploads/media__1785662456012.jpg" alt="Top Image 4"
-                        class="stack-photo">
+                    <img src="photos/new_uploads/media__1785662456012.jpg" alt="Top Image 4" class="stack-photo">
                     <img src="photos/top-images/WhatsApp_Image_2026-07-04_at_12.17.40_PM.jpeg" alt="Top Image 2"
                         class="stack-photo">
                     <img src="photos/top-images/WhatsApp_Image_2026-07-04_at_12.18.07_PM.jpeg" alt="Top Image 3"
@@ -182,9 +324,12 @@
         <!-- ===== SECTION 1: LOVE CONFESSION DAY ===== -->
         <section id="love-day" class="memory-section theme-love">
             <div class="chapter-ambient" aria-hidden="true">
-                <span class="ca-dot" style="width:8px;height:8px;background:rgba(255,107,129,0.5);left:8%;top:40%;animation-delay:0s;animation-duration:14s;"></span>
-                <span class="ca-dot" style="width:5px;height:5px;background:rgba(255,179,193,0.4);left:90%;top:60%;animation-delay:3s;animation-duration:11s;"></span>
-                <span class="ca-dot" style="width:10px;height:10px;background:rgba(244,196,48,0.3);left:50%;top:80%;animation-delay:6s;animation-duration:16s;"></span>
+                <span class="ca-dot"
+                    style="width:8px;height:8px;background:rgba(255,107,129,0.5);left:8%;top:40%;animation-delay:0s;animation-duration:14s;"></span>
+                <span class="ca-dot"
+                    style="width:5px;height:5px;background:rgba(255,179,193,0.4);left:90%;top:60%;animation-delay:3s;animation-duration:11s;"></span>
+                <span class="ca-dot"
+                    style="width:10px;height:10px;background:rgba(244,196,48,0.3);left:50%;top:80%;animation-delay:6s;animation-duration:16s;"></span>
             </div>
             <div class="section-inner gs-reveal" data-chapter="01">
                 <div class="section-tag">Chapter 01: The Divine Courtyard</div>
@@ -193,7 +338,11 @@
 
                 <div class="manuscript-card">
                     <div class="story-text-block">
-                        <div class="story-icon">🪷</div>
+                        <div
+                            style="width: 80px; height: 80px; margin: 0 auto 20px; border-radius: 50%; overflow: hidden; box-shadow: var(--shadow-g); border: 2px solid var(--border);">
+                            <img src="photos/first page karamma/WhatsApp_Image_2026-06-28_at_12.22.53_PM.jpeg"
+                                style="width: 100%; height: 100%; object-fit: cover;" alt="Karamma">
+                        </div>
                         <h3>When Two Hearts Spoke</h3>
                         <p style="color: var(--vr-moon);">
                             There are moments in life so rare that the universe itself seems to hold its breath.
@@ -215,7 +364,8 @@
                         <div class="polaroid-caption">That Smile ✨</div>
                     </div>
                     <div class="hanging-polaroid delay-3">
-                        <img src="photos/first page karamma/WhatsApp_Image_2026-06-28_at_12.22.53_PM_1_.jpeg" alt="Memory">
+                        <img src="photos/first page karamma/WhatsApp_Image_2026-06-28_at_12.22.53_PM_1_.jpeg"
+                            alt="Memory">
                         <div class="polaroid-caption">Forever 💛</div>
                     </div>
                 </div>
@@ -225,8 +375,10 @@
         <!-- ===== SECTION 2: FIRST MEET — VIZAG TRIP ===== -->
         <section id="first-meet" class="memory-section theme-beach">
             <div class="chapter-ambient" aria-hidden="true">
-                <span class="ca-dot" style="width:7px;height:7px;background:rgba(72,201,176,0.5);left:5%;top:30%;animation-delay:1s;animation-duration:13s;"></span>
-                <span class="ca-dot" style="width:9px;height:9px;background:rgba(0,210,200,0.35);left:88%;top:55%;animation-delay:4s;animation-duration:15s;"></span>
+                <span class="ca-dot"
+                    style="width:7px;height:7px;background:rgba(72,201,176,0.5);left:5%;top:30%;animation-delay:1s;animation-duration:13s;"></span>
+                <span class="ca-dot"
+                    style="width:9px;height:9px;background:rgba(0,210,200,0.35);left:88%;top:55%;animation-delay:4s;animation-duration:15s;"></span>
             </div>
             <div class="section-inner" data-chapter="02">
                 <div class="section-tag">Chapter 02</div>
@@ -238,7 +390,11 @@
                 <div class="day-card reveal-up">
                     <div class="day-badge">Day 1 — Feb 7</div>
                     <div class="day-content">
-                        <div class="day-icon">🛕</div>
+                        <div
+                            style="flex-shrink: 0; width: 65px; height: 65px; border-radius: 50%; overflow: hidden; box-shadow: var(--shadow-g); border: 2px solid var(--border);">
+                            <img src="photos/first-meet-vizag/temple/WhatsApp_Image_2026-07-04_at_11.53.33_AM.jpeg"
+                                style="width: 100%; height: 100%; object-fit: cover;" alt="Karamma Temple">
+                        </div>
                         <div class="day-text">
                             <h3>Simhachalam Temple, Visakhapatnam</h3>
                             <p>
@@ -256,7 +412,11 @@
                 <div class="day-card reveal-up">
                     <div class="day-badge">Day 2 — Feb 8</div>
                     <div class="day-content">
-                        <div class="day-icon">🌊</div>
+                        <div
+                            style="flex-shrink: 0; width: 65px; height: 65px; border-radius: 50%; overflow: hidden; box-shadow: var(--shadow-g); border: 2px solid var(--border);">
+                            <img src="photos/fav-pics/WhatsApp_Image_2026-06-28_at_12.22.53_PM_7_.jpeg"
+                                style="width: 100%; height: 100%; object-fit: cover;" alt="Karamma Beach">
+                        </div>
                         <div class="day-text">
                             <h3>Vizag Beaches & Parks</h3>
                             <p>
@@ -303,8 +463,10 @@
         <!-- ===== SECTION 3: FAVORITE PICS OF HER ===== -->
         <section id="fav-pics" class="memory-section theme-sunset">
             <div class="chapter-ambient" aria-hidden="true">
-                <span class="ca-dot" style="width:9px;height:9px;background:rgba(244,196,48,0.5);left:10%;top:50%;animation-delay:2s;animation-duration:14s;"></span>
-                <span class="ca-dot" style="width:6px;height:6px;background:rgba(255,200,80,0.4);left:85%;top:35%;animation-delay:5s;animation-duration:12s;"></span>
+                <span class="ca-dot"
+                    style="width:9px;height:9px;background:rgba(244,196,48,0.5);left:10%;top:50%;animation-delay:2s;animation-duration:14s;"></span>
+                <span class="ca-dot"
+                    style="width:6px;height:6px;background:rgba(255,200,80,0.4);left:85%;top:35%;animation-delay:5s;animation-duration:12s;"></span>
             </div>
             <div class="section-inner" data-chapter="03">
                 <div class="section-tag">Chapter 03</div>
@@ -313,8 +475,10 @@
 
                 <div class="story-card vertical-card reveal-up">
                     <div class="story-text-block">
-                        <div style="width: 75px; height: 75px; margin: 0 auto 20px; border-radius: 50%; overflow: hidden; box-shadow: 0 10px 20px rgba(244,196,48,0.25); border: 2px solid rgba(244,196,48,0.6);">
-                            <img src="photos/new_uploads/media__1785662456084.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="Karamma Glow">
+                        <div
+                            style="width: 80px; height: 80px; margin: 0 auto 20px; border-radius: 50%; overflow: hidden; box-shadow: var(--shadow-g); border: 2px solid var(--border);">
+                            <img src="photos/new_uploads/media__1785662456084.jpg"
+                                style="width: 100%; height: 100%; object-fit: cover;" alt="Karamma Glow">
                         </div>
                         <h3>More Beautiful Than Any Sunset</h3>
                         <p>
@@ -345,8 +509,10 @@
         <!-- ===== SECTION 4: SECOND MEET — CAFE ===== -->
         <section id="second-meet" class="memory-section theme-cafe">
             <div class="chapter-ambient" aria-hidden="true">
-                <span class="ca-dot" style="width:8px;height:8px;background:rgba(210,166,121,0.5);left:12%;top:45%;animation-delay:0s;animation-duration:12s;"></span>
-                <span class="ca-dot" style="width:6px;height:6px;background:rgba(255,179,80,0.4);left:80%;top:65%;animation-delay:4s;animation-duration:15s;"></span>
+                <span class="ca-dot"
+                    style="width:8px;height:8px;background:rgba(210,166,121,0.5);left:12%;top:45%;animation-delay:0s;animation-duration:12s;"></span>
+                <span class="ca-dot"
+                    style="width:6px;height:6px;background:rgba(255,179,80,0.4);left:80%;top:65%;animation-delay:4s;animation-duration:15s;"></span>
             </div>
             <div class="section-inner" data-chapter="04">
                 <div class="section-tag">Chapter 04</div>
@@ -355,8 +521,10 @@
 
                 <div class="story-card vertical-card reveal-up">
                     <div class="story-text-block">
-                        <div style="width: 75px; height: 75px; margin: 0 auto 20px; border-radius: 50%; overflow: hidden; box-shadow: 0 10px 20px rgba(255,179,128,0.25); border: 2px solid rgba(255,179,128,0.6);">
-                            <img src="photos/new_uploads/media__1785662456048.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="Karamma Cafe">
+                        <div
+                            style="width: 80px; height: 80px; margin: 0 auto 20px; border-radius: 50%; overflow: hidden; box-shadow: var(--shadow-g); border: 2px solid var(--border);">
+                            <img src="photos/new_uploads/media__1785662456048.jpg"
+                                style="width: 100%; height: 100%; object-fit: cover;" alt="Karamma Cafe">
                         </div>
                         <h3>The Cafe Chapter</h3>
                         <p>
@@ -392,8 +560,10 @@
         <!-- ===== SECTION 5: THIRD MEET — VIZAG TTD & BEACHES ===== -->
         <section id="third-meet" class="memory-section theme-beach">
             <div class="chapter-ambient" aria-hidden="true">
-                <span class="ca-dot" style="width:7px;height:7px;background:rgba(72,201,176,0.45);left:6%;top:55%;animation-delay:2s;animation-duration:13s;"></span>
-                <span class="ca-dot" style="width:9px;height:9px;background:rgba(0,210,200,0.35);left:88%;top:55%;animation-delay:4s;animation-duration:15s;"></span>
+                <span class="ca-dot"
+                    style="width:7px;height:7px;background:rgba(72,201,176,0.45);left:6%;top:55%;animation-delay:2s;animation-duration:13s;"></span>
+                <span class="ca-dot"
+                    style="width:9px;height:9px;background:rgba(0,210,200,0.35);left:88%;top:55%;animation-delay:4s;animation-duration:15s;"></span>
             </div>
             <div class="section-inner" data-chapter="05">
                 <div class="section-tag">Chapter 05</div>
@@ -402,7 +572,11 @@
 
                 <div class="story-card vertical-card reveal-up">
                     <div class="story-text-block">
-                        <div class="story-icon">🌅</div>
+                        <div
+                            style="width: 80px; height: 80px; margin: 0 auto 20px; border-radius: 50%; overflow: hidden; box-shadow: var(--shadow-g); border: 2px solid var(--border);">
+                            <img src="photos/new_uploads/media__1785662456055.jpg"
+                                style="width: 100%; height: 100%; object-fit: cover;" alt="Karamma Horizons">
+                        </div>
                         <h3>Blessings & Blue Horizons</h3>
                         <p>
                             Visakhapatnam called us back, and we answered. Our third meeting brought Bunny and Karamma
@@ -436,8 +610,10 @@
         <!-- ===== SECTION 6: FOURTH MEET — MUTUAL WEDDING ===== -->
         <section id="fourth-meet" class="memory-section theme-wedding">
             <div class="chapter-ambient" aria-hidden="true">
-                <span class="ca-dot" style="width:8px;height:8px;background:rgba(218,112,214,0.45);left:7%;top:40%;animation-delay:1s;animation-duration:14s;"></span>
-                <span class="ca-dot" style="width:6px;height:6px;background:rgba(200,150,255,0.35);left:90%;top:50%;animation-delay:5s;animation-duration:11s;"></span>
+                <span class="ca-dot"
+                    style="width:8px;height:8px;background:rgba(218,112,214,0.45);left:7%;top:40%;animation-delay:1s;animation-duration:14s;"></span>
+                <span class="ca-dot"
+                    style="width:6px;height:6px;background:rgba(200,150,255,0.35);left:90%;top:50%;animation-delay:5s;animation-duration:11s;"></span>
             </div>
             <div class="section-inner" data-chapter="06">
                 <div class="section-tag">Chapter 06</div>
@@ -446,7 +622,11 @@
 
                 <div class="story-card vertical-card reveal-up">
                     <div class="story-text-block">
-                        <div class="story-icon">💒</div>
+                        <div
+                            style="width: 80px; height: 80px; margin: 0 auto 20px; border-radius: 50%; overflow: hidden; box-shadow: var(--shadow-g); border: 2px solid var(--border);">
+                            <img src="photos/top-images/WhatsApp_Image_2026-07-04_at_12.17.40_PM.jpeg"
+                                style="width: 100%; height: 100%; object-fit: cover;" alt="Karamma Wedding">
+                        </div>
                         <h3>A Wedding We Both Remember Differently</h3>
                         <p>
                             Bunny's brother's wedding day was one of the most joyous days for our family —
@@ -481,8 +661,10 @@
         <!-- ===== SECTION 7: VIDEO CALL SCREENSHOTS ===== -->
         <section id="video-calls" class="memory-section theme-night">
             <div class="chapter-ambient" aria-hidden="true">
-                <span class="ca-dot" style="width:7px;height:7px;background:rgba(100,149,237,0.5);left:8%;top:60%;animation-delay:0s;animation-duration:16s;"></span>
-                <span class="ca-dot" style="width:5px;height:5px;background:rgba(150,180,255,0.35);left:85%;top:30%;animation-delay:4s;animation-duration:12s;"></span>
+                <span class="ca-dot"
+                    style="width:7px;height:7px;background:rgba(100,149,237,0.5);left:8%;top:60%;animation-delay:0s;animation-duration:16s;"></span>
+                <span class="ca-dot"
+                    style="width:5px;height:5px;background:rgba(150,180,255,0.35);left:85%;top:30%;animation-delay:4s;animation-duration:12s;"></span>
             </div>
             <div class="section-inner" data-chapter="07">
                 <div class="section-tag">Chapter 07</div>
@@ -491,7 +673,11 @@
 
                 <div class="story-card vertical-card reveal-up">
                     <div class="story-text-block">
-                        <div class="story-icon">📱</div>
+                        <div
+                            style="width: 80px; height: 80px; margin: 0 auto 20px; border-radius: 50%; overflow: hidden; box-shadow: var(--shadow-g); border: 2px solid var(--border);">
+                            <img src="photos/new_uploads/media__1785662456012.jpg"
+                                style="width: 100%; height: 100%; object-fit: cover;" alt="Karamma Calls">
+                        </div>
                         <h3>Every Late Night Call Was Worth It</h3>
                         <p>
                             Distance can't erase what Bunny and Karamma have. Every video call — the late night ones,
@@ -544,8 +730,10 @@
         <!-- ===== SECTION 8: FLOWER COLLECTION ===== -->
         <section id="flowers" class="memory-section theme-flowers">
             <div class="chapter-ambient" aria-hidden="true">
-                <span class="ca-dot" style="width:9px;height:9px;background:rgba(220,20,60,0.45);left:5%;top:45%;animation-delay:1s;animation-duration:15s;"></span>
-                <span class="ca-dot" style="width:6px;height:6px;background:rgba(255,80,100,0.35);left:92%;top:60%;animation-delay:6s;animation-duration:13s;"></span>
+                <span class="ca-dot"
+                    style="width:9px;height:9px;background:rgba(220,20,60,0.45);left:5%;top:45%;animation-delay:1s;animation-duration:15s;"></span>
+                <span class="ca-dot"
+                    style="width:6px;height:6px;background:rgba(255,80,100,0.35);left:92%;top:60%;animation-delay:6s;animation-duration:13s;"></span>
             </div>
             <div class="section-inner" data-chapter="08">
                 <div class="section-tag">Chapter 08</div>
@@ -554,7 +742,11 @@
 
                 <div class="story-card vertical-card reveal-up">
                     <div class="story-text-block">
-                        <div class="story-icon">🌹</div>
+                        <div
+                            style="width: 80px; height: 80px; margin: 0 auto 20px; border-radius: 50%; overflow: hidden; box-shadow: var(--shadow-g); border: 2px solid var(--border);">
+                            <img src="photos/top-images/WhatsApp_Image_2026-07-04_at_12.18.07_PM.jpeg"
+                                style="width: 100%; height: 100%; object-fit: cover;" alt="Karamma Flowers">
+                        </div>
                         <h3>Daily Blooms, Daily Love</h3>
                         <p>
                             Every morning Bunny thought of his Karamma, he sent a flower — not because he had to,
@@ -590,8 +782,10 @@
         <!-- ===== SECTION 9: THE JOURNEY THAT BROUGHT US TOGETHER ===== -->
         <section id="journey" class="memory-section theme-sunset">
             <div class="chapter-ambient" aria-hidden="true">
-                <span class="ca-dot" style="width:8px;height:8px;background:rgba(244,196,48,0.5);left:6%;top:50%;animation-delay:2s;animation-duration:14s;"></span>
-                <span class="ca-dot" style="width:6px;height:6px;background:rgba(255,200,0,0.4);left:88%;top:40%;animation-delay:5s;animation-duration:11s;"></span>
+                <span class="ca-dot"
+                    style="width:8px;height:8px;background:rgba(244,196,48,0.5);left:6%;top:50%;animation-delay:2s;animation-duration:14s;"></span>
+                <span class="ca-dot"
+                    style="width:6px;height:6px;background:rgba(255,200,0,0.4);left:88%;top:40%;animation-delay:5s;animation-duration:11s;"></span>
             </div>
             <div class="section-inner" data-chapter="09">
                 <div class="section-tag">Chapter 09</div>
@@ -600,7 +794,11 @@
 
                 <div class="story-card vertical-card reveal-up">
                     <div class="story-text-block">
-                        <div class="story-icon">🚂</div>
+                        <div
+                            style="width: 80px; height: 80px; margin: 0 auto 20px; border-radius: 50%; overflow: hidden; box-shadow: var(--shadow-g); border: 2px solid var(--border);">
+                            <img src="photos/first page karamma/WhatsApp_Image_2026-06-28_at_12.22.53_PM_1_.jpeg"
+                                style="width: 100%; height: 100%; object-fit: cover;" alt="Karamma Journey">
+                        </div>
                         <h3>Two Cities, One Destination</h3>
                         <p>
                             To see you, no distance was too long. Bunny set off from Bengaluru, traveling by bus all the
@@ -763,7 +961,7 @@
 
     <!-- Audio -->
     <div style="display:none;">
-        <audio id="bg-music" src="assets/music/Koyilamma%20(PenduJatt.Com.Se).mp3" loop></audio>
+        <audio id="bg-music" src="assets/music/nuvvunte-chaley-320-koshalworldcom_FQJnqjGz.mp3" loop></audio>
     </div>
 
     <script src="photo_data.js"></script>
