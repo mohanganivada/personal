@@ -414,6 +414,7 @@ body {
     min-height: 100vh;
     display: none;
     z-index: 10;
+    overflow-x: hidden;
 }
 
 .page-container.active {
@@ -426,6 +427,7 @@ body {
 #login-experience {
     flex-wrap: wrap;
     align-items: stretch;
+    overflow-x: hidden;
 }
 
 .login-left,

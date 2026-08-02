@@ -184,10 +184,10 @@
             @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Cinzel:wght@400;600&display=swap');
 
             .cinematic-vrindavan {
-                position: absolute; top: 0; left: 0; width: 100vw; min-height: 100vh; height: 100%;
+                position: absolute; top: 0; left: 0; width: 100%; min-height: 100dvh; height: 100%;
                 background: #020813; background-image: radial-gradient(circle at 50% 0%, #0d1b2a 0%, #020813 100%);
-                overflow-x: hidden; overflow-y: auto; perspective: 2000px;
-                z-index: 50; transition: transform 3s cubic-bezier(0.4, 0, 0.2, 1), opacity 3s, filter 3s;
+                overflow: hidden; perspective: 2000px;
+                z-index: 50; transition: transform 2s cubic-bezier(0.4, 0, 0.2, 1), opacity 1.5s, filter 1.5s;
                 font-family: 'Cormorant Garamond', serif;
                 color: #FDF6E3;
                 display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
@@ -253,7 +253,7 @@
             .vr-temple-svg { width: 100%; height: 100%; object-fit: cover; fill: #040A18; filter: drop-shadow(0 -10px 30px rgba(0,0,0,0.8)); }
             
             .vr-yamuna-river {
-                height: 32vh; width: 110vw; left: -5vw; position: relative;
+                height: 32vh; width: 100%; position: relative;
                 background: linear-gradient(to bottom, #010612 0%, #0B192C 100%);
                 border-top: 1px solid rgba(255,233,184,0.1);
                 overflow: hidden; pointer-events: none;
@@ -552,7 +552,6 @@
 
                         const gBtn = document.getElementById('floating-music-btn');
                         if (gBtn && !gBtn.classList.contains('playing')) gBtn.click();
-
                         setTimeout(() => {
                             gate.style.transform = 'scale(3) translateY(25%)'; gate.style.opacity = '0'; gate.style.filter = 'blur(20px)';
                         }, 500);
@@ -561,7 +560,7 @@
                             gate.classList.remove('active');
                             document.getElementById('login-experience').classList.add('active');
                             window.scrollTo(0, 0); 
-                        }, 2200);
+                        }, 1000);
 
                     } else {
                         err.style.opacity = '1';
