@@ -251,29 +251,66 @@ document.addEventListener('DOMContentLoaded', () => {
     let musicOn = false;
     let musicInited = false;
 
-    if (musicBtn) musicBtn.style.display = 'none';
+    if (musicBtn) musicBtn.style.display = 'flex'; // Restore button visibility
 
-    function toggleMusic() {
+    function initMusic() {
         if (!musicInited && bgMusic) {
             bgMusic.volume = 0.4;
             bgMusic.play().then(() => {
                 musicInited = true;
                 musicOn = true;
+                if(musicBtn) {
+                    musicBtn.querySelector('.music-text').textContent = 'Music On';
+                    musicBtn.style.borderColor = '#ff4d6d';
+                }
             }).catch(() => { });
-        } else if (musicInited) {
-            if (musicOn) {
-                bgMusic.pause();
-                musicOn = false;
-            } else {
-                bgMusic.play().catch(() => {});
-                musicOn = true;
-            }
         }
     }
 
-    // Toggle blindly on any tap or click
-    document.addEventListener('click', toggleMusic);
-    document.addEventListener('touchstart', toggleMusic);
+    // Attempt to start music smoothly on very first interaction anywhere
+    document.addEventListener('click', initMusic, { once: true });
+    document.addEventListener('touchstart', initMusic, { once: true });
+    document.addEventListener('scroll', initMusic, { once: true });
+
+    if (musicBtn && bgMusic) {
+        musicBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (musicBtn.classList.contains('visible')) {
+                if (!musicInited) {
+                    initMusic();
+                } else if (musicOn) {
+                    bgMusic.pause();
+                    musicOn = false;
+                } else {
+                    bgMusic.play().catch(() => {});
+                    musicOn = true;
+                }
+                musicBtn.querySelector('.music-text').textContent = musicOn ? 'Music On' : 'Music Off';
+                musicBtn.style.borderColor = musicOn ? '#ff4d6d' : 'rgba(255,77,109,0.4)';
+            } else {
+                musicBtn.classList.add('visible'); // If tucked away, first tap opens it
+            }
+        });
+
+        // Swipe logic for sliding out/in
+        let touchStartX = 0;
+        document.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].clientX;
+        }, {passive: true});
+        
+        document.addEventListener('touchend', e => {
+            const touchEndX = e.changedTouches[0].clientX;
+            const dist = touchEndX - touchStartX;
+            // Swipe right from left edge pulls it out
+            if (dist > 40 && touchStartX < 50) { 
+                musicBtn.classList.add('visible');
+            } 
+            // Swipe left anywhere (or on button) tucks it away
+            else if (dist < -40 && musicBtn.classList.contains('visible')) {
+                musicBtn.classList.remove('visible');
+            }
+        }, {passive: true});
+    }
 
     /* Hero Photos Auto-Cycler */
     (function initHeroPhotosCycler() {
