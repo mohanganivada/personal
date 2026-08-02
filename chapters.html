@@ -11,6 +11,65 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Outfit:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
         rel="stylesheet">
+    <!-- Animation Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <style>
+        /* Vrindavan Colors override */
+        :root {
+            --rose: #FF4D6D; --gold: #F4C430; --bg: #0B192C; --bg2: #1A3636;
+            --vr-moon: #F4F1E1; --vr-green: #0E271B; --vr-blue: #1A0B2E;
+        }
+        body { background: var(--bg); background-image: radial-gradient(circle at top right, var(--vr-blue), var(--bg)); }
+        
+        /* Magical Hanging Polaroids */
+        .magical-gallery-ropes {
+            position: relative; padding-top: 120px; display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; margin-top: 40px;
+        }
+        .hanging-polaroid {
+            position: relative; width: 220px; background: #FFF9F2; padding: 12px 12px 45px 12px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.6);
+            transform-origin: top center; z-index: 5;
+            border-radius: 4px; border: 1px solid rgba(200,150,100,0.2);
+            transition: all 0.4s ease;
+        }
+        .hanging-polaroid.delay-1 { animation: swingPolaroid 5s ease-in-out infinite alternate; animation-delay: 0.5s; }
+        .hanging-polaroid.delay-2 { animation: swingPolaroid 4.5s ease-in-out infinite alternate-reverse; animation-delay: 1.2s; }
+        .hanging-polaroid.delay-3 { animation: swingPolaroid 5.2s ease-in-out infinite alternate; animation-delay: 0.2s; }
+        
+        .hanging-polaroid::before {
+            content:''; position:absolute; top: -120px; left: 50%;
+            width: 2px; height: 120px; background: linear-gradient(to bottom, rgba(244,196,48,0), rgba(244,196,48,0.8));
+        }
+        .hanging-polaroid::after {
+            content: '🌸'; position:absolute; top: -18px; left: 50%; transform: translateX(-50%);
+            font-size: 28px; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.4)); z-index:10;
+        }
+        .hanging-polaroid img { width: 100%; height: auto; border-radius: 2px; filter: sepia(0.2) contrast(1.1); }
+        .polaroid-caption {
+            position: absolute; bottom: 12px; left: 0; width: 100%; text-align: center;
+            font-family: 'Dancing Script', cursive; font-size: 1.3rem; color: #4A2F1D; z-index: 6;
+        }
+        .hanging-polaroid:hover {
+            transform: scale(1.1) rotate(0deg) !important; z-index: 20; animation-play-state: paused;
+            box-shadow: 0 30px 60px rgba(244,196,48,0.3);
+        }
+        @keyframes swingPolaroid {
+            0% { transform: rotate(-6deg); }
+            100% { transform: rotate(6deg); }
+        }
+        
+        /* Ancient Manuscript Card */
+        .manuscript-card {
+            background: rgba(255, 249, 242, 0.05); backdrop-filter: blur(15px);
+            border: 1px solid rgba(244, 196, 48, 0.3); border-radius: 12px;
+            padding: 40px; box-shadow: 0 15px 35px rgba(0,0,0,0.5), inset 0 0 40px rgba(244,196,48,0.05);
+            position: relative; margin-bottom: 40px;
+        }
+        .manuscript-card::before {
+            content:''; position:absolute; inset:5px; border: 1px dashed rgba(244,196,48,0.4); border-radius: 8px; pointer-events: none;
+        }
+    </style>
 </head>
 
 <body>
@@ -69,6 +128,8 @@
                 <div class="hero-stacked-gallery reveal-up" id="hero-stack">
                     <img src="photos/top-images/WhatsApp_Image_2026-07-04_at_12.17.14_PM.jpeg" alt="Top Image 1"
                         class="stack-photo">
+                    <img src="photos/new_uploads/media__1785662456012.jpg" alt="Top Image 4"
+                        class="stack-photo">
                     <img src="photos/top-images/WhatsApp_Image_2026-07-04_at_12.17.40_PM.jpeg" alt="Top Image 2"
                         class="stack-photo">
                     <img src="photos/top-images/WhatsApp_Image_2026-07-04_at_12.18.07_PM.jpeg" alt="Top Image 3"
@@ -120,41 +181,42 @@
 
         <!-- ===== SECTION 1: LOVE CONFESSION DAY ===== -->
         <section id="love-day" class="memory-section theme-love">
-            <div class="section-inner">
-                <div class="section-tag">Chapter 01</div>
+            <div class="chapter-ambient" aria-hidden="true">
+                <span class="ca-dot" style="width:8px;height:8px;background:rgba(255,107,129,0.5);left:8%;top:40%;animation-delay:0s;animation-duration:14s;"></span>
+                <span class="ca-dot" style="width:5px;height:5px;background:rgba(255,179,193,0.4);left:90%;top:60%;animation-delay:3s;animation-duration:11s;"></span>
+                <span class="ca-dot" style="width:10px;height:10px;background:rgba(244,196,48,0.3);left:50%;top:80%;animation-delay:6s;animation-duration:16s;"></span>
+            </div>
+            <div class="section-inner gs-reveal" data-chapter="01">
+                <div class="section-tag">Chapter 01: The Divine Courtyard</div>
                 <h2 class="section-title">The Day Everything Changed</h2>
-                <p class="section-sub">September 18th, 2025 — Bunny & Karamma's special beginning</p>
+                <p class="section-sub">September 18th, 2025 — Our special beginning inscribed in the stars</p>
 
-                <div class="story-card vertical-card reveal-up">
+                <div class="manuscript-card">
                     <div class="story-text-block">
-                        <div class="story-icon">💌</div>
+                        <div class="story-icon">🪷</div>
                         <h3>When Two Hearts Spoke</h3>
-                        <p>
+                        <p style="color: var(--vr-moon);">
                             There are moments in life so rare that the universe itself seems to hold its breath.
-                            September 18th, 2025 was one such day. The words that had lived silently inside Bunny and
-                            Karamma's hearts
-                            for so long finally found their voice — and the world felt entirely different after that.
-                        </p>
-                        <p>
-                            From that moment on, every morning felt like a gift and every night felt like a promise.
-                            Two people, Bunny and Karamma, chose each other, truly and completely.
+                            September 18th, 2025 was one such day. The words that had lived silently inside our hearts
+                            finally found their voice — and the world felt entirely different after that.
                         </p>
                         <div class="story-date-badge">📅 September 18, 2025</div>
                     </div>
                 </div>
 
-                <!-- Photo Folder Box -->
-                <div class="photo-folder-wrap">
-                    <div class="photo-folder reveal-up" onclick="openLightbox('love-confession')">
-                        <div class="folder-icon-wrap">
-                            <div class="folder-icon">💝</div>
-                            <div class="folder-glow"></div>
-                        </div>
-                        <div class="folder-info">
-                            <h4>Love Confession Day</h4>
-                            <p>Our most precious moments</p>
-                            <span class="open-hint">Click to open ♥</span>
-                        </div>
+                <!-- Magical Floating Polaroids instead of Lightbox Folder -->
+                <div class="magical-gallery-ropes">
+                    <div class="hanging-polaroid delay-1">
+                        <img src="photos/first page karamma/WhatsApp_Image_2026-06-28_at_12.22.53_PM.jpeg" alt="Memory">
+                        <div class="polaroid-caption">My Universe 💫</div>
+                    </div>
+                    <div class="hanging-polaroid delay-2">
+                        <img src="photos/top-images/WhatsApp_Image_2026-07-04_at_12.17.14_PM.jpeg" alt="Memory">
+                        <div class="polaroid-caption">That Smile ✨</div>
+                    </div>
+                    <div class="hanging-polaroid delay-3">
+                        <img src="photos/first page karamma/WhatsApp_Image_2026-06-28_at_12.22.53_PM_1_.jpeg" alt="Memory">
+                        <div class="polaroid-caption">Forever 💛</div>
                     </div>
                 </div>
             </div>
@@ -162,7 +224,11 @@
 
         <!-- ===== SECTION 2: FIRST MEET — VIZAG TRIP ===== -->
         <section id="first-meet" class="memory-section theme-beach">
-            <div class="section-inner">
+            <div class="chapter-ambient" aria-hidden="true">
+                <span class="ca-dot" style="width:7px;height:7px;background:rgba(72,201,176,0.5);left:5%;top:30%;animation-delay:1s;animation-duration:13s;"></span>
+                <span class="ca-dot" style="width:9px;height:9px;background:rgba(0,210,200,0.35);left:88%;top:55%;animation-delay:4s;animation-duration:15s;"></span>
+            </div>
+            <div class="section-inner" data-chapter="02">
                 <div class="section-tag">Chapter 02</div>
                 <h2 class="section-title">The First Time Bunny Held Karamma's World</h2>
                 <p class="section-sub">February 7–9, 2025 • Bengaluru → Visakhapatnam • Bunny & Karamma's First Meeting
@@ -208,22 +274,26 @@
                 <div class="folder-row">
                     <div class="photo-folder small reveal-up" onclick="openLightbox('first-meet-day1')">
                         <div class="folder-icon-wrap">
-                            <div class="folder-icon">💝</div>
+                            <div class="folder-icon">🛕</div>
+                            <div class="folder-glow teal-glow"></div>
                         </div>
                         <div class="folder-info">
-                            <h4>Day 1 — Temple Visit</h4>
+                            <span class="gallery-count-badge">🌊 Day 1</span>
+                            <h4>Temple Visit</h4>
                             <p>Simhachalam, Vizag</p>
-                            <span class="open-hint">Click to open ♥</span>
+                            <span class="open-hint">Open Gallery ♥</span>
                         </div>
                     </div>
                     <div class="photo-folder small reveal-up" onclick="openLightbox('first-meet-day2')">
                         <div class="folder-icon-wrap">
-                            <div class="folder-icon">💝</div>
+                            <div class="folder-icon">🌊</div>
+                            <div class="folder-glow teal-glow"></div>
                         </div>
                         <div class="folder-info">
-                            <h4>Day 2 — Beaches &amp; Parks</h4>
-                            <p>Visakhapatnam (Day 2 files)</p>
-                            <span class="open-hint">Click to open ♥</span>
+                            <span class="gallery-count-badge">🏖️ Day 2</span>
+                            <h4>Beaches &amp; Parks</h4>
+                            <p>Visakhapatnam shorelines</p>
+                            <span class="open-hint">Open Gallery ♥</span>
                         </div>
                     </div>
                 </div>
@@ -232,14 +302,20 @@
 
         <!-- ===== SECTION 3: FAVORITE PICS OF HER ===== -->
         <section id="fav-pics" class="memory-section theme-sunset">
-            <div class="section-inner">
+            <div class="chapter-ambient" aria-hidden="true">
+                <span class="ca-dot" style="width:9px;height:9px;background:rgba(244,196,48,0.5);left:10%;top:50%;animation-delay:2s;animation-duration:14s;"></span>
+                <span class="ca-dot" style="width:6px;height:6px;background:rgba(255,200,80,0.4);left:85%;top:35%;animation-delay:5s;animation-duration:12s;"></span>
+            </div>
+            <div class="section-inner" data-chapter="03">
                 <div class="section-tag">Chapter 03</div>
                 <h2 class="section-title">My Favorite Views in the World</h2>
                 <p class="section-sub">Every photo of Karamma is a piece of art — and Bunny's most prized collection</p>
 
                 <div class="story-card vertical-card reveal-up">
                     <div class="story-text-block">
-                        <div class="story-icon">📸</div>
+                        <div style="width: 75px; height: 75px; margin: 0 auto 20px; border-radius: 50%; overflow: hidden; box-shadow: 0 10px 20px rgba(244,196,48,0.25); border: 2px solid rgba(244,196,48,0.6);">
+                            <img src="photos/new_uploads/media__1785662456084.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="Karamma Glow">
+                        </div>
                         <h3>More Beautiful Than Any Sunset</h3>
                         <p>
                             People search the world for the most beautiful things to photograph —
@@ -252,13 +328,14 @@
                 <div class="photo-folder-wrap">
                     <div class="photo-folder big-folder reveal-up" onclick="openLightbox('fav-pics')">
                         <div class="folder-icon-wrap">
-                            <div class="folder-icon">💝</div>
+                            <div class="folder-icon">📸</div>
                             <div class="folder-glow gold-glow"></div>
                         </div>
                         <div class="folder-info">
-                            <h4>My Favorite Pics of Her ✨</h4>
+                            <span class="gallery-count-badge">✨ My Favorites</span>
+                            <h4>My Favorite Pics of Her</h4>
                             <p>She's everything beautiful in one frame</p>
-                            <span class="open-hint">Click to open ♥</span>
+                            <span class="open-hint">Open Gallery ♥</span>
                         </div>
                     </div>
                 </div>
@@ -267,14 +344,20 @@
 
         <!-- ===== SECTION 4: SECOND MEET — CAFE ===== -->
         <section id="second-meet" class="memory-section theme-cafe">
-            <div class="section-inner">
+            <div class="chapter-ambient" aria-hidden="true">
+                <span class="ca-dot" style="width:8px;height:8px;background:rgba(210,166,121,0.5);left:12%;top:45%;animation-delay:0s;animation-duration:12s;"></span>
+                <span class="ca-dot" style="width:6px;height:6px;background:rgba(255,179,80,0.4);left:80%;top:65%;animation-delay:4s;animation-duration:15s;"></span>
+            </div>
+            <div class="section-inner" data-chapter="04">
                 <div class="section-tag">Chapter 04</div>
                 <h2 class="section-title">Warm Coffee & Warmer Hearts</h2>
                 <p class="section-sub">Our 2nd Meet — At Her Place, Over Coffee</p>
 
                 <div class="story-card vertical-card reveal-up">
                     <div class="story-text-block">
-                        <div class="story-icon">☕</div>
+                        <div style="width: 75px; height: 75px; margin: 0 auto 20px; border-radius: 50%; overflow: hidden; box-shadow: 0 10px 20px rgba(255,179,128,0.25); border: 2px solid rgba(255,179,128,0.6);">
+                            <img src="photos/new_uploads/media__1785662456048.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="Karamma Cafe">
+                        </div>
                         <h3>The Cafe Chapter</h3>
                         <p>
                             Our second meeting was intimate and beautiful — meeting at Karamma's place,
@@ -292,13 +375,14 @@
                 <div class="photo-folder-wrap">
                     <div class="photo-folder reveal-up" onclick="openLightbox('second-meet-cafe')">
                         <div class="folder-icon-wrap">
-                            <div class="folder-icon">💝</div>
+                            <div class="folder-icon">☕</div>
                             <div class="folder-glow pink-glow"></div>
                         </div>
                         <div class="folder-info">
-                            <h4>2nd Meet — The Cafe Day</h4>
-                            <p>Coffee, conversations & her smile</p>
-                            <span class="open-hint">Click to open ♥</span>
+                            <span class="gallery-count-badge">☕ Café Meeting</span>
+                            <h4>2nd Meet — The Café Day</h4>
+                            <p>Coffee, conversations &amp; her smile</p>
+                            <span class="open-hint">Open Gallery ♥</span>
                         </div>
                     </div>
                 </div>
@@ -307,7 +391,11 @@
 
         <!-- ===== SECTION 5: THIRD MEET — VIZAG TTD & BEACHES ===== -->
         <section id="third-meet" class="memory-section theme-beach">
-            <div class="section-inner">
+            <div class="chapter-ambient" aria-hidden="true">
+                <span class="ca-dot" style="width:7px;height:7px;background:rgba(72,201,176,0.45);left:6%;top:55%;animation-delay:2s;animation-duration:13s;"></span>
+                <span class="ca-dot" style="width:9px;height:9px;background:rgba(0,210,200,0.35);left:88%;top:55%;animation-delay:4s;animation-duration:15s;"></span>
+            </div>
+            <div class="section-inner" data-chapter="05">
                 <div class="section-tag">Chapter 05</div>
                 <h2 class="section-title">Back to Our Favorite City</h2>
                 <p class="section-sub">3rd Meet — Day 1: Vizag TTD Temple & Beaches</p>
@@ -331,13 +419,14 @@
                 <div class="photo-folder-wrap">
                     <div class="photo-folder reveal-up" onclick="openLightbox('third-meet-vizag')">
                         <div class="folder-icon-wrap">
-                            <div class="folder-icon">💝</div>
+                            <div class="folder-icon">🌅</div>
                             <div class="folder-glow teal-glow"></div>
                         </div>
                         <div class="folder-info">
-                            <h4>3rd Meet — Vizag TTD & Beaches</h4>
-                            <p>Temple blessings & ocean sunsets</p>
-                            <span class="open-hint">Click to open ♥</span>
+                            <span class="gallery-count-badge">🌊 Vizag Trip</span>
+                            <h4>3rd Meet — TTD &amp; Beaches</h4>
+                            <p>Temple blessings &amp; ocean sunsets</p>
+                            <span class="open-hint">Open Gallery ♥</span>
                         </div>
                     </div>
                 </div>
@@ -346,7 +435,11 @@
 
         <!-- ===== SECTION 6: FOURTH MEET — MUTUAL WEDDING ===== -->
         <section id="fourth-meet" class="memory-section theme-wedding">
-            <div class="section-inner">
+            <div class="chapter-ambient" aria-hidden="true">
+                <span class="ca-dot" style="width:8px;height:8px;background:rgba(218,112,214,0.45);left:7%;top:40%;animation-delay:1s;animation-duration:14s;"></span>
+                <span class="ca-dot" style="width:6px;height:6px;background:rgba(200,150,255,0.35);left:90%;top:50%;animation-delay:5s;animation-duration:11s;"></span>
+            </div>
+            <div class="section-inner" data-chapter="06">
                 <div class="section-tag">Chapter 06</div>
                 <h2 class="section-title">A Celebration Within a Celebration</h2>
                 <p class="section-sub">4th Meet — Bunny's Brother's Wedding in Our Village</p>
@@ -371,13 +464,14 @@
                 <div class="photo-folder-wrap">
                     <div class="photo-folder reveal-up" onclick="openLightbox('fourth-meet-wedding')">
                         <div class="folder-icon-wrap">
-                            <div class="folder-icon">💝</div>
+                            <div class="folder-icon">💒</div>
                             <div class="folder-glow wedding-glow"></div>
                         </div>
                         <div class="folder-info">
-                            <h4>4th Meet — The Wedding Day</h4>
+                            <span class="gallery-count-badge">💒 Wedding Day</span>
+                            <h4>4th Meet — The Wedding</h4>
                             <p>My brother's wedding • Our village</p>
-                            <span class="open-hint">Click to open ♥</span>
+                            <span class="open-hint">Open Gallery ♥</span>
                         </div>
                     </div>
                 </div>
@@ -386,7 +480,11 @@
 
         <!-- ===== SECTION 7: VIDEO CALL SCREENSHOTS ===== -->
         <section id="video-calls" class="memory-section theme-night">
-            <div class="section-inner">
+            <div class="chapter-ambient" aria-hidden="true">
+                <span class="ca-dot" style="width:7px;height:7px;background:rgba(100,149,237,0.5);left:8%;top:60%;animation-delay:0s;animation-duration:16s;"></span>
+                <span class="ca-dot" style="width:5px;height:5px;background:rgba(150,180,255,0.35);left:85%;top:30%;animation-delay:4s;animation-duration:12s;"></span>
+            </div>
+            <div class="section-inner" data-chapter="07">
                 <div class="section-tag">Chapter 07</div>
                 <h2 class="section-title">Miles Apart, Hearts Together</h2>
                 <p class="section-sub">Long Distance — Where a Screen Becomes a Window to You</p>
@@ -429,13 +527,14 @@
                 <div class="photo-folder-wrap">
                     <div class="photo-folder reveal-up" onclick="openLightbox('video-calls')">
                         <div class="folder-icon-wrap">
-                            <div class="folder-icon">💝</div>
+                            <div class="folder-icon">📱</div>
                             <div class="folder-glow blue-glow"></div>
                         </div>
                         <div class="folder-info">
-                            <h4>Video Call Screenshots</h4>
-                            <p>Our long-distance love, captured</p>
-                            <span class="open-hint">Click to open ♥</span>
+                            <span class="gallery-count-badge">📱 Video Calls</span>
+                            <h4>Our Screen Memories</h4>
+                            <p>Long-distance love, captured in screenshots</p>
+                            <span class="open-hint">Open Gallery ♥</span>
                         </div>
                     </div>
                 </div>
@@ -444,7 +543,11 @@
 
         <!-- ===== SECTION 8: FLOWER COLLECTION ===== -->
         <section id="flowers" class="memory-section theme-flowers">
-            <div class="section-inner">
+            <div class="chapter-ambient" aria-hidden="true">
+                <span class="ca-dot" style="width:9px;height:9px;background:rgba(220,20,60,0.45);left:5%;top:45%;animation-delay:1s;animation-duration:15s;"></span>
+                <span class="ca-dot" style="width:6px;height:6px;background:rgba(255,80,100,0.35);left:92%;top:60%;animation-delay:6s;animation-duration:13s;"></span>
+            </div>
+            <div class="section-inner" data-chapter="08">
                 <div class="section-tag">Chapter 08</div>
                 <h2 class="section-title">A Garden Bunny Grew for Karamma</h2>
                 <p class="section-sub">Flowers sent to her — every single day, with love 🌸</p>
@@ -470,13 +573,14 @@
                 <div class="photo-folder-wrap">
                     <div class="photo-folder big-folder reveal-up" onclick="openLightbox('flowers')">
                         <div class="folder-icon-wrap">
-                            <div class="folder-icon">💝</div>
+                            <div class="folder-icon">🌹</div>
                             <div class="folder-glow rose-glow"></div>
                         </div>
                         <div class="folder-info">
-                            <h4>My Daily Flower Collection</h4>
-                            <p>Every bloom sent to her with love</p>
-                            <span class="open-hint">Click to open ♥</span>
+                            <span class="gallery-count-badge">🌸 Daily Blooms</span>
+                            <h4>My Flower Collection</h4>
+                            <p>Every bloom sent to her with love 🌹</p>
+                            <span class="open-hint">Open Gallery ♥</span>
                         </div>
                     </div>
                 </div>
@@ -485,7 +589,11 @@
 
         <!-- ===== SECTION 9: THE JOURNEY THAT BROUGHT US TOGETHER ===== -->
         <section id="journey" class="memory-section theme-sunset">
-            <div class="section-inner">
+            <div class="chapter-ambient" aria-hidden="true">
+                <span class="ca-dot" style="width:8px;height:8px;background:rgba(244,196,48,0.5);left:6%;top:50%;animation-delay:2s;animation-duration:14s;"></span>
+                <span class="ca-dot" style="width:6px;height:6px;background:rgba(255,200,0,0.4);left:88%;top:40%;animation-delay:5s;animation-duration:11s;"></span>
+            </div>
+            <div class="section-inner" data-chapter="09">
                 <div class="section-tag">Chapter 09</div>
                 <h2 class="section-title">The Journey That Brought Us Together</h2>
                 <p class="section-sub">Bengaluru → Hyderabad → Visakhapatnam • June 2026</p>
@@ -516,13 +624,14 @@
                 <div class="photo-folder-wrap">
                     <div class="photo-folder reveal-up" onclick="openLightbox('journey')">
                         <div class="folder-icon-wrap">
-                            <div class="folder-icon">💝</div>
+                            <div class="folder-icon">🚂</div>
                             <div class="folder-glow gold-glow"></div>
                         </div>
                         <div class="folder-info">
-                            <h4>Our Journey Together</h4>
-                            <p>Bengaluru to Hyderabad by bus, Hyd to Vizag by train</p>
-                            <span class="open-hint">Click to open ♥</span>
+                            <span class="gallery-count-badge">🗺️ Our Journey</span>
+                            <h4>The Journey Together</h4>
+                            <p>Bengaluru → Hyderabad → Visakhapatnam</p>
+                            <span class="open-hint">Open Gallery ♥</span>
                         </div>
                     </div>
                 </div>

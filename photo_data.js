@@ -158,6 +158,9 @@ const PHOTO_DATA = {
     "WhatsApp_Image_2026-07-04_at_12.43.56_PM.jpeg",
     "WhatsApp_Image_2026-07-04_at_12.43.56_PM_1_.jpeg",
     "WhatsApp_Image_2026-07-04_at_12.43.56_PM_2_.jpeg",
-    "WhatsApp_Image_2026-07-04_at_12.43.56_PM_3_.jpeg"
+    "WhatsApp_Image_2026-07-04_at_12.43.56_PM_3_.jpeg",
+    "media__1785662456048.jpg",
+    "media__1785662456055.jpg",
+    "media__1785662456084.jpg"
   ]
 };

@@ -1,13 +1,39 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     /* =========================================================
-       1. FLOATING PARTICLES BACKGROUND
+       0. GSAP INIT
+    ========================================================= */
+
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Standard reveal animation for sections
+        gsap.utils.toArray('.gs-reveal').forEach(elem => {
+            gsap.fromTo(elem, 
+                { autoAlpha: 0, y: 50 }, 
+                {
+                    duration: 1.2, 
+                    autoAlpha: 1, 
+                    y: 0, 
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: elem,
+                        start: "top 85%",
+                        toggleActions: "play none none reverse"
+                    }
+                }
+            );
+        });
+    }
+
+    /* =========================================================
+       1. FLOATING PARTICLES BACKGROUND (Upgraded)
     ========================================================= */
     (function createParticles() {
         const bg = document.getElementById('particles-bg');
         if (!bg) return;
-        const colors = ['#ff4d6d', '#f4c430', '#ffb3c1', '#c77dff', '#ff8fab', '#ffe082'];
-        const hearts = ['♥', '✦', '✿', '❋', '·'];
+        const colors = ['#F4F1E1', '#F4C430', '#FF4D6D', '#74ebd5'];
+        const hearts = ['✨', '❀', '🪷', '·', '⋆'];
         for (let i = 0; i < 40; i++) {
             const el = document.createElement('div');
             el.classList.add('particle');
@@ -19,9 +45,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 width: ${size}px; height: ${size}px;
                 color: ${color};
                 font-size: ${size}px;
-                animation-duration: ${Math.random() * 12 + 6}s;
+                animation-duration: ${Math.random() * 12 + 8}s;
                 animation-delay: ${Math.random() * 10}s;
                 background: none;
+                text-shadow: 0 0 10px ${color};
             `;
             el.textContent = heart;
             bg.appendChild(el);

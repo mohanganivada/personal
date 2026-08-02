@@ -30,15 +30,469 @@
     <!-- Floating Hearts, Flowers & Sparks Layer -->
     <div class="login-floaters" id="login-floaters"></div>
 
-    <!-- Music Control: Floating Premium Glass Button -->
-    <button id="floating-music-btn" class="glass-control-btn" aria-label="Toggle Music">
-        <span class="btn-icon">🎵</span>
-        <span class="btn-text">Listen ❤️</span>
+    <!-- Gramophone Music Control -->
+    <style>
+        .gramophone-btn {
+            position: fixed;
+            top: 25px;
+            right: 25px;
+            z-index: 9999;
+            background: rgba(2, 4, 10, 0.4);
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            cursor: pointer;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s, border 0.3s;
+        }
+
+        .gramophone-btn:hover {
+            transform: scale(1.1);
+            background: rgba(212, 175, 55, 0.15);
+            border: 1px solid rgba(212, 175, 55, 0.6);
+        }
+
+        .vinyl-record {
+            width: 32px;
+            height: 32px;
+            background: #111;
+            border-radius: 50%;
+            position: relative;
+            border: 1.5px solid #D4AF37;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.4), inset 0 0 4px rgba(255, 255, 255, 0.2);
+            transition: transform 2s;
+            background-image: repeating-radial-gradient(#111 0px, #222 1.5px, #111 3px);
+        }
+
+        .vinyl-record::before {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #B42C2C;
+            border-radius: 50%;
+        }
+
+        .vinyl-record::after {
+            content: '';
+            position: absolute;
+            width: 2.5px;
+            height: 2.5px;
+            background: #FFF;
+            border-radius: 50%;
+        }
+
+        .needle {
+            position: absolute;
+            top: 7px;
+            right: 6px;
+            width: 2.5px;
+            height: 18px;
+            background: linear-gradient(to bottom, #D4AF37, #9A7B1D);
+            transform-origin: top center;
+            transform: rotate(-50deg);
+            transition: transform 0.5s;
+            border-radius: 2px;
+            box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+            z-index: 2;
+        }
+
+        .gramophone-btn.playing .vinyl-record {
+            animation: spinRecord 1.8s linear infinite;
+        }
+
+        .gramophone-btn.playing .needle {
+            transform: rotate(-15deg);
+        }
+
+        @keyframes spinRecord {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .gramophone-note {
+            position: absolute;
+            color: #F4C430;
+            font-size: 1rem;
+            animation: floatNote 2.5s ease-out forwards;
+            text-shadow: 0 0 5px rgba(244, 196, 48, 0.8);
+            pointer-events: none;
+        }
+
+        @keyframes floatNote {
+            0% {
+                transform: translate(0, 0) scale(1);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translate(calc(-15px + 30px*var(--rx)), -50px) scale(1.5) rotate(calc(45deg*var(--rx)));
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .gramophone-btn {
+                width: 42px;
+                height: 42px;
+                top: 15px;
+                right: 15px;
+            }
+
+            .vinyl-record {
+                width: 26px;
+                height: 26px;
+                border: 1px solid #D4AF37;
+            }
+
+            .vinyl-record::before {
+                width: 8px;
+                height: 8px;
+            }
+
+            .needle {
+                top: 6px;
+                right: 5px;
+                height: 14px;
+                width: 2px;
+            }
+
+            .gramophone-note {
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+    <button id="floating-music-btn" class="gramophone-btn" aria-label="Toggle Music">
+        <div class="vinyl-record"></div>
+        <div class="needle"></div>
     </button>
     <audio id="bg-piano-music" src="assets/music/Gulabi Kallu Rendu Mullu (PenduJatt.Com.Se).mp3" loop></audio>
 
+    <!-- ================= PAGE 0: MAGICAL VRINDAVAN TEMPLATE ================= -->
+    <div id="master-password-experience" class="page-container active vr-cinematic-gateway">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Great+Vibes&display=swap');
+
+            .vr-cinematic-gateway {
+                position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+                background: #0B192C; background-image: radial-gradient(circle at top right, #1A0B2E, #0B192C);
+                overflow: hidden; perspective: 1500px;
+                z-index: 50; transition: transform 2.5s cubic-bezier(0.5, 0, 0.1, 1), opacity 2.5s, filter 2.5s;
+                font-family: 'Cormorant Garamond', serif;
+                color: #FFE9B8;
+                display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
+            }
+
+            .background-stars {
+                position: absolute; inset: -10%;
+                background-image:
+                    radial-gradient(2px 2px at 30% 20%, rgba(255, 255, 255, 0.95), transparent),
+                    radial-gradient(2.5px 2.5px at 70% 40%, rgba(244, 196, 48, 0.85), transparent),
+                    radial-gradient(1.5px 1.5px at 20% 70%, rgba(255, 255, 255, 0.7), transparent),
+                    radial-gradient(1px 1px at 50% 80%, rgba(255, 255, 255, 0.5), transparent);
+                background-size: 200px 200px;
+                animation: slowTwinkle 4s infinite alternate; pointer-events: none;
+                transform: translate(calc(var(--px) * -0.2), calc(var(--py) * -0.2));
+            }
+
+            .moon {
+                position: absolute; top: 8%; left: 50%; transform: translateX(-50%);
+                width: 140px; height: 140px; background: #FFF4DB; border-radius: 50%;
+                box-shadow: 0 0 100px 30px rgba(255, 233, 184, 0.35), inset -15px -15px 30px rgba(0,0,0,0.15);
+            }
+
+            .flowers {
+                position: absolute; top: -10px; font-size: 3rem; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.5));
+                animation: sway 6s ease-in-out infinite alternate; transform-origin: top center;
+                white-space: nowrap; z-index: 5;
+            }
+            .flowers.left { left: 2%; }
+            .flowers.right { right: 2%; animation-delay: -3s; direction: rtl; }
+
+            @keyframes sway { 0% { transform: rotate(-5deg); } 100% { transform: rotate(5deg); } }
+
+            .hero {
+                position: relative; margin-top: 18vh; display: flex; flex-direction: column; align-items: center;
+                text-align: center; z-index: 10;
+            }
+
+            .flute {
+                font-size: 3.5rem; filter: drop-shadow(0 0 25px #F4C430);
+                animation: divineFloat 4s ease-in-out infinite alternate;
+                margin-bottom: 10px;
+            }
+
+            .title {
+                font-family: 'Great Vibes', cursive; font-size: 3rem; font-weight: 400; color: #D4AF37;
+                text-shadow: 0 0 15px rgba(212,175,55,0.4); margin-bottom: 5px; opacity: 0; animation: fadeIn 2s forwards 0.5s;
+            }
+            .subtitle {
+                font-size: 1.1rem; letter-spacing: 2px; opacity: 0; animation: fadeIn 2s forwards 1.5s;
+                text-transform: uppercase; font-weight: 300; line-height: 1.6;
+            }
+
+            .portal-section {
+                position: absolute; bottom: 0; width: 100%; height: 50vh;
+                display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding-bottom: 5vh;
+            }
+
+            .portal {
+                position: absolute; bottom: -50px; width: 350px; height: 400px;
+                border: 2px solid rgba(244,196,48,0.15); border-radius: 175px 175px 0 0;
+                background: linear-gradient(to top, rgba(11,25,44,1), rgba(11,25,44,0) 80%);
+                display: flex; justify-content: center; align-items: center;
+                box-shadow: inset 0 20px 60px rgba(244,196,48,0.05);
+            }
+            
+            .portal-light {
+                position: absolute; width: 100%; height: 100%; border-radius: inherit;
+                background: radial-gradient(circle at bottom, rgba(244,196,48,0.15) 0%, transparent 60%);
+                pointer-events: none;
+            }
+
+            .lantern {
+                position: absolute; font-size: 3rem; filter: drop-shadow(0 0 20px rgba(244,196,48,0.8)); top: 40%;
+                animation: sway 4s ease-in-out infinite alternate;
+            }
+            .lantern::after { content: '🏮'; }
+            .lantern.left { left: -30px; animation-delay: -1s; }
+            .lantern.right { right: -30px; animation-delay: -2.5s; }
+
+            .butterfly {
+                position: absolute; font-size: 1.5rem; filter: drop-shadow(0 0 10px rgba(0, 255, 200, 0.8));
+                animation: flutter 8s linear infinite; opacity: 0.8;
+            }
+            .butterfly::after { content: '🦋'; }
+            .b1 { left: 20%; top: 20%; animation-duration: 6s; }
+            .b2 { right: 15%; top: 10%; animation-duration: 8s; font-size: 1rem; animation-delay: -2s; }
+            .b3 { left: 40%; top: 0%; animation-duration: 10s; font-size: 1.2rem; animation-delay: -4s; }
+
+            @keyframes flutter {
+                0% { transform: translate(0, 0) rotate(-10deg) scale(0.9); }
+                30% { transform: translate(30px, -20px) rotate(10deg) scale(1.1); }
+                60% { transform: translate(-10px, -40px) rotate(-10deg) scale(0.95); }
+                100% { transform: translate(0, 0) rotate(10deg) scale(0.9); }
+            }
+
+            .lotus-btn {
+                background: transparent; border: none; cursor: pointer; font-size: 4.5rem;
+                filter: drop-shadow(0 0 20px rgba(234,105,139,0.8)); transition: all 1.5s cubic-bezier(0.1, 1, 0.3, 1);
+                margin-top: 100px;
+            }
+            .lotus-btn::after { content: '🌺'; }
+            .lotus-btn:hover { transform: scale(1.1); filter: drop-shadow(0 0 40px rgba(234,105,139,1)); }
+            .lotus-btn.bloomed { transform: scale(1.3) translateY(-40px); pointer-events: none; filter: drop-shadow(0 0 50px rgba(234,105,139,1)); }
+
+            .tap-text {
+                position: absolute; bottom: 8vh; font-family: 'Outfit', sans-serif; font-weight: 300;
+                font-size: 0.9rem; letter-spacing: 3px; color: rgba(255,233,184,0.6);
+                animation: pulse 2s infinite alternate; text-transform: uppercase; z-index: 20;
+            }
+
+            .auth-input-container {
+                position: absolute; bottom: 8vh; height: 0; opacity: 0; overflow: hidden;
+                transition: all 1.5s cubic-bezier(0.2, 0.8, 0.2, 1); pointer-events: none;
+                display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 30;
+            }
+            .auth-input-container.visible { height: 180px; opacity: 1; bottom: 12vh; pointer-events: all; overflow: visible; }
+
+            .pure-line-input {
+                background: transparent; border: none; border-bottom: 1px solid rgba(212,175,55,0.3);
+                color: #F4C430; font-family: 'Great Vibes', cursive; font-size: 2.2rem;
+                text-align: center; padding: 5px 20px; outline: none; width: 280px;
+                transition: border-bottom 0.5s, box-shadow 0.5s; letter-spacing: 2px;
+            }
+            .pure-line-input:focus { border-bottom: 1px solid rgba(244,196,48,0.8); box-shadow: 0 10px 20px -10px rgba(244,196,48,0.3); }
+            .pure-line-input::placeholder { color: rgba(255,233,184,0.15); font-size: 1.8rem; letter-spacing: 1px; }
+
+            .elegant-seal-btn {
+                margin-top: 30px; background: transparent; border: none;
+                color: rgba(212,175,55,0.8); font-family: 'Cormorant Garamond', serif; font-size: 0.9rem;
+                letter-spacing: 4px; text-transform: uppercase; cursor: pointer;
+                position: relative; padding: 12px 15px; transition: all 0.5s; font-weight: 600;
+            }
+            .elegant-seal-btn::before, .elegant-seal-btn::after {
+                content: ''; position: absolute; left: 50%; transform: translateX(-50%);
+                width: 0; height: 1px; background: rgba(212,175,55,0.8); transition: width 0.7s cubic-bezier(0.1, 1, 0.3, 1);
+            }
+            .elegant-seal-btn::before { top: 0; } .elegant-seal-btn::after { bottom: 0; }
+            .elegant-seal-btn:hover { color: #FFF; text-shadow: 0 0 15px rgba(212,175,55,0.8); letter-spacing: 5px; }
+            .elegant-seal-btn:hover::before, .elegant-seal-btn:hover::after { width: 100%; box-shadow: 0 0 10px #D4AF37; }
+            .elegant-seal-btn.melting { opacity: 0; transform: scale(1.1); filter: blur(5px); }
+
+            .elegant-error {
+                margin-top: 20px; font-family: 'Outfit', sans-serif; font-weight: 300;
+                font-size: 0.8rem; letter-spacing: 3px; color: rgba(249,136,167,0.6);
+                opacity: 0; transition: opacity 1.5s; height: 15px; text-transform: uppercase;
+            }
+
+            .petals {
+                position: absolute; top:0; left:0; width:100%; height:100%; pointer-events: none;
+            }
+
+            @keyframes pulse { 0% { opacity: 0.4; } 100% { opacity: 0.9; } }
+            @keyframes fadeIn { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
+
+            @media (max-width: 768px) {
+                .hero { margin-top: 14vh; }
+                .portal { width: 280px; height: 350px; bottom: -40px; }
+                .lantern { font-size: 2.2rem; }
+                .lantern.left { left: -15px; } .lantern.right { right: -15px; }
+                .lotus-btn { font-size: 3.5rem; margin-top: 80px; }
+                .pure-line-input { width: 220px; font-size: 1.8rem; }
+                .title { font-size: 2.5rem; }
+                .subtitle { font-size: 0.9rem; }
+                .moon { width: 100px; height: 100px; top: 10%; }
+                .flowers { font-size: 1.8rem; top: -5px; }
+                .flowers.left { left: 5px; }
+                .flowers.right { right: 5px; }
+            }
+        </style>
+
+        <div class="background-stars"></div>
+        <div class="moon"></div>
+
+        <div class="flowers left">🌸🌿🌺</div>
+        <div class="flowers right">🌺🌿🌸</div>
+
+        <section class="hero">
+            <div class="flute">🦚✨</div>
+            <h1 class="title">Can open our story.</h1>
+            <p class="subtitle">Every love story is beautiful,<br>but ours is my favorite. 💜</p>
+        </section>
+
+        <section class="portal-section">
+            <div class="portal">
+                <div class="portal-light"></div>
+                
+                <div class="lantern left"></div>
+                <div class="lantern right"></div>
+
+                <span class="butterfly b1"></span>
+                <span class="butterfly b2"></span>
+                <span class="butterfly b3"></span>
+
+                <button class="lotus-btn" id="cine-lotus" aria-label="Bloom Lotus"></button>
+            </div>
+
+            <p class="tap-text">✨ Tap the lotus to begin ✨</p>
+
+            <div class="auth-input-container">
+                <input type="text" id="cine-input" class="pure-line-input" placeholder="Whisper softly..." autocomplete="off">
+                <button id="cine-unlock-btn" class="elegant-seal-btn">Unlock Our Story</button>
+                <div id="cine-error" class="elegant-error">Listen to your heart once more.</div>
+            </div>
+        </section>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const doc = document.documentElement;
+                document.addEventListener('mousemove', (e) => {
+                    const x = (e.clientX / window.innerWidth - 0.5) * 2;
+                    const y = (e.clientY / window.innerHeight - 0.5) * 2;
+                    doc.style.setProperty('--px', x.toFixed(3));
+                    doc.style.setProperty('--py', y.toFixed(3));
+                });
+                window.addEventListener('deviceorientation', (e) => {
+                    if (!e.gamma || !e.beta) return;
+                    const x = Math.min(Math.max(e.gamma / 45, -1), 1);
+                    const y = Math.min(Math.max((e.beta - 45) / 45, -1), 1);
+                    doc.style.setProperty('--px', x.toFixed(3));
+                    doc.style.setProperty('--py', y.toFixed(3));
+                });
+
+                const lotus = document.getElementById('cine-lotus');
+                const inp = document.getElementById('cine-input');
+                const authCont = document.querySelector('.auth-input-container');
+                const tapObj = document.querySelector('.tap-text');
+                
+                lotus.addEventListener('click', () => {
+                    lotus.classList.add('bloomed');
+                    authCont.classList.add('visible');
+                    tapObj.style.opacity = '0';
+                    setTimeout(() => inp.focus(), 1200);
+                    try { if (window.sounds?.tap) window.sounds.tap(); } catch (e) { }
+                });
+
+                inp.addEventListener('input', () => {
+                    const fl = document.createElement('div');
+                    fl.className = 'typing-particle';
+                    fl.innerText = '🌸';
+                    fl.style.left = (Math.random() * 80 + 10) + '%';
+                    fl.style.bottom = '30px';
+                    document.querySelector('.auth-input-container').appendChild(fl);
+                    setTimeout(() => fl.remove(), 2500);
+                });
+
+                const btn = document.getElementById('cine-unlock-btn');
+                const err = document.getElementById('cine-error');
+                const gate = document.getElementById('master-password-experience');
+
+                function triggerAuth() {
+                    if (btn.disabled) return;
+                    const val = inp.value.trim().toLowerCase();
+                    if (val === 'bunnykari') {
+                        err.style.opacity = '0';
+                        btn.disabled = true;
+                        btn.classList.add('melting');
+                        try { if (window.sounds?.success) window.sounds.success(); } catch (e) { }
+
+                        for (let i = 0; i < 40; i++) {
+                            setTimeout(() => {
+                                const f = document.createElement('div');
+                                f.innerText = ['✨', '🕊️', '🤍'][Math.floor(Math.random() * 3)];
+                                f.style.position = 'fixed'; f.style.left = (window.innerWidth / 2) + 'px'; f.style.top = (window.innerHeight / 2) + 'px';
+                                f.style.fontSize = (Math.random() * 15 + 10) + 'px'; f.style.pointerEvents = 'none'; f.style.zIndex = '1000';
+                                f.style.transition = 'all 4s cubic-bezier(0.1, 1, 0.3, 1)'; f.style.opacity = '1'; f.style.textShadow = '0 0 10px #D4AF37';
+                                document.body.appendChild(f);
+                                setTimeout(() => {
+                                    const ang = Math.random() * Math.PI * 2; const rad = Math.random() * (window.innerWidth / 1.2);
+                                    f.style.transform = `translate(${Math.cos(ang) * rad}px, ${Math.sin(ang) * rad}px) rotate(${Math.random() * 360}deg) scale(2.5)`;
+                                    f.style.opacity = '0';
+                                }, 50);
+                                setTimeout(() => f.remove(), 3500);
+                            }, i * 30);
+                        }
+
+                        const gBtn = document.getElementById('floating-music-btn');
+                        if (gBtn && !gBtn.classList.contains('playing')) gBtn.click();
+
+                        setTimeout(() => {
+                            gate.style.transform = 'scale(3) translateY(25%)'; gate.style.opacity = '0'; gate.style.filter = 'blur(15px) brightness(1.5)';
+                        }, 800);
+
+                        setTimeout(() => {
+                            gate.classList.remove('active');
+                            document.getElementById('login-experience').classList.add('active');
+                            window.scrollTo(0, 0); 
+                        }, 2500);
+                    } else {
+                        err.style.opacity = '1';
+                        lotus.classList.remove('bloomed');
+                        inp.blur(); inp.value = '';
+                        try { if (window.sounds?.error) window.sounds.error(); } catch (e) { }
+                        setTimeout(() => err.style.opacity = '0', 3000);
+                    }
+                }
+
+                btn.addEventListener('click', triggerAuth);
+                inp.addEventListener('keypress', (e) => { if (e.key === 'Enter') triggerAuth(); });
+            });
+        </script>
+    </div>
+
     <!-- ================= PAGE 1: LOGIN EXPERIENCE ================= -->
-    <div id="login-experience" class="page-container active">
+    <div id="login-experience" class="page-container">
 
         <!-- Left Side: 4 Polaroid Photos Grid & Romantic Quote -->
         <div class="login-left">
@@ -53,154 +507,339 @@
                 <p class="login-hero-sub">Every photo holds a lifetime of love 📸</p>
             </div>
 
-            <!-- Polaroid Fan -->
+            <!-- Innovative 3D Flipping Polaroids -->
             <style>
-                .polaroid-wrapper-grid.innovative-grid {
+                .vr-scattered-gallery {
                     position: relative;
                     display: flex;
                     justify-content: center;
-                    align-items: flex-end;
-                    perspective: 1400px;
-                    margin: 44px 0 56px;
+                    align-items: center;
+                    perspective: 1500px;
+                    height: 400px;
+                    margin: 20px 0 10px 0;
                 }
 
-                .innovative-grid .polaroid-card {
-                    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.6s ease, opacity 0.6s ease;
+                .vr-polaroid-wrapper {
                     position: absolute;
-                    opacity: 0.92;
+                    width: 240px;
+                    height: 300px;
                     cursor: pointer;
+                    z-index: 5;
+                    perspective: 1500px;
+                    transition: transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.9s, z-index 0s;
+                    transform-origin: center center;
+                    opacity: 0;
                 }
 
-                .innovative-grid .polaroid-card:nth-child(1) {
-                    transform: rotate(-13deg) translate(-138px, 22px) scale(0.9);
-                    z-index: 1;
+                /* Circular Stack States (One on One) */
+                .vr-polaroid-wrapper.active {
+                    z-index: 20;
+                    opacity: 1;
+                    transform: rotate(0deg) scale(1.1);
                 }
 
-                .innovative-grid .polaroid-card:nth-child(2) {
-                    transform: rotate(-4deg) translate(-46px, -14px) scale(0.98);
+                .vr-polaroid-wrapper.leaving {
+                    z-index: 25;
+                    /* Stays above as it leaves */
+                    opacity: 0;
+                    /* Rotates Anti-Clockwise in a circular motion out */
+                    transform: translateX(-150px) translateY(-50px) rotate(-90deg) scale(0.9);
+                }
+
+                .vr-polaroid-wrapper.next {
+                    z-index: 10;
+                    opacity: 0.9;
+                    /* Sits right beneath, subtly forming a circular fan */
+                    transform: rotate(12deg) scale(1.05);
+                }
+
+                .vr-polaroid-wrapper.next-next {
+                    z-index: 5;
+                    opacity: 0.7;
+                    transform: rotate(24deg) scale(1);
+                }
+
+                .vr-polaroid-wrapper.idle {
+                    z-index: 2;
+                    opacity: 0.4;
+                    transform: rotate(36deg) scale(0.95);
+                }
+
+                /* Inner container handles the flip */
+                .vr-polaroid-inner {
+                    position: relative;
+                    width: 100%;
+                    height: 100%;
+                    transform-style: preserve-3d;
+                    transition: transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+                }
+
+                /* Hover flip (flips to read handwritten note on the ACTIVE card) */
+                .vr-polaroid-wrapper.active:hover .vr-polaroid-inner {
+                    transform: translateY(-20px) scale(1.2) rotateY(180deg);
+                }
+
+                .vr-face {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    -webkit-backface-visibility: hidden;
+                    backface-visibility: hidden;
+                    border-radius: 4px;
+                    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+                }
+
+                .vr-front {
+                    background: #FFFCF9;
+                    padding: 8px 8px 45px 8px;
+                    border: 1px solid rgba(0, 0, 0, 0.05);
                     z-index: 2;
                 }
 
-                .innovative-grid .polaroid-card:nth-child(3) {
-                    transform: rotate(4deg) translate(46px, -14px) scale(0.98);
-                    z-index: 3;
+                .vr-front img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    border-radius: 2px;
+                    filter: sepia(0.15) contrast(1.1);
                 }
 
-                .innovative-grid .polaroid-card:nth-child(4) {
-                    transform: rotate(13deg) translate(138px, 22px) scale(0.9);
-                    z-index: 1;
+                .vr-front-label {
+                    position: absolute;
+                    bottom: 12px;
+                    left: 0;
+                    width: 100%;
+                    text-align: center;
+                    font-family: 'Dancing Script', cursive;
+                    font-size: 1.6rem;
+                    color: #4A2F1D;
                 }
 
-                /* Active state for auto-rotation and hover: lift forward, straighten, glow */
-                .innovative-grid .polaroid-card.active,
-                .innovative-grid .polaroid-card:hover {
-                    transform: translateY(-26px) rotate(0deg) scale(1.16) !important;
-                    z-index: 10 !important;
-                    opacity: 1;
+                .vr-back {
+                    background: #FFF5EC;
+                    background-image: repeating-linear-gradient(transparent, transparent 24px, rgba(200, 100, 100, 0.1) 25px);
+                    transform: rotateY(180deg);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 20px;
+                    border: 1px solid rgba(200, 150, 100, 0.3);
                 }
 
-                /* Tighter spread on small screens to avoid overflow */
-                @media (max-width: 820px) {
-                    .innovative-grid .polaroid-card:nth-child(1) {
-                        transform: rotate(-13deg) translate(-78px, 14px) scale(0.88);
+                .vr-handwritten {
+                    font-family: 'Caveat', cursive;
+                    font-size: 1.5rem;
+                    color: #3B2A1E;
+                    text-align: center;
+                    line-height: 1.4;
+                    transform: rotate(-2deg);
+                }
+
+                .vr-wax-seal {
+                    position: absolute;
+                    bottom: 15px;
+                    right: 15px;
+                    width: 35px;
+                    height: 35px;
+                    background: radial-gradient(circle, #C9184A, #800F2F);
+                    border-radius: 50%;
+                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3), inset 0 2px 4px rgba(255, 255, 255, 0.4);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    color: #F4C430;
+                    font-size: 14px;
+                    font-family: 'Playfair Display', serif;
+                    font-weight: bold;
+                }
+
+                .vr-flower-clip {
+                    position: absolute;
+                    top: -15px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    font-size: 28px;
+                    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.4));
+                    z-index: 10;
+                }
+
+                @media (max-width: 768px) {
+                    .vr-scattered-gallery {
+                        height: 320px;
+                        margin: 10px 0;
                     }
 
-                    .innovative-grid .polaroid-card:nth-child(2) {
-                        transform: rotate(-4deg) translate(-26px, -8px) scale(0.96);
+                    .vr-polaroid-wrapper {
+                        width: 170px;
+                        height: 215px;
                     }
 
-                    .innovative-grid .polaroid-card:nth-child(3) {
-                        transform: rotate(4deg) translate(26px, -8px) scale(0.96);
+                    /* Tighter circular sweep on mobile */
+                    .vr-polaroid-wrapper.active {
+                        transform: rotate(0deg) scale(1.05);
                     }
 
-                    .innovative-grid .polaroid-card:nth-child(4) {
-                        transform: rotate(13deg) translate(78px, 14px) scale(0.88);
+                    .vr-polaroid-wrapper.leaving {
+                        transform: translateX(-100px) translateY(-30px) rotate(-90deg) scale(0.85);
                     }
 
-                    .innovative-grid .polaroid-card.active,
-                    .innovative-grid .polaroid-card:hover {
-                        transform: translateY(-16px) rotate(0deg) scale(1.1) !important;
+                    .vr-polaroid-wrapper.active:hover .vr-polaroid-inner {
+                        transform: translateY(-15px) scale(1.15) rotateY(180deg);
+                    }
+
+                    .vr-front-label {
+                        font-size: 1.25rem;
+                        bottom: 8px;
+                    }
+
+                    .vr-handwritten {
+                        font-size: 1.15rem;
+                        line-height: 1.2;
+                        padding: 0 10px;
+                    }
+
+                    .vr-flower-clip {
+                        font-size: 26px;
+                        top: -14px;
                     }
                 }
             </style>
-            <div class="polaroid-wrapper-grid innovative-grid reveal-in" id="auto-rotate-grid"
-                style="height: 300px; --reveal-delay: 0.28s;">
-                <div class="polaroid-card small-polaroid">
-                    <div class="polaroid-light-sheen"></div>
-                    <div class="polaroid-img-container">
-                        <img src="photos/login page photo/WhatsApp Image 2026-07-12 at 1.04.08 PM (1).jpeg"
-                            alt="Us Together">
-                        <div class="polaroid-shimmer"></div>
+
+            <div class="vr-scattered-gallery reveal-in" style="--reveal-delay: 0.28s;">
+                <!-- Polaroid 1 -->
+                <div class="vr-polaroid-wrapper">
+                    <div class="vr-polaroid-inner">
+                        <div class="vr-face vr-front">
+                            <div class="vr-flower-clip">🌸</div>
+                            <img src="photos/login page photo/WhatsApp Image 2026-07-12 at 1.04.08 PM (1).jpeg"
+                                alt="Us Together">
+                            <div class="vr-front-label">Us ✨</div>
+                        </div>
+                        <div class="vr-face vr-back">
+                            <div class="vr-handwritten">"Where my peace begins..."</div>
+                            <div class="vr-wax-seal">B</div>
+                        </div>
                     </div>
-                    <div class="polaroid-heart-label"><span class="heart-icon">💕</span> Us</div>
-                    <div class="polaroid-gold-seal">✦ M &amp; K ✦</div>
                 </div>
-                <div class="polaroid-card small-polaroid">
-                    <div class="polaroid-light-sheen"></div>
-                    <div class="polaroid-img-container">
-                        <img src="photos/first page karamma/WhatsApp_Image_2026-06-28_at_12.22.53_PM.jpeg"
-                            alt="Karamma">
-                        <div class="polaroid-shimmer"></div>
+
+                <!-- Polaroid 2 -->
+                <div class="vr-polaroid-wrapper">
+                    <div class="vr-polaroid-inner">
+                        <div class="vr-face vr-front">
+                            <div class="vr-flower-clip">🪷</div>
+                            <img src="photos/first page karamma/WhatsApp_Image_2026-06-28_at_12.22.53_PM.jpeg"
+                                alt="Karamma">
+                            <div class="vr-front-label">Her 💖</div>
+                        </div>
+                        <div class="vr-face vr-back">
+                            <div class="vr-handwritten">"The most beautiful view in the world."</div>
+                            <div class="vr-wax-seal">K</div>
+                        </div>
                     </div>
-                    <div class="polaroid-heart-label"><span class="heart-icon">🌸</span> Her</div>
-                    <div class="polaroid-gold-seal">✦ M &amp; K ✦</div>
                 </div>
-                <div class="polaroid-card small-polaroid">
-                    <div class="polaroid-light-sheen"></div>
-                    <div class="polaroid-img-container">
-                        <img src="photos/first page karamma/WhatsApp_Image_2026-06-28_at_12.22.53_PM_1_.jpeg"
-                            alt="Karamma">
-                        <div class="polaroid-shimmer"></div>
+
+                <!-- Polaroid 3 -->
+                <div class="vr-polaroid-wrapper">
+                    <div class="vr-polaroid-inner">
+                        <div class="vr-face vr-front">
+                            <div class="vr-flower-clip">🌺</div>
+                            <img src="photos/first page karamma/WhatsApp_Image_2026-06-28_at_12.22.53_PM_1_.jpeg"
+                                alt="Karamma Glow">
+                            <div class="vr-front-label">Glow 💫</div>
+                        </div>
+                        <div class="vr-face vr-back">
+                            <div class="vr-handwritten">"Your smile outshines the moon, Karamma."</div>
+                            <div class="vr-wax-seal">B</div>
+                        </div>
                     </div>
-                    <div class="polaroid-heart-label"><span class="heart-icon">✨</span> Glow</div>
-                    <div class="polaroid-gold-seal">✦ M &amp; K ✦</div>
                 </div>
-                <div class="polaroid-card small-polaroid">
-                    <div class="polaroid-light-sheen"></div>
-                    <div class="polaroid-img-container">
-                        <img src="photos/login page photo/WhatsApp Image 2026-07-12 at 1.06.44 PM.jpeg"
-                            alt="Us Together">
-                        <div class="polaroid-shimmer"></div>
+
+                <!-- Polaroid 4 -->
+                <div class="vr-polaroid-wrapper">
+                    <div class="vr-polaroid-inner">
+                        <div class="vr-face vr-front">
+                            <div class="vr-flower-clip">🦋</div>
+                            <img src="photos/login page photo/WhatsApp Image 2026-07-12 at 1.06.44 PM.jpeg"
+                                alt="Us Together">
+                            <div class="vr-front-label">Forever 💜</div>
+                        </div>
+                        <div class="vr-face vr-back">
+                            <div class="vr-handwritten">"A million lifetimes wouldn't be enough."</div>
+                            <div class="vr-wax-seal">K</div>
+                        </div>
                     </div>
-                    <div class="polaroid-heart-label"><span class="heart-icon">❤️</span> Us</div>
-                    <div class="polaroid-gold-seal">✦ M &amp; K ✦</div>
+                </div>
+
+                <!-- Polaroid 5 (New Upload) -->
+                <div class="vr-polaroid-wrapper">
+                    <div class="vr-polaroid-inner">
+                        <div class="vr-face vr-front">
+                            <div class="vr-flower-clip">🌿</div>
+                            <img src="photos/new_uploads/media__1785662455958.jpg"
+                                alt="Us at Bookstore">
+                            <div class="vr-front-label">Peace 🤍</div>
+                        </div>
+                        <div class="vr-face vr-back">
+                            <div class="vr-handwritten">"In your silence, I found my favorite song."</div>
+                            <div class="vr-wax-seal">B</div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <script>
                 document.addEventListener('DOMContentLoaded', () => {
-                    const grid = document.getElementById('auto-rotate-grid');
-                    const cards = grid.querySelectorAll('.polaroid-card');
+                    const gallery = document.querySelector('.vr-scattered-gallery');
+                    const wrappers = gallery.querySelectorAll('.vr-polaroid-wrapper');
                     let currentIndex = 0;
                     let rotateInterval;
 
+                    const total = wrappers.length;
+
+                    function updateClasses() {
+                        wrappers.forEach(w => w.className = 'vr-polaroid-wrapper');
+
+                        let leavingIdx = (currentIndex - 1 + total) % total;
+                        let nextIdx = (currentIndex + 1) % total;
+                        let nextNextIdx = (currentIndex + 2) % total;
+
+                        wrappers[leavingIdx].classList.add('leaving');
+                        wrappers[currentIndex].classList.add('active');
+                        wrappers[nextIdx].classList.add('next');
+                        wrappers[nextNextIdx].classList.add('next-next');
+                    }
+
+                    // Initial call
+                    updateClasses();
+
                     function startRotation() {
                         rotateInterval = setInterval(() => {
-                            cards.forEach(card => card.classList.remove('active'));
-                            cards[currentIndex].classList.add('active');
-                            currentIndex = (currentIndex + 1) % cards.length;
-                        }, 1600);
+                            currentIndex = (currentIndex + 1) % total;
+                            updateClasses();
+                        }, 2200); // 2.2s gives graceful time for the spin
                     }
 
                     // Start auto-rotation
                     startRotation();
 
                     // Pause rotation on hover
-                    grid.addEventListener('mouseenter', () => {
+                    gallery.addEventListener('mouseenter', () => {
                         clearInterval(rotateInterval);
-                        cards.forEach(card => card.classList.remove('active'));
                     });
 
                     // Resume rotation when hover ends
-                    grid.addEventListener('mouseleave', () => {
+                    gallery.addEventListener('mouseleave', () => {
                         startRotation();
                     });
                 });
             </script>
 
             <!-- Quote -->
-            <div class="polaroid-caption reveal-in" style="--reveal-delay: 0.5s;">
-                "Every love story is beautiful,<br>but ours is my favorite."
+            <div class="polaroid-caption reveal-in"
+                style="--reveal-delay: 0.5s; font-family: 'Playfair Display', serif; font-style: italic; color: #F4C430; letter-spacing: 1px;">
+                "Every love story is beautiful,<br>but ours is my absolute favorite."
             </div>
         </div>
 
@@ -210,6 +849,9 @@
             <div class="glass-card login-card reveal-in" id="lock-card" style="--reveal-delay: 0.32s;">
                 <div class="card-glow-bg"></div>
                 <div class="card-content">
+                    <div style="width: 65px; height: 65px; margin: 0 auto 15px; border-radius: 50%; padding: 3px; background: linear-gradient(135deg, #F4C430, #FF4D6D); box-shadow: 0 5px 15px rgba(244,196,48,0.3);">
+                        <img src="photos/new_uploads/media__1785662456055.jpg" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%; border: 2px solid white;" alt="Karamma">
+                    </div>
                     <span class="login-card-kicker">Private &amp; just for you</span>
                     <h1 class="login-title">❤️ Welcome My Love ❤️</h1>
                     <p class="login-subtitle">"A tiny secret before your surprise..."</p>
