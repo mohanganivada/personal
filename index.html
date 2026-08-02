@@ -184,13 +184,18 @@
             @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Great+Vibes&display=swap');
 
             .vr-cinematic-gateway {
-                position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+                position: absolute; top: 0; left: 0; width: 100vw; min-height: 100vh; height: 100%;
                 background: #0B192C; background-image: radial-gradient(circle at top right, #1A0B2E, #0B192C);
-                overflow: hidden; perspective: 1500px;
+                overflow-x: hidden; overflow-y: auto; perspective: 1500px;
                 z-index: 50; transition: transform 2.5s cubic-bezier(0.5, 0, 0.1, 1), opacity 2.5s, filter 2.5s;
                 font-family: 'Cormorant Garamond', serif;
                 color: #FFE9B8;
                 display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
+            }
+            .vr-cinematic-gateway:not(.active) {
+                pointer-events: none;
+                opacity: 0;
+                visibility: hidden;
             }
 
             .background-stars {
@@ -212,7 +217,7 @@
             }
 
             .flowers {
-                position: absolute; top: -10px; font-size: 3rem; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.5));
+                position: absolute; top: 30px; font-size: 3rem; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.5));
                 animation: sway 6s ease-in-out infinite alternate; transform-origin: top center;
                 white-space: nowrap; z-index: 5;
             }
@@ -304,7 +309,7 @@
                 transition: all 1.5s cubic-bezier(0.2, 0.8, 0.2, 1); pointer-events: none;
                 display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 30;
             }
-            .auth-input-container.visible { height: 180px; opacity: 1; bottom: 12vh; pointer-events: all; overflow: visible; }
+            .auth-input-container.visible { height: 180px; opacity: 1; bottom: 35vh; pointer-events: all; overflow: visible; }
 
             .pure-line-input {
                 background: transparent; border: none; border-bottom: 1px solid rgba(212,175,55,0.3);
@@ -353,7 +358,7 @@
                 .title { font-size: 2.5rem; }
                 .subtitle { font-size: 0.9rem; }
                 .moon { width: 100px; height: 100px; top: 10%; }
-                .flowers { font-size: 1.8rem; top: -5px; }
+                .flowers { font-size: 1.8rem; top: 60px; }
                 .flowers.left { left: 5px; }
                 .flowers.right { right: 5px; }
             }
@@ -367,8 +372,9 @@
 
         <section class="hero">
             <div class="flute">🦚✨</div>
-            <h1 class="title">Can open our story.</h1>
-            <p class="subtitle">Every love story is beautiful,<br>but ours is my favorite. 💜</p>
+            <h1 class="title">The flute plays for you,</h1>
+            <h1 class="title" style="animation-delay: 2.5s; font-size: 1.7rem; margin-top: 15px; color: #f4c430;">Only one sacred word...</h1>
+            <p class="subtitle" style="animation-delay: 4.5s;">can open our story 💜</p>
         </section>
 
         <section class="portal-section">
@@ -1362,8 +1368,52 @@
                 card.style.transform = '';
             });
         });
-    </script>
 
+        // Make music icon draggable anywhere
+        document.addEventListener('DOMContentLoaded', () => {
+            const mBtn = document.getElementById('floating-music-btn');
+            if (!mBtn) return;
+            let isDragging = false;
+            let offsetX, offsetY;
+            
+            // Initial safeguard position
+            mBtn.style.position = 'fixed';
+            mBtn.style.zIndex = '999999';
+
+            const onMove = (e) => {
+                if (!isDragging) return;
+                e.preventDefault();
+                const pos = e.touches ? e.touches[0] : e;
+                mBtn.style.left = (pos.clientX - offsetX) + 'px';
+                mBtn.style.top = (pos.clientY - offsetY) + 'px';
+                mBtn.style.bottom = 'auto'; mBtn.style.right = 'auto'; // override explicit bounding
+            };
+            const onStart = (e) => {
+                // Determine whether they are actually trying to pause/play (short click) or drag
+                // So we listen, but button click listener inherently takes over clicks smoothly!
+                if(e.target.closest('.gramophone-btn')) {
+                    isDragging = true;
+                    const pos = e.touches ? e.touches[0] : e;
+                    const rect = mBtn.getBoundingClientRect();
+                    offsetX = pos.clientX - rect.left;
+                    offsetY = pos.clientY - rect.top;
+                    mBtn.style.transition = 'none'; // smooth tracking
+                }
+            };
+            const onEnd = () => {
+                isDragging = false;
+                mBtn.style.transition = 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s, border 0.3s';
+            };
+
+            mBtn.addEventListener('mousedown', onStart);
+            mBtn.addEventListener('touchstart', onStart, {passive: false});
+            document.addEventListener('mousemove', onMove);
+            document.addEventListener('touchmove', onMove, {passive: false});
+            document.addEventListener('mouseup', onEnd);
+            document.addEventListener('touchend', onEnd);
+        });
+    </script>
+    
     <!-- Load the photo catalog -->
     <script src="photo_data.js"></script>
     <!-- Core logic script -->
