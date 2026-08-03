@@ -1,25 +1,25 @@
 /* ===== DESIGN TOKENS ===== */
 :root {
-    --rose: #ff4d6d;
-    --rose-dk: #c9184a;
-    --gold: #f4c430;
-    --gold-lt: #ffe082;
-    --blush: #ffb3c1;
-    --lilac: #c77dff;
-    --bg: #0d0008;
-    --bg2: #130010;
-    --surface: rgba(255, 255, 255, 0.04);
-    --border: rgba(255, 100, 120, 0.2);
-    --text: #f8f0f2;
-    --muted: #c9a0b0;
+    --rose: #D4AF37;
+    --rose-dk: #B8860B;
+    --gold: #F4C430;
+    --gold-lt: #FFFDF2;
+    --blush: #FFEFBA;
+    --lilac: #E0C895;
+    --bg: #03060C;
+    --bg2: #08101E;
+    --surface: rgba(255, 255, 255, 0.03);
+    --border: rgba(255, 215, 0, 0.2);
+    --text: #FDF6E3;
+    --muted: #E0C895;
     --font-h: 'Playfair Display', serif;
     --font-d: 'Dancing Script', cursive;
     --font-b: 'Outfit', sans-serif;
     --r-sm: 12px;
     --r-md: 20px;
     --r-lg: 30px;
-    --shadow: 0 8px 40px rgba(255, 50, 100, 0.2);
-    --shadow-g: 0 8px 40px rgba(244, 196, 48, 0.2);
+    --shadow: 0 15px 45px rgba(0, 0, 0, 0.9), inset 0 0 20px rgba(255, 215, 0, 0.05);
+    --shadow-g: 0 15px 45px rgba(244, 196, 48, 0.2), inset 0 0 20px rgba(244, 196, 48, 0.1);
 }
 
 /* ===== RESET ===== */
@@ -1524,61 +1524,54 @@ a {
     background: rgba(255, 77, 109, 0.4);
 }
 
-/* ===== MUSIC BUTTON ===== */
+/* ===== MUSIC BUBBLE ===== */
 .music-btn {
     position: fixed;
-    top: 50%;
-    left: 0;
-    transform: translateY(-50%) translateX(calc(-100% + 24px));
-    z-index: 2000;
-    background: rgba(13, 0, 8, 0.85);
-    border: 1px solid var(--rose);
-    border-left: none;
-    padding: 10px 15px 10px 15px;
-    border-radius: 0 100px 100px 0;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    z-index: 9999;
+    background: rgba(13, 0, 8, 0.75);
+    border: 2px solid rgba(255, 77, 109, 0.5);
+    border-radius: 50%;
     color: #fff;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 8px;
-    cursor: pointer;
-    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), background 0.3s;
-    box-shadow: 4px 4px 20px rgba(255, 77, 109, 0.25);
-    font-family: var(--font-b);
+    justify-content: center;
+    cursor: grab;
+    touch-action: none;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4);
+    transition: background 0.3s, transform 0.2s, border-color 0.3s;
 }
 
-.music-btn::before {
-    content: '❯';
-    position: absolute;
-    right: 8px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 0.7rem;
-    color: var(--gold);
-    opacity: 1;
-    transition: opacity 0.3s;
+.music-btn:active {
+    cursor: grabbing;
 }
 
-.music-btn.visible {
-    transform: translateY(-50%) translateX(0);
-}
-
-.music-btn.visible::before {
-    opacity: 0;
+.music-btn.playing {
+    border-color: #f4c430;
+    box-shadow: 0 4px 20px rgba(244, 196, 48, 0.6);
 }
 
 .music-btn:hover {
-    background: rgba(255, 77, 109, 0.15);
+    background: rgba(255, 77, 109, 0.2);
+    transform: scale(1.05);
 }
 
 .music-icon {
-    font-size: 1rem;
+    font-size: 1.4rem;
+    line-height: 1;
 }
 
 .music-text {
-    font-size: 0.8rem;
-    font-weight: 600;
-    letter-spacing: 1px;
+    font-size: 0.55rem;
+    font-weight: 700;
     text-transform: uppercase;
+    margin-top: 4px;
+    letter-spacing: 1px;
 }
 
 /* ===== CHAPTER POSITION INDICATOR ===== */

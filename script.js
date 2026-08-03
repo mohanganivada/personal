@@ -377,23 +377,72 @@ document.addEventListener('DOMContentLoaded', () => {
     function verifyPinCode() {
         if (enteredPin === hardcodedPin) {
             sounds.success();
-            // Unlock animations
-            lockCard.classList.add('unlock-fadeout');
-            document.getElementById('login-experience').classList.add('unlock-fadeout');
             
-            // Spawn luxury explosion particles
-            triggerMagicalExplosion();
+            // 1. Cinematic Full-Screen Overlay Fade In
+            const overlay = document.createElement('div');
+            overlay.style.cssText = `
+                position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+                background: radial-gradient(circle at center, #0B192C 0%, #03060C 100%);
+                z-index: 9000; opacity: 0;
+                transition: opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+                pointer-events: none;
+            `;
+            document.body.appendChild(overlay);
             
+            // Force reflow and start fade to cosmic black
+            requestAnimationFrame(() => {
+                overlay.style.opacity = '1';
+                lockCard.classList.add('unlock-fadeout');
+            });
+            
+            // 2. Love Shower falling above the overlay
+            setTimeout(triggerLoveShower, 500);
+            
+            // 3. Graceful animating Love Text
+            const loveText = document.createElement('div');
+            loveText.innerHTML = `
+                <style>
+                    @keyframes throbHeart { 0% { transform: scale(1); filter: drop-shadow(0 0 20px rgba(255,77,109,0.8)); } 50% { transform: scale(1.3); filter: drop-shadow(0 0 60px rgba(255,77,109,1)); } 100% { transform: scale(1); filter: drop-shadow(0 0 20px rgba(255,77,109,0.8)); } }
+                    @keyframes celestialGlow { 0% { text-shadow: 0 5px 30px rgba(212, 175, 55, 0.8), 0 0 15px rgba(255, 255, 255, 0.5); } 50% { text-shadow: 0 5px 60px rgba(244, 196, 48, 1), 0 0 40px rgba(255, 255, 255, 0.9); } 100% { text-shadow: 0 5px 30px rgba(212, 175, 55, 0.8), 0 0 15px rgba(255, 255, 255, 0.5); } }
+                    @keyframes spinningAura { 0% { transform: translate(-50%, -50%) rotate(0deg); opacity: 0.5; } 50% { opacity: 0.9; } 100% { transform: translate(-50%, -50%) rotate(360deg); opacity: 0.5; } }
+                </style>
+                <div style="position:absolute; top:50%; left:50%; width:300vw; height:300px; background: radial-gradient(circle, rgba(212, 175, 55, 0.15) 0%, transparent 60%); z-index:-1; animation: spinningAura 8s linear infinite;"></div>
+                <div style="animation: celestialGlow 3s ease-in-out infinite;">Unlocking our beautiful timeline...</div>
+                <br>
+                <span style="font-size:3.5rem; display:inline-block; margin-top:20px; animation: throbHeart 1.2s ease-in-out infinite;">❤️</span>
+            `;
+            loveText.style.cssText = `
+                position: fixed; top: 50vh; left: 50vw;
+                transform: translate(-50%, -40%) scale(0.95);
+                color: #FFFDF2;
+                font-family: 'Cinzel', serif;
+                font-size: 2.5rem;
+                font-weight: 800;
+                z-index: 10000;
+                opacity: 0;
+                transition: all 2.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+                text-align: center;
+                letter-spacing: 3px;
+                width: 90vw;
+            `;
+            document.body.appendChild(loveText);
+            
+            // Fade in text while making it slowly rise and scale up
+            setTimeout(() => { 
+                loveText.style.opacity = '1';
+                loveText.style.transform = 'translate(-50%, -50%) scale(1)';
+            }, 800);
+
+            // 4. Final fade to completely black before redirecting
             setTimeout(() => {
-                document.getElementById('login-experience').classList.remove('active', 'unlock-fadeout');
-                document.body.style.transition = 'opacity 0.8s ease-in-out';
+                document.body.style.transition = 'opacity 1.2s ease-in-out';
                 document.body.style.opacity = '0';
-            }, 500);
+            }, 3800);
             
+            // 5. Navigate to Chapters
             setTimeout(() => {
-                // Redirect directly to the chapters page
                 window.location.href = 'chapters.html';
-            }, 1300);
+            }, 5000);
             
         } else {
             sounds.error();
@@ -413,50 +462,29 @@ document.addEventListener('DOMContentLoaded', () => {
     /* =========================================================
        5. MAGIC SUCCESS TRANSITION EFFECTS
        ========================================================= */
-    function triggerMagicalExplosion() {
-        const colors = ['#ffd700', '#ff8fab', '#b76e79', '#e8dbfc', '#ff4d6d'];
-        for (let i = 0; i < 90; i++) {
-            const exp = document.createElement('div');
-            exp.style.cssText = `
+    function triggerLoveShower() {
+        const hearts = ['❤️', '💖', '💗', '💕', '💓', '🌸', '✨'];
+        for (let i = 0; i < 70; i++) {
+            const h = document.createElement('div');
+            h.innerText = hearts[Math.floor(Math.random() * hearts.length)];
+            h.style.cssText = `
                 position: fixed;
-                top: 50vh;
-                left: 50vw;
-                width: ${Math.random() * 8 + 4}px;
-                height: ${Math.random() * 8 + 4}px;
-                background: ${colors[Math.floor(Math.random() * colors.length)]};
-                border-radius: 50%;
+                top: -10vh;
+                left: ${Math.random() * 100}vw;
+                font-size: ${Math.random() * 40 + 20}px;
                 z-index: 9999;
                 pointer-events: none;
-                transform: translate(-50%, -50%);
+                filter: drop-shadow(0 5px 15px rgba(244, 196, 48, 0.5));
+                transition: transform ${Math.random() * 2 + 2}s linear, opacity ${Math.random() * 2 + 2}s;
             `;
-            document.body.appendChild(exp);
+            document.body.appendChild(h);
             
-            // Random direction calculations
-            const angle = Math.random() * Math.PI * 2;
-            const velocity = Math.random() * 12 + 6;
-            const dx = Math.cos(angle) * velocity;
-            const dy = Math.sin(angle) * velocity;
+            setTimeout(() => {
+                h.style.transform = "translateY(120vh) rotate(" + (Math.random() * 720) + "deg)";
+                h.style.opacity = '0';
+            }, 50);
             
-            let posX = window.innerWidth / 2;
-            let posY = window.innerHeight / 2;
-            let alpha = 1;
-            
-            function updateExpFrame() {
-                posX += dx;
-                posY += dy + 0.12; // Gravitational fall
-                alpha -= 0.012;
-                
-                exp.style.left = posX + 'px';
-                exp.style.top = posY + 'px';
-                exp.style.opacity = alpha;
-                
-                if (alpha > 0) {
-                    requestAnimationFrame(updateExpFrame);
-                } else {
-                    exp.remove();
-                }
-            }
-            requestAnimationFrame(updateExpFrame);
+            setTimeout(() => h.remove(), 4000);
         }
     }
 

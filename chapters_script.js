@@ -244,72 +244,115 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* =========================================================
-       9. MUSIC TOGGLE & AUTOPLAY ON INTERACTION
+       9. MUSIC TOGGLE, DRAGGABLE BUBBLE & AUTOPLAY
     ========================================================= */
     const musicBtn = document.getElementById('music-toggle');
     const bgMusic = document.getElementById('bg-music');
     let musicOn = false;
     let musicInited = false;
 
-    if (musicBtn) musicBtn.style.display = 'flex'; // Restore button visibility
-
-    function initMusic() {
-        if (!musicInited && bgMusic) {
-            bgMusic.volume = 0.4;
-            bgMusic.play().then(() => {
-                musicInited = true;
-                musicOn = true;
-                if(musicBtn) {
-                    musicBtn.querySelector('.music-text').textContent = 'Music On';
-                    musicBtn.style.borderColor = '#ff4d6d';
-                }
-            }).catch(() => { });
-        }
-    }
-
-    // Attempt to start music smoothly on very first interaction anywhere
-    document.addEventListener('click', initMusic, { once: true });
-    document.addEventListener('touchstart', initMusic, { once: true });
-    document.addEventListener('scroll', initMusic, { once: true });
-
     if (musicBtn && bgMusic) {
-        musicBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            if (musicBtn.classList.contains('visible')) {
-                if (!musicInited) {
-                    initMusic();
-                } else if (musicOn) {
-                    bgMusic.pause();
-                    musicOn = false;
-                } else {
-                    bgMusic.play().catch(() => {});
-                    musicOn = true;
-                }
-                musicBtn.querySelector('.music-text').textContent = musicOn ? 'Music On' : 'Music Off';
-                musicBtn.style.borderColor = musicOn ? '#ff4d6d' : 'rgba(255,77,109,0.4)';
+        musicBtn.style.display = 'flex';
+        bgMusic.volume = 0.4;
+
+        function togglePlayState(play) {
+            musicOn = play;
+            musicInited = true;
+            if (play) {
+                musicBtn.classList.add('playing');
+                musicBtn.querySelector('.music-text').textContent = 'ON';
+                musicBtn.querySelector('.music-text').style.color = '#F4C430';
             } else {
-                musicBtn.classList.add('visible'); // If tucked away, first tap opens it
+                musicBtn.classList.remove('playing');
+                musicBtn.querySelector('.music-text').textContent = 'OFF';
+                musicBtn.querySelector('.music-text').style.color = '#FFF';
+            }
+        }
+
+        // Try autoplay immediately
+        bgMusic.play().then(() => {
+            togglePlayState(true);
+        }).catch(() => {
+            // Fallback: Autoplay blocked, wait for first interaction
+            const firstInteraction = () => {
+                if (!musicInited) {
+                    bgMusic.play().then(() => togglePlayState(true)).catch(()=>{});
+                }
+                ['click', 'touchstart', 'scroll'].forEach(evt => document.removeEventListener(evt, firstInteraction));
+            };
+            ['click', 'touchstart', 'scroll'].forEach(evt => document.addEventListener(evt, firstInteraction, { once: true }));
+        });
+
+        // Drag & Click functionality
+        let isDragging = false;
+        let startX, startY;
+        let wasDragged = false; 
+        
+        const onDragStart = (e) => {
+            if (e.target.closest('#music-toggle')) {
+                isDragging = true;
+                wasDragged = false;
+                let clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                let clientY = e.touches ? e.touches[0].clientY : e.clientY;
+                
+                const rect = musicBtn.getBoundingClientRect();
+                startX = clientX - rect.left;
+                startY = clientY - rect.top;
+                
+                musicBtn.style.transition = 'none';
+            }
+        };
+
+        const onDragMove = (e) => {
+            if (!isDragging) return;
+            wasDragged = true;
+            
+            if(e.cancelable) { e.preventDefault(); }
+            
+            let clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            let clientY = e.touches ? e.touches[0].clientY : e.clientY;
+            
+            let newX = clientX - startX;
+            let newY = clientY - startY;
+
+            const maxW = window.innerWidth - musicBtn.offsetWidth;
+            const maxH = window.innerHeight - musicBtn.offsetHeight;
+            newX = Math.max(0, Math.min(newX, maxW));
+            newY = Math.max(0, Math.min(newY, maxH));
+
+            musicBtn.style.left = newX + 'px';
+            musicBtn.style.top = newY + 'px';
+            musicBtn.style.bottom = 'auto'; 
+            musicBtn.style.right = 'auto';
+        };
+
+        const onDragEnd = (e) => {
+            if (!isDragging) return;
+            isDragging = false;
+            musicBtn.style.transition = 'background 0.3s, transform 0.2s, border-color 0.3s';
+        };
+
+        // Standard native click for Play/Pause robustness
+        musicBtn.addEventListener('click', (e) => {
+            if (wasDragged) {
+                e.preventDefault();
+                return;
+            }
+            if (musicOn) {
+                bgMusic.pause();
+                togglePlayState(false);
+            } else {
+                bgMusic.play().then(() => togglePlayState(true)).catch(()=>{});
             }
         });
 
-        // Swipe logic for sliding out/in
-        let touchStartX = 0;
-        document.addEventListener('touchstart', e => {
-            touchStartX = e.changedTouches[0].clientX;
-        }, {passive: true});
-        
-        document.addEventListener('touchend', e => {
-            const touchEndX = e.changedTouches[0].clientX;
-            const dist = touchEndX - touchStartX;
-            // Swipe right from left edge pulls it out
-            if (dist > 40 && touchStartX < 50) { 
-                musicBtn.classList.add('visible');
-            } 
-            // Swipe left anywhere (or on button) tucks it away
-            else if (dist < -40 && musicBtn.classList.contains('visible')) {
-                musicBtn.classList.remove('visible');
-            }
-        }, {passive: true});
+        musicBtn.addEventListener('mousedown', onDragStart);
+        document.addEventListener('mousemove', onDragMove, {passive: false});
+        document.addEventListener('mouseup', onDragEnd);
+
+        musicBtn.addEventListener('touchstart', onDragStart, {passive: true});
+        document.addEventListener('touchmove', onDragMove, {passive: false});
+        document.addEventListener('touchend', onDragEnd);
     }
 
     /* Hero Photos Auto-Cycler */
