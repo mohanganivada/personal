@@ -386,10 +386,14 @@ document.addEventListener('DOMContentLoaded', () => {
             
             setTimeout(() => {
                 document.getElementById('login-experience').classList.remove('active', 'unlock-fadeout');
-                
+                document.body.style.transition = 'opacity 0.8s ease-in-out';
+                document.body.style.opacity = '0';
+            }, 500);
+            
+            setTimeout(() => {
                 // Redirect directly to the chapters page
                 window.location.href = 'chapters.html';
-            }, 650);
+            }, 1300);
             
         } else {
             sounds.error();

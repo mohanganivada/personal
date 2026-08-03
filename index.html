@@ -1021,7 +1021,7 @@
             .divine-floating-particle {
                 position: absolute;
                 pointer-events: none;
-                z-index: 1;
+                z-index: 0;
                 filter: drop-shadow(0 0 10px rgba(255, 233, 184, 0.4));
                 animation: divineRise linear infinite forwards;
             }
@@ -1142,7 +1142,7 @@
             }
 
             .vr-polaroid-wrapper.active:hover .vr-polaroid-inner {
-                transform: translateY(-20px) scale(1.1) rotateY(180deg);
+                transform: translateY(-15px) scale(1.05);
             }
 
             .vr-face {
@@ -1470,7 +1470,7 @@
         </style>
 
         <!-- Left Side: Interactive Divine Polaroids -->
-        <div class="login-left">
+        <div class="login-left" style="position: relative; z-index: 10;">
 
             <div class="divine-divider"></div>
 
@@ -1619,7 +1619,7 @@
         </div>
 
         <!-- Right Side: Divine Night PIN Lock -->
-        <div class="login-right">
+        <div class="login-right" style="position: relative; z-index: 10;">
             <div class="glass-card login-card divine-lock-card reveal-in" id="lock-card"
                 style="--reveal-delay: 0.32s; padding: 40px; text-align: center;">
 
