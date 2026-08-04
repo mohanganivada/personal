@@ -2469,3 +2469,461 @@ a {
         gap: 8px;
     }
 }
+
+/* ─── Fairy Lights Border Logic ─── */
+.has-fairy-border {
+    position: relative;
+    /* Allows the wire to overflow properly */
+}
+
+/* Base frame around card */
+.has-fairy-border {
+    overflow: visible !important;
+}
+
+.fairy-lights-wrap {
+    position: absolute;
+    inset: -14px; 
+    pointer-events: none;
+    z-index: 15;
+    /* Soft golden frame wire */
+    border: 2px solid rgba(220, 160, 60, 0.8);
+    border-radius: calc(var(--r-md, 24px) + 6px);
+    box-shadow: 
+        inset 0 0 0 1px rgba(220, 160, 60, 0.3),
+        0 0 15px rgba(220, 160, 60, 0.4);
+}
+
+/* Wavy inner intertwined wire */
+.fairy-lights-wrap::before {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border: 1.5px solid rgba(220, 160, 60, 0.25);
+    border-radius: inherit;
+    transform: rotate(0.4deg);
+}
+
+.fairy-lights-wrap::after {
+    content: '';
+    position: absolute;
+    inset: 3px;
+    border: 1px solid rgba(220, 160, 60, 0.15);
+    border-radius: inherit;
+    transform: rotate(-0.3deg);
+}
+
+.fairy-light {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: #fff;
+    border-radius: 50%;
+    animation: fairyBlink 2.5s ease-in-out infinite alternate;
+}
+
+.fairy-light.bulb-0 { 
+    box-shadow: 0 0 5px 2px #fff, 0 0 16px 5px #ffdf73, 0 2px 10px rgba(0,0,0,0.6); 
+    animation-duration: 2.1s; 
+    background: #ffffff; 
+    z-index: 12;
+}
+
+.fairy-light.bulb-1 { 
+    box-shadow: 0 0 6px 3px #fff, 0 0 20px 6px #ff9800, 0 2px 10px rgba(0,0,0,0.6); 
+    animation-duration: 3.4s; 
+    background: #ffffff; 
+    z-index: 12;
+}
+
+.fairy-light.bulb-2 { 
+    box-shadow: 0 0 5px 2px #fff, 0 0 18px 5px #ffc107, 0 2px 10px rgba(0,0,0,0.6); 
+    animation-duration: 2.7s; 
+    background: #ffffff; 
+    z-index: 12;
+}
+
+@keyframes fairyBlink {
+    0% { opacity: 0.3; transform: scale(0.6); filter: brightness(0.6); }
+    100% { opacity: 1; transform: scale(1.4); filter: brightness(1.4); }
+}
+
+/* Floral corners matching the image */
+.fairy-corner {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    z-index: 16;
+}
+
+.fairy-corner.tl {
+    top: -26px;
+    left: -26px;
+}
+
+.fairy-corner.br {
+    bottom: -26px;
+    right: -26px;
+}
+
+.corner-flower {
+    position: absolute;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.6));
+    line-height: 1;
+}
+
+/* =========================================================
+   VRINDAVAN TEMPLE FINALE UI/UX OVERHAUL (BIRTHDAY WISH)
+========================================================= */
+.magical-vrindavan-finale {
+    position: relative;
+    padding: 180px 20px 200px;
+    min-height: 140vh;
+    overflow: hidden;
+    background: radial-gradient(circle at center, #0B192C 0%, #03060C 100%) !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 5;
+}
+
+/* Atmospheric Layers */
+.finale-bg { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+
+.layer-aurora {
+    background: radial-gradient(circle at top, rgba(212,175,55,0.06), transparent 50%),
+                radial-gradient(circle at bottom, rgba(255,107,129,0.04), transparent 50%);
+    animation: auroraBreathe 8s ease-in-out infinite alternate;
+}
+@keyframes auroraBreathe { 0% { opacity: 0.4; transform: scale(1); } 100% { opacity: 1; transform: scale(1.1); } }
+
+.layer-moon-rays {
+    background: repeating-linear-gradient(45deg, rgba(244,196,48,0.02) 0px, transparent 2px, transparent 10px, rgba(244,196,48,0.015) 12px);
+    opacity: 0.5;
+    animation: raysDrift 40s linear infinite;
+}
+@keyframes raysDrift { 0% { background-position: 0 0; } 100% { background-position: 200px 200px; } }
+
+.layer-fog {
+    background-image: radial-gradient(ellipse at bottom, rgba(212,175,55,0.08) 0%, transparent 70%);
+    opacity: 0.8;
+    filter: blur(40px);
+    animation: fogPulse 12s ease-in-out infinite alternate;
+}
+@keyframes fogPulse { 0% { opacity: 0.5; transform: translateY(15px) scaleX(1); } 100% { opacity: 1; transform: translateY(0) scaleX(1.1); } }
+
+/* Corners */
+.royal-corner {
+    position: absolute;
+    width: 60px; height: 60px;
+    z-index: 5;
+    pointer-events: none;
+    opacity: 0.85;
+    filter: drop-shadow(0 0 10px rgba(244,196,48,0.3));
+}
+.royal-corner.tl { top: 30px; left: 30px; }
+.royal-corner.tr { top: 30px; right: 30px; }
+.royal-corner.bl { bottom: 30px; left: 30px; }
+.royal-corner.br { bottom: 30px; right: 30px; }
+@media(max-width: 768px) { .royal-corner { transform: scale(0.65); } }
+
+/* Heading */
+.finale-heading-wrap {
+    text-align: center;
+    position: relative;
+    z-index: 10;
+    margin-bottom: 80px;
+}
+.wish-title {
+    font-size: clamp(3rem, 10vw, 5rem);
+    filter: drop-shadow(0 4px 20px rgba(212, 175, 55, 0.4));
+    margin-bottom: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+.gold-shine {
+    font-family: 'Dancing Script', cursive;
+    background: linear-gradient(90deg, #D4AF37 0%, #FDF6E3 30%, #F4C430 50%, #FDF6E3 70%, #D4AF37 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shineSweep 5s linear infinite;
+}
+.royal-emojis {
+    font-family: 'Apple Color Emoji', 'Segoe UI Emoji', sans-serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5));
+    animation: floatEmojis 4s ease-in-out infinite alternate;
+}
+@keyframes floatEmojis {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-4px); }
+}
+.shining-star { font-family: sans-serif; display: inline-block; animation: starFloat 3s ease-in-out infinite alternate; }
+@keyframes shineSweep { to { background-position: 200% center; } }
+@keyframes starFloat { 0% { transform: translateY(0) scale(1) rotate(0deg); opacity: 0.7;} 100% { transform: translateY(-8px) scale(1.2) rotate(10deg); opacity: 1; filter: drop-shadow(0 0 15px rgba(255,255,255,0.8));} }
+
+.wish-subtitle {
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(0.95rem, 3.5vw, 1.25rem);
+    color: var(--muted);
+    font-weight: 300;
+    line-height: 1.6;
+    letter-spacing: 1px;
+    text-shadow: 0 4px 15px rgba(0,0,0,0.6);
+}
+
+/* Magical Platform */
+.magical-platform-wrap {
+    position: relative;
+    width: 320px;
+    height: 220px;
+    margin: 0 auto 40px;
+    perspective: 1400px;
+    z-index: 10;
+    animation: divineLevitate 8s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
+}
+@media(max-width: 480px){ .magical-platform-wrap { width: 280px; height: 180px; } }
+@keyframes divineLevitate { 0% { transform: translateY(0); } 100% { transform: translateY(-20px); } }
+
+.ambient-candles, .ambient-lotus, .ambient-butterflies {
+    position: absolute; inset: -60px; pointer-events: none; z-index: 4;
+}
+.candle, .lotus, .btt { position: absolute; font-size: 24px; filter: drop-shadow(0 0 15px rgba(244,196,48,0.4)); }
+.candle.c1 { left:-25px; bottom:20px; animation: bttFlutter 4s infinite alternate; }
+.candle.c2 { right:-15px; top:0px; animation: bttFlutter 3s infinite alternate reverse; }
+.lotus.l1 { left:-50px; top:40px; font-size: 32px; transform: rotate(-20deg); animation: bttFlutter 5s infinite alternate; }
+.lotus.l2 { right:-50px; bottom:10px; font-size: 28px; transform: rotate(15deg); animation: bttFlutter 4s infinite alternate reverse; }
+.btt.b1 { left:20px; top:-50px; font-size:16px; animation: bttFlutter 2s infinite alternate; }
+.btt.b2 { right:30px; top:-40px; font-size:18px; animation: bttFlutter 2.5s infinite alternate reverse; }
+.btt.b3 { right:-40px; top:90px; font-size:24px; animation: bttFlutter 3s infinite alternate; }
+
+@keyframes bttFlutter { 0% { transform: translateY(0) rotate(0deg); opacity: 0.8; } 100% { transform: translateY(-15px) rotate(10deg); opacity: 1; filter: drop-shadow(0 0 25px rgba(244,196,48,0.9)); } }
+
+/* The Marble Platform base */
+.divine-platform {
+    position: absolute;
+    bottom: -60px; left: 50%;
+    transform: translateX(-50%) rotateX(72deg);
+    width: 400px; height: 160px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(235, 235, 235, 0.12) 0%, transparent 65%);
+    box-shadow: 0 0 50px rgba(244, 196, 48, 0.15), inset 0 0 25px rgba(244, 196, 48, 0.25);
+    border: 1px solid rgba(212,175,55,0.15);
+    z-index: 1;
+}
+@media(max-width: 480px) { .divine-platform { width: 320px; height: 120px; bottom: -40px;} }
+
+.platform-glow {
+    position: absolute; inset: -20px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(244,196,48,0.3) 0%, transparent 60%);
+    filter: blur(25px);
+    animation: breathGlow 5s ease-in-out infinite alternate;
+}
+@keyframes breathGlow { 0% { opacity: 0.6; } 100% { opacity: 1; transform: scale(1.15); } }
+
+/* Royal Envelope */
+.royal-envelope-container {
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    transform-style: preserve-3d;
+    transition: transform 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.royal-envelope-container:hover {
+    transform: scale(1.06) translateZ(40px) rotateY(2deg) rotateX(2deg);
+}
+
+.royal-envelope {
+    position: relative;
+    width: 100%; height: 100%;
+    background: linear-gradient(135deg, #FFF9EB 0%, #EFE8D3 100%);
+    border-radius: 6px;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.7), inset 0 0 40px rgba(212, 175, 55, 0.15);
+    border: 1.5px solid rgba(212, 175, 55, 0.4);
+    display: flex; justify-content: center; align-items: center;
+    transition: all 0.5s ease;
+    cursor: pointer;
+}
+.env-pattern {
+    position: absolute; inset: 6px;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    background-image: radial-gradient(rgba(212, 175, 55, 0.2) 1px, transparent 1px);
+    background-size: 20px 20px;
+    border-radius: 3px;
+    pointer-events: none;
+}
+.envelope-flap {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 60%;
+    background: linear-gradient(180deg, #FCF5E3 0%, #EBE2C8 100%);
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    z-index: 5;
+    box-shadow: 0 15px 25px rgba(0,0,0,0.15);
+    border-bottom: 2px solid rgba(212,175,55,0.4);
+    transform-origin: top;
+    transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Wax Seal */
+.magical-seal {
+    position: absolute; z-index: 20;
+    width: 70px; height: 70px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #b80000 0%, #680000 100%);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.8), inset 0 3px 6px rgba(255,255,255,0.3), inset 0 -4px 10px rgba(0,0,0,0.6);
+    border: 2px solid #F4C430;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.magical-seal:hover { transform: scale(1.15) rotate(5deg); box-shadow: 0 18px 40px rgba(212,175,55,0.5), inset 0 3px 8px rgba(255,255,255,0.5); filter: drop-shadow(0 0 15px rgba(244,196,48,0.4));}
+.seal-inner {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    color: #F4C430; text-shadow: 0 1px 3px rgba(0,0,0,0.9);
+    position: relative;
+    z-index: 2;
+}
+.seal-initials { font-family: 'Cinzel', serif; font-size: 1.25rem; font-weight: 800; letter-spacing: 1px; line-height: 1;}
+.seal-flute { font-size: 1.1rem; margin-top: -3px; }
+.seal-shine { position: absolute; inset: 0; border-radius: 50%; background: linear-gradient(135deg, rgba(255,255,255,0.5) 0%, transparent 60%); pointer-events: none; z-index: 3; }
+
+/* Open States applied by JS */
+.envelope-stage.opened .royal-envelope-container { transform: scale(1.1) translateY(60px); opacity: 0; pointer-events: none; transition: all 1.8s ease 1s; }
+.envelope-stage.opened .envelope-flap { transform: rotateX(180deg); opacity: 0.9; }
+.envelope-stage.opened .magical-seal { opacity: 0; transform: scale(1.6) rotate(60deg); filter: blur(10px); transition: all 0.9s ease; }
+.envelope-stage.opened #magic-escape { opacity: 1; transform: scale(1); }
+
+/* Magic Escape / Burst */
+#magic-escape { position: absolute; top:50%; left:50%; z-index:15; transform: translate(-50%, -50%) scale(0); opacity: 0; pointer-events:none;}
+.escape-glow { width: 120px; height: 120px; border-radius: 50%; background: radial-gradient(circle, #F4C430 0%, transparent 70%); filter: blur(30px); animation: escapeGlow 2.5s ease-out forwards; }
+@keyframes escapeGlow { 0% { transform: scale(1); opacity:1; filter:blur(10px); } 100% { transform: scale(10); opacity:0; filter:blur(60px); display: none;} }
+
+/* Entrance Animation Orchestration */
+.magical-vrindavan-finale .finale-bg { opacity: 0; animation: fadeBgLayer 6s ease forwards; }
+@keyframes fadeBgLayer { to { opacity: 1; } }
+
+/* P.S. Button Upgrade */
+.golden-engraved-btn {
+    background: linear-gradient(145deg, #1A1A1D 0%, #0D0D10 100%);
+    border: 1px solid rgba(212, 175, 55, 0.4);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.8), inset 0 2px 20px rgba(212,175,55,0.1);
+    color: #FDF6E3; font-family: 'Cinzel', serif; letter-spacing: 2px;
+    padding: 16px 32px; border-radius: 40px; font-size: 1rem; display: inline-flex; align-items: center; gap: 12px; cursor: pointer; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.golden-engraved-btn:hover { background: linear-gradient(145deg, #2A2A2D 0%, #15151A 100%); border-color: rgba(244, 196, 48, 0.8); box-shadow: 0 12px 35px rgba(212,175,55,0.3); transform: translateY(-4px); }
+
+/* Temple Music Box */
+.temple-music-box {
+    position: fixed; bottom: 30px; right: 35px;
+    width: 60px; height: 60px;
+    border-radius: 50%;
+    background: radial-gradient(circle at top left, #D4AF37 0%, #B8860B 100%);
+    border: none;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.8), inset 0 2px 6px rgba(255,255,255,0.4), inset 0 -2px 10px rgba(0,0,0,0.3);
+    z-index: 9999;
+    cursor: pointer;
+    display: flex; justify-content: center; align-items: center;
+    transition: transform 0.4s ease, filter 0.4s ease;
+}
+@media(max-width: 768px){ .temple-music-box { bottom: 20px; right: 20px; width: 50px; height: 50px;} }
+.temple-music-box.playing { background: radial-gradient(circle at top left, #F4C430 0%, #D4AF37 100%); animation: musicOrbit 8s linear infinite; }
+@keyframes musicOrbit { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+.music-box-body { font-size: 28px; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.6)); pointer-events: none;}
+.music-notes { position: absolute; inset: -30px; pointer-events: none; }
+.m-note { position: absolute; font-size: 16px; color: #F4C430; opacity: 0; filter: drop-shadow(0 0 5px rgba(244,196,48,0.8));}
+.temple-music-box.playing .m-note.n1 { animation: floatNote 2.5s linear infinite; top: 10px; left: 0; }
+.temple-music-box.playing .m-note.n2 { animation: floatNote 3s linear infinite 0.8s; top: 0px; right: -5px; font-size: 20px; }
+.temple-music-box.playing .m-note.n3 { animation: floatNote 3.5s linear infinite 1.5s; bottom: 10px; right: -15px; }
+
+@keyframes floatNote { 0% { opacity: 0; transform: translateY(0) scale(0.5); } 30% { opacity: 1; } 100% { opacity: 0; transform: translateY(-50px) scale(1.4) rotate(15deg); } }
+
+@media (max-width: 768px) {
+    .fairy-lights-wrap {
+        inset: -10px; /* Tighter border on mobile to prevent overflow */
+    }
+    .fairy-corner {
+        transform: scale(0.75);
+    }
+    .fairy-corner.tl {
+        top: -16px;
+        left: -12px;
+        transform-origin: top left;
+    }
+    .fairy-corner.br {
+        bottom: -16px;
+        right: -12px;
+        transform-origin: bottom right;
+    }
+}
+
+/* =========================================================
+   Innovative Grand Fireworks (Celebration Blast)
+========================================================= */
+.grand-firework {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    z-index: 2;
+    pointer-events: none;
+    animation: shootUp 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.fw-particle {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    pointer-events: none;
+    animation: explodeFW 2.5s cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
+    animation-delay: 1.1s; /* right when shootUp peaks */
+}
+
+@keyframes shootUp {
+    0% { transform: translateY(100vh) scaleY(4); background: #F4C430; box-shadow: 0 0 10px #D4AF37; opacity: 1; }
+    80% { transform: translateY(-50vh) scaleY(1); background: transparent; box-shadow: none; opacity: 0; }
+    100% { transform: translateY(-60vh) scaleY(1); background: transparent; opacity: 0; }
+}
+
+@keyframes explodeFW {
+    0% { transform: translate(-50%, -50%) scale(1); opacity: 1; filter: brightness(2) blur(0px); }
+    50% { opacity: 0.8; filter: brightness(1.5) blur(1px); }
+    100% { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; filter: brightness(1) blur(4px); }
+}
+
+/* =========================================================
+   Cinematic Letter Emerging Animation
+========================================================= */
+.envelope-stage.opened .royal-envelope-container {
+    transform: translateY(120px) scale(0.9) rotateX(-20deg) !important;
+    opacity: 0 !important;
+    pointer-events: none;
+    transition: all 1.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.magical-vrindavan-finale .secret-note-container {
+    perspective: 1200px;
+    margin-top: -120px; /* Pull it up into the space left by the envelope */
+    position: relative;
+    z-index: 20;
+}
+
+.magical-vrindavan-finale .secret-note-container .luxury-letter {
+    transform-origin: center bottom;
+    transform: translateY(150px) scale(0.7) rotateX(10deg);
+    opacity: 0;
+    transition: transform 1.8s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 1.5s ease;
+}
+
+.magical-vrindavan-finale .secret-note-container.open .luxury-letter {
+    transform: translateY(0) scale(1) rotateX(0deg);
+    opacity: 1;
+}

@@ -1087,7 +1087,7 @@ body {
 }
 
 .unlock-fadeout {
-    animation: unlockScaleFade 0.75s forwards cubic-bezier(0.64, 0, 0.78, 0);
+    animation: unlockScaleFade 1.75s forwards cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 @keyframes unlockScaleFade {
@@ -1447,6 +1447,12 @@ body {
     height: 100%;
     object-fit: cover;
     transition: transform 0.6s ease;
+    /* iOS anti-blur fixes */
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    image-rendering: -webkit-optimize-contrast;
 }
 
 .gallery-polaroid:hover .gallery-img-wrap img {
@@ -2524,6 +2530,11 @@ body {
     box-shadow: 0 10px 45px rgba(0, 0, 0, 0.5);
     display: block;
     object-fit: contain;
+    /* iOS anti-blur fixes for swiping */
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
 }
 
 .modal-caption {

@@ -258,14 +258,20 @@ document.addEventListener('DOMContentLoaded', () => {
         function togglePlayState(play) {
             musicOn = play;
             musicInited = true;
+            
+            const textNode = musicBtn.querySelector('.music-text');
             if (play) {
                 musicBtn.classList.add('playing');
-                musicBtn.querySelector('.music-text').textContent = 'ON';
-                musicBtn.querySelector('.music-text').style.color = '#F4C430';
+                if (textNode) {
+                    textNode.textContent = 'ON';
+                    textNode.style.color = '#F4C430';
+                }
             } else {
                 musicBtn.classList.remove('playing');
-                musicBtn.querySelector('.music-text').textContent = 'OFF';
-                musicBtn.querySelector('.music-text').style.color = '#FFF';
+                if (textNode) {
+                    textNode.textContent = 'OFF';
+                    textNode.style.color = '#FFF';
+                }
             }
         }
 
@@ -701,23 +707,110 @@ document.addEventListener('keydown', e => {
 });
 
 /* =========================================================
-   11. THE LETTER SURPRISE — seal break, staggered reveal, P.S.
+   11. THE LETTER SURPRISE (VRINDAVAN FINALE)
    ========================================================= */
 document.addEventListener('DOMContentLoaded', () => {
+    // Generate Vrindavan Background magic
+    const fxParticles = document.querySelector('.layer-particles');
+    const fxFireflies = document.querySelector('.layer-fireflies');
+
+    if (fxParticles) {
+        for(let i=0; i<60; i++) {
+            let p = document.createElement('div');
+            p.style.cssText = `position:absolute; width:${Math.random()*3+1}px; height:${Math.random()*3+1}px; background:#F4C430; border-radius:50%; box-shadow:0 0 6px #F4C430; top:${Math.random()*100}%; left:${Math.random()*100}%; opacity:${Math.random()}; animation: floatUp ${Math.random()*15+8}s linear infinite;`;
+            fxParticles.appendChild(p);
+        }
+    }
+    if (fxFireflies) {
+        for(let i=0; i<35; i++) {
+            let f = document.createElement('div');
+            f.style.cssText = `position:absolute; width:4px; height:4px; background:#D4AF37; border-radius:50%; box-shadow:0 0 12px 3px #F4C430, 0 0 25px #FFF; top:${Math.random()*100}%; left:${Math.random()*100}%; animation: fireflyDart ${Math.random()*8+5}s ease-in-out infinite alternate;`;
+            fxFireflies.appendChild(f);
+        }
+    }
+    
+    // Add keyframes dynamically if not present
+    const style = document.createElement('style');
+    style.innerHTML = `
+        @keyframes floatUp { from { transform: translateY(0); } to { transform: translateY(-100vh); } }
+        @keyframes fireflyDart { 0% { transform: translate(0, 0) scale(1); opacity:0.2;} 50% { transform: translate(${Math.random()*50-25}px, -30px) scale(1.6); opacity:1;} 100% { transform: translate(${Math.random()*100-50}px, -60px) scale(0.8); opacity:0.1;} }
+    `;
+    document.head.appendChild(style);
+
     const sealBtn = document.getElementById('wax-seal-btn');
     const envelopeStage = document.getElementById('envelope-stage');
+    // Allow clicking anywhere on the entire envelope to open it (Fixes laptop mode issue)
+    const envelopeBody = document.querySelector('.royal-envelope');
+    
     const noteContainer = document.getElementById('secret-note-container');
     const fireworks = document.getElementById('fireworks');
     const psSurprise = document.getElementById('ps-surprise');
     const psBtn = document.getElementById('ps-btn');
     const psReveal = document.getElementById('ps-reveal');
+    const escapeParticles = document.getElementById('escape-particles');
 
     if (sealBtn) {
         sealBtn.addEventListener('click', breakSeal, { once: true });
     }
+    if (envelopeBody) {
+        envelopeBody.addEventListener('click', breakSeal, { once: true });
+    }
 
     function breakSeal() {
-        sealBtn.classList.add('cracked');
+        if(sealBtn) sealBtn.classList.add('cracked');
+        if(envelopeBody) envelopeBody.style.pointerEvents = 'none';
+
+        // Explode magic particles from inside
+        if (escapeParticles) {
+            for(let i=0; i<40; i++){
+                let p = document.createElement('div');
+                const types = ['✨', '💖', '🌸', '💫'];
+                p.textContent = types[Math.floor(Math.random() * types.length)];
+                p.style.cssText = `position:absolute; top:50%; left:50%; font-size:${Math.random()*18+12}px; transform:translate(-50%,-50%); transition:all 2.5s cubic-bezier(0.16, 1, 0.3, 1); opacity:1; z-index:50; pointer-events:none;`;
+                escapeParticles.appendChild(p);
+                
+                setTimeout(() => {
+                    p.style.transform = `translate(${(Math.random()-0.5)*500}px, ${(Math.random()-0.5)*500 - 150}px) scale(${Math.random()+0.5}) rotate(${Math.random()*360}deg)`;
+                    p.style.opacity = '0';
+                }, 50);
+            }
+        }
+
+        // --- Grand Innovative Sparkler Crackers (Fireworks) ---
+        const finaleBg = document.querySelector('.magical-vrindavan-finale');
+        if (finaleBg) {
+            // Launch 12 majestic fireworks!
+            for(let j=0; j<12; j++){
+                setTimeout(() => {
+                    let fw = document.createElement('div');
+                    fw.className = 'grand-firework';
+                    fw.style.left = `${Math.random()*80 + 10}%`; // 10% to 90%
+                    fw.style.bottom = '10%'; // Start from bottom
+                    finaleBg.appendChild(fw);
+                    
+                    // Create particles for this firework
+                    for(let k=0; k<35; k++) {
+                        let fwp = document.createElement('div');
+                        fwp.className = 'fw-particle';
+                        const colors = ['#F4C430', '#D4AF37', '#FF6B81', '#FFF', '#00D2C8'];
+                        let col = colors[Math.floor(Math.random() * colors.length)];
+                        fwp.style.background = col;
+                        fwp.style.boxShadow = `0 0 10px ${col}, 0 0 20px ${col}`;
+                        let angle = Math.random() * Math.PI * 2;
+                        let dist = Math.random() * 200 + 50; 
+                        let tx = Math.cos(angle) * dist;
+                        let ty = Math.sin(angle) * dist;
+                        
+                        fwp.style.setProperty('--tx', `${tx}px`);
+                        fwp.style.setProperty('--ty', `${ty}px`);
+                        fw.appendChild(fwp);
+                    }
+                    
+                    // Automatically clean up firework node
+                    setTimeout(() => { if(fw.parentNode) fw.parentNode.removeChild(fw); }, 4000);
+                }, j * 450); // Stagger them
+            }
+        }
 
         // Screen flash, matching the theme's existing blast effect
         const blast = document.createElement('div');
@@ -729,21 +822,21 @@ document.addEventListener('DOMContentLoaded', () => {
             if (envelopeStage) envelopeStage.classList.add('opened');
             if (noteContainer) noteContainer.classList.add('open');
             revealLetterLines();
-        }, 400);
+        }, 1000); // Slower, more cinematic opening
 
         setTimeout(() => {
             if (blast.parentNode) blast.parentNode.removeChild(blast);
-        }, 1900);
+        }, 2500);
     }
 
     function revealLetterLines() {
         const lines = document.querySelectorAll('#luxury-letter .letter-line');
         lines.forEach((line, i) => {
-            setTimeout(() => line.classList.add('visible'), 350 + i * 260);
+            setTimeout(() => line.classList.add('visible'), 600 + i * 350);
         });
 
         // After the last line has appeared, close the moment with fireworks + the P.S. option
-        const totalDelay = 350 + lines.length * 260 + 400;
+        const totalDelay = 600 + lines.length * 350 + 600;
         setTimeout(() => {
             if (fireworks) fireworks.classList.add('show');
             if (psSurprise) psSurprise.classList.add('show');
@@ -756,4 +849,99 @@ document.addEventListener('DOMContentLoaded', () => {
             psBtn.classList.add('used');
         });
     }
+});
+
+/* =========================================================
+   12. MAGICAL FAIRY LIGHT BORDERS ON CHAPTER CARDS
+   Dynamically wraps chapter cards with glowing fairy wires
+   and beautiful corner floral assets
+========================================================= */
+document.addEventListener('DOMContentLoaded', () => {
+    // Apply to alternate chapters (index 0, 2, 4...) and the final letter
+    const sections = document.querySelectorAll('section.memory-section');
+    const targetedCards = [];
+
+    sections.forEach((sec, index) => {
+        if (index % 2 === 0) {
+            const card = sec.querySelector('.manuscript-card, .story-card.vertical-card');
+            if (card) targetedCards.push(card);
+        }
+    });
+
+    // Also add lighting for the final letter
+    const luxuryLetter = document.getElementById('luxury-letter');
+    if (luxuryLetter) targetedCards.push(luxuryLetter);
+    
+    targetedCards.forEach(card => {
+        card.classList.add('has-fairy-border');
+        
+        // Container for wires and lights
+        const borderWrap = document.createElement('div');
+        borderWrap.className = 'fairy-lights-wrap';
+        
+        // Generate glowing bulbs (fairy lights) along the perimeter
+        // Roughly 40 lights per card
+        for (let i = 0; i < 40; i++) {
+            const light = document.createElement('div');
+            light.className = 'fairy-light bulb-' + (i % 3);
+            
+            // Distribute along 4 edges: 0 = top, 1 = right, 2 = bottom, 3 = left
+            let edge = i % 4;
+            // Position along the edge (5% to 95% to leave corners free for flowers)
+            let posPos = 5 + (Math.random() * 90); 
+            let offset = (Math.random() - 0.5) * 12; // Wobble away from the straight wire
+            
+            if (edge === 0) { 
+                light.style.top = '-2px'; 
+                light.style.left = posPos + '%'; 
+                light.style.transform = `translateY(${offset}px)`; 
+            } else if (edge === 1) { 
+                light.style.right = '-2px'; 
+                light.style.top = posPos + '%'; 
+                light.style.transform = `translateX(${offset}px)`; 
+            } else if (edge === 2) { 
+                light.style.bottom = '-2px'; 
+                light.style.left = posPos + '%'; 
+                light.style.transform = `translateY(${offset}px)`; 
+            } else if (edge === 3) { 
+                light.style.left = '-2px'; 
+                light.style.top = posPos + '%'; 
+                light.style.transform = `translateX(${offset}px)`; 
+            }
+            
+            // Randomize blink delay
+            light.style.animationDelay = (Math.random() * 3) + 's';
+            
+            borderWrap.appendChild(light);
+        }
+        
+        // --- Add Floral Corners ---
+        // Top-Left Corner
+        const cornerTL = document.createElement('div');
+        cornerTL.className = 'fairy-corner tl';
+        cornerTL.innerHTML = `
+            <span class="corner-flower" style="top:-6px; left:-2px; font-size:32px; transform:rotate(-35deg);">🌸</span>
+            <span class="corner-flower" style="top:-14px; left:18px; font-size:24px; transform:rotate(25deg);">🍃</span>
+            <span class="corner-flower" style="top:18px; left:-8px; font-size:28px; transform:rotate(-70deg);">🌿</span>
+            <span class="corner-flower" style="top:12px; left:12px; font-size:18px;">🌺</span>
+            <!-- Glowing accent dots -->
+            <div style="position:absolute; width:4px; height:4px; background:#fff; border-radius:50%; top:28px; left:28px; box-shadow:0 0 8px #FFD700;"></div>
+        `;
+        borderWrap.appendChild(cornerTL);
+        
+        // Bottom-Right Corner
+        const cornerBR = document.createElement('div');
+        cornerBR.className = 'fairy-corner br';
+        cornerBR.innerHTML = `
+            <span class="corner-flower" style="bottom:-6px; right:-2px; font-size:32px; transform:rotate(145deg);">🌸</span>
+            <span class="corner-flower" style="bottom:-14px; right:18px; font-size:24px; transform:rotate(-155deg);">🍃</span>
+            <span class="corner-flower" style="bottom:18px; right:-8px; font-size:28px; transform:rotate(110deg);">🌿</span>
+            <span class="corner-flower" style="bottom:12px; right:12px; font-size:18px;">🌺</span>
+            <!-- Glowing accent dots -->
+            <div style="position:absolute; width:4px; height:4px; background:#fff; border-radius:50%; bottom:28px; right:28px; box-shadow:0 0 8px #FFD700;"></div>
+        `;
+        borderWrap.appendChild(cornerBR);
+        
+        card.appendChild(borderWrap);
+    });
 });

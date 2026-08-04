@@ -382,21 +382,25 @@ document.addEventListener('DOMContentLoaded', () => {
             const overlay = document.createElement('div');
             overlay.style.cssText = `
                 position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-                background: radial-gradient(circle at center, #0B192C 0%, #03060C 100%);
+                background: radial-gradient(circle at center, rgba(11,25,44,0.4) 0%, rgba(3,6,12,0.95) 100%);
+                backdrop-filter: blur(0px);
+                -webkit-backdrop-filter: blur(0px);
                 z-index: 9000; opacity: 0;
-                transition: opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+                transition: opacity 2.5s cubic-bezier(0.3, 0, 0.2, 1), backdrop-filter 2.5s cubic-bezier(0.3, 0, 0.2, 1), -webkit-backdrop-filter 2.5s cubic-bezier(0.3, 0, 0.2, 1);
                 pointer-events: none;
             `;
             document.body.appendChild(overlay);
             
-            // Force reflow and start fade to cosmic black
+            // Force reflow and start fade to cosmic black with blur
             requestAnimationFrame(() => {
                 overlay.style.opacity = '1';
+                overlay.style.backdropFilter = 'blur(15px)';
+                overlay.style.webkitBackdropFilter = 'blur(15px)';
                 lockCard.classList.add('unlock-fadeout');
             });
             
             // 2. Love Shower falling above the overlay
-            setTimeout(triggerLoveShower, 500);
+            setTimeout(triggerLoveShower, 600);
             
             // 3. Graceful animating Love Text
             const loveText = document.createElement('div');
@@ -413,7 +417,7 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
             loveText.style.cssText = `
                 position: fixed; top: 50vh; left: 50vw;
-                transform: translate(-50%, -40%) scale(0.95);
+                transform: translate(-50%, -40%) scale(0.95) translateY(20px);
                 color: #FFFDF2;
                 font-family: 'Cinzel', serif;
                 font-size: 2.5rem;
@@ -430,19 +434,19 @@ document.addEventListener('DOMContentLoaded', () => {
             // Fade in text while making it slowly rise and scale up
             setTimeout(() => { 
                 loveText.style.opacity = '1';
-                loveText.style.transform = 'translate(-50%, -50%) scale(1)';
-            }, 800);
+                loveText.style.transform = 'translate(-50%, -50%) scale(1) translateY(0px)';
+            }, 1000);
 
             // 4. Final fade to completely black before redirecting
             setTimeout(() => {
-                document.body.style.transition = 'opacity 1.2s ease-in-out';
+                document.body.style.transition = 'opacity 2.2s cubic-bezier(0.4, 0, 0.2, 1)';
                 document.body.style.opacity = '0';
-            }, 3800);
+            }, 4800);
             
             // 5. Navigate to Chapters
             setTimeout(() => {
-                window.location.href = 'chapters.html';
-            }, 5000);
+                window.location.href = 'chapters.html?magicalEntrance=true';
+            }, 7000);
             
         } else {
             sounds.error();

@@ -14,6 +14,23 @@
     <!-- Animation Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script>
+        if (window.location.search.includes('magicalEntrance=true')) {
+            document.documentElement.style.opacity = '0';
+            document.documentElement.style.backgroundColor = '#03060C';
+            window.addEventListener('DOMContentLoaded', () => {
+                setTimeout(() => {
+                    document.documentElement.style.transition = 'opacity 3s cubic-bezier(0.2, 0.8, 0.2, 1), background-color 3s ease';
+                    document.documentElement.style.opacity = '1';
+                    document.documentElement.style.backgroundColor = '';
+                    
+                    const url = new URL(window.location);
+                    url.searchParams.delete('magicalEntrance');
+                    window.history.replaceState({}, '', url);
+                }, 100);
+            });
+        }
+    </script>
     <style>
         /* Vrindavan Colors override */
         :root {
@@ -840,83 +857,130 @@
         </section>
 
         <!-- ===== BIRTHDAY WISH SECTION ===== -->
-        <section id="birthday-wish" class="wish-section">
-            <div class="wish-inner">
-                <div class="wish-candles reveal-up">🕯️ 🎂 🕯️</div>
-                <h2 class="wish-title reveal-up">Happy Birthday Kari ✨</h2>
-                <p class="wish-lead reveal-up">There's one more thing I've been saving just for this moment.</p>
+        <!-- ===== BIRTHDAY WISH SECTION (Vrindavan Finale) ===== -->
+        <section id="birthday-wish" class="wish-section magical-vrindavan-finale">
+            <!-- Celestial Atmosphere Layers -->
+            <div class="finale-bg layer-aurora"></div>
+            <div class="finale-bg layer-moon-rays"></div>
+            <div class="finale-bg layer-fog"></div>
+            <div class="finale-bg layer-particles"></div>
+            <div class="finale-bg layer-fireflies"></div>
 
-                <!-- Sealed envelope: the surprise hasn't happened yet -->
-                <div class="envelope-stage reveal-up" id="envelope-stage">
-                    <div class="envelope-card">
-                        <div class="envelope-icon">💌</div>
-                        <button id="wax-seal-btn" class="wax-seal-btn" aria-label="Break the seal to open your letter">
-                            <span class="seal-heart">❤</span>
-                        </button>
-                        <p class="envelope-hint">Break the seal to open your letter</p>
+            <!-- Royal Floral Corners -->
+            <div class="royal-corner tl">
+                <span style="font-size:36px; position:absolute; top: -5px; left: -5px;">🌸</span>
+                <span style="font-size:20px; position:absolute; top: -10px; left: 24px;">🍃</span>
+                <span style="font-size:26px; position:absolute; top: 24px; left: -5px; transform:rotate(-45deg);">🌿</span>
+            </div>
+            <div class="royal-corner tr">
+                <span style="font-size:36px; position:absolute; top: -5px; right: -5px;">🌺</span>
+                <span style="font-size:20px; position:absolute; top: -10px; right: 24px; transform:scaleX(-1);">🍃</span>
+                <span style="font-size:26px; position:absolute; top: 24px; right: -5px; transform:rotate(45deg) scaleX(-1);">🌿</span>
+            </div>
+            <div class="royal-corner bl">
+                <span style="font-size:36px; position:absolute; bottom: -5px; left: -5px;">🪷</span>
+                <span style="font-size:20px; position:absolute; bottom: -10px; left: 24px;">🍃</span>
+                <span style="font-size:26px; position:absolute; bottom: 24px; left: -5px; transform:rotate(45deg);">🌿</span>
+            </div>
+            <div class="royal-corner br">
+                <span style="font-size:36px; position:absolute; bottom: -5px; right: -5px;">🌹</span>
+                <span style="font-size:20px; position:absolute; bottom: -10px; right: 24px; transform:scaleX(-1);">🍃</span>
+                <span style="font-size:26px; position:absolute; bottom: 24px; right: -5px; transform:rotate(-45deg) scaleX(-1);">🌿</span>
+            </div>
+
+            <div class="wish-inner template-center">
+                <!-- Heading -->
+                <div class="finale-heading-wrap reveal-finale">
+                    <h2 class="wish-title">
+                        <span class="gold-shine">Happy Birthday Kari</span>
+                        <span class="royal-emojis">💗🎀👸🏻</span>
+                        <span class="shining-star">✨</span>
+                    </h2>
+                    <p class="wish-subtitle">Some words are too precious to be spoken.<br>They deserve to be opened with the heart.</p>
+                </div>
+
+                <!-- Sacred Platform -->
+                <div class="magical-platform-wrap reveal-finale" id="envelope-stage">
+                    
+                    <!-- Ambient Hovering Elements -->
+                    <div class="ambient-candles">
+                        <span class="candle c1">🕯️</span>
+                        <span class="candle c2">🕯️</span>
+                    </div>
+                    <div class="ambient-lotus">
+                        <span class="lotus l1">🪷</span>
+                        <span class="lotus l2">🪷</span>
+                    </div>
+                    <div class="ambient-butterflies">
+                        <span class="btt b1">🦋</span>
+                        <span class="btt b2">🦋</span>
+                        <span class="btt b3">🦚</span>
+                    </div>
+
+                    <!-- Glowing Circular Platform -->
+                    <div class="divine-platform">
+                        <div class="platform-surface"></div>
+                        <div class="platform-glow"></div>
+                        <div class="platform-shadow"></div>
+                    </div>
+
+                    <!-- Handcrafted Royal Envelope -->
+                    <div class="royal-envelope-container">
+                        <div class="royal-envelope">
+                            <div class="envelope-flap"></div>
+                            <div class="envelope-body">
+                                <div class="env-pattern"></div>
+                            </div>
+
+                            <!-- 3D Crimson Details Wax Seal -->
+                            <button id="wax-seal-btn" class="magical-seal" aria-label="Break the seal">
+                                <div class="seal-base">
+                                    <div class="seal-inner">
+                                        <span class="seal-initials">MK</span>
+                                        <span class="seal-flute">🪈</span>
+                                    </div>
+                                </div>
+                                <div class="seal-shine"></div>
+                            </button>
+                        </div>
+                        
+                        <!-- Light bursts from inside -->
+                        <div class="magic-escape-hatch" id="magic-escape">
+                            <div class="escape-glow"></div>
+                            <div class="escape-particles" id="escape-particles"></div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Revealed only after the seal is broken -->
+                <!-- Revealed Letter -->
                 <div class="secret-note-container" id="secret-note-container">
                     <div class="wish-card luxury-letter" id="luxury-letter">
-                        <div style="width: 100%; height: 200px; margin-bottom: 25px; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid rgba(244, 196, 48, 0.2);">
-                            <img src="photos/new_uploads/media__1785781995861.jpg" style="width: 100%; height: 100%; object-fit: cover; filter: brightness(0.95);" alt="Us at the Letter">
+                        <div style="width: 100%; height: auto; margin-bottom: 30px; border-radius: 12px; overflow: hidden; box-shadow: 0 15px 40px rgba(0,0,0,0.6); border: 1px solid rgba(212, 175, 55, 0.3);">
+                            <img src="photos/new_uploads/media__1785781995861.jpg" style="display: block; width: 100%; height: auto; object-fit: contain; filter: brightness(0.95);" alt="Us at the Letter">
                         </div>
                         <p class="letter-open-line">My Beautiful Karammmaaa ❤️,</p>
-
-                        <p class="letter-line letter-text">
-                            Twenty years ago, the universe gifted this world someone truly special—you. And years later,
-                            it gifted me the greatest blessing of all: you in my life.
-                        </p>
-                        <p class="letter-line letter-text">
-                            Before you came into my world, days were just days. But after you, everything became more
-                            beautiful. My mornings feel brighter, my heart feels fuller, and every little moment has a
-                            meaning because you're a part of it.
-                        </p>
-                        <p class="letter-line letter-text">
-                            When I look back at our journey, every memory makes me smile. From our Bengaluru to
-                            Hyderabad adventures, our train ride to Vizag, peaceful temple visits, walking hand in hand
-                            on the beach, endless late-night video calls, and all the little moments in between... every
-                            single one is a memory I'll cherish forever. They aren't just memories—they are pieces of my
-                            happiest life.
-                        </p>
-                        <p class="letter-line letter-text">
-                            You are my peace, my comfort, my biggest happiness, and my favorite person. Thank you for
-                            loving me, understanding me, supporting me, and making my life so incredibly beautiful.
-                        </p>
-                        <p class="letter-line letter-text">
-                            On your special day, I pray that every dream you carry in your heart comes true. May you
-                            always smile the way you make me smile. May life bless you with endless happiness, good
-                            health, success, and all the love you deserve.
-                        </p>
-                        <p class="letter-line letter-emphasis">
-                            And I want you to know one thing...
-                        </p>
-                        <p class="letter-line letter-emphasis">
-                            No matter where life takes us, I promise to stand beside you, hold your hand through every
-                            high and low, protect you, support you, and love you with all my heart—today, tomorrow, and
-                            every day after.
-                        </p>
-                        <p class="letter-line letter-text">
-                            Happy 20th Birthday, my beautiful Karammmaaa. ❤️
-                        </p>
-                        <p class="letter-line letter-text">
-                            Forever and always,
-                        </p>
+                        <p class="letter-line letter-text">Twenty years ago, the universe gifted this world someone truly special—you. And years later, it gifted me the greatest blessing of all: you in my life.</p>
+                        <p class="letter-line letter-text">Before you came into my world, days were just days. But after you, everything became more beautiful. My mornings feel brighter, my heart feels fuller, and every little moment has a meaning because you're a part of it.</p>
+                        <p class="letter-line letter-text">When I look back at our journey, every memory makes me smile. From our Bengaluru to Hyderabad adventures, our train ride to Vizag, peaceful temple visits, walking hand in hand on the beach, endless late-night video calls, and all the little moments in between... every single one is a memory I'll cherish forever. They aren't just memories—they are pieces of my happiest life.</p>
+                        <p class="letter-line letter-text">You are my peace, my comfort, my biggest happiness, and my favorite person. Thank you for loving me, understanding me, supporting me, and making my life so incredibly beautiful.</p>
+                        <p class="letter-line letter-text">On your special day, I pray that every dream you carry in your heart comes true. May you always smile the way you make me smile. May life bless you with endless happiness, good health, success, and all the love you deserve.</p>
+                        <p class="letter-line letter-emphasis">And I want you to know one thing...</p>
+                        <p class="letter-line letter-emphasis">No matter where life takes us, I promise to stand beside you, hold your hand through every high and low, protect you, support you, and love you with all my heart—today, tomorrow, and every day after.</p>
+                        <p class="letter-line letter-text">Happy 20th Birthday, my beautiful Karammmaaa. ❤️</p>
+                        <p class="letter-line letter-text">Forever and always,</p>
                         <div class="wish-signature handwritten">Your Bunny 🐰❤️</div>
                     </div>
 
-                    <!-- A second, smaller surprise she has to choose to open -->
+                    <!-- Secret P.S. block modified to match elegant theme -->
                     <div class="ps-surprise" id="ps-surprise">
-                        <button class="ps-btn" id="ps-btn">One more secret… 🤫</button>
+                        <button class="ps-btn golden-engraved-btn" id="ps-btn">
+                            <span class="engrave-icon">🗝️</span> 
+                            <span>One more secret…</span>
+                        </button>
                         <div class="ps-reveal" id="ps-reveal">
                             <div class="ps-stamp">💯</div>
                             <p class="ps-text">
-                                P.S. — Everything above is true, every single word. But here's the part I didn't write
-                                down anywhere else: however far apart we are, however hard a day gets, you are the
-                                person
-                                I keep choosing, again and again. Forever isn't nearly long enough, Karamma. 🐰❤️
+                                P.S. — Everything above is true, every single word. But here's the part I didn't write down anywhere else: however far apart we are, however hard a day gets, you are the person I keep choosing, again and again. Forever isn't nearly long enough, Karamma. 🐰❤️
                             </p>
                         </div>
                     </div>
@@ -954,10 +1018,16 @@
         </div>
     </div>
 
-    <!-- Music Toggle -->
-    <button id="music-toggle" class="music-btn" aria-label="Toggle Music">
-        <span class="music-icon">🎵</span>
-        <span class="music-text">Music</span>
+    <!-- Floating Temple Music Box -->
+    <button id="music-toggle" class="temple-music-box" aria-label="Toggle Music">
+        <div class="music-box-body">
+            <span class="music-flute">🪈</span>
+        </div>
+        <div class="music-notes">
+            <span class="m-note n1">♪</span>
+            <span class="m-note n2">♫</span>
+            <span class="m-note n3">♩</span>
+        </div>
     </button>
 
     <!-- Chapter position indicator -->
