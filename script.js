@@ -651,7 +651,7 @@ Cannot wait for your Birthday My Karammmaaa ❤️`;
             polaroid.style.transform = `rotate(${randAng}deg)`;
             
             // Identify if video item
-            const isVideo = item.url.toLowerCase().endsWith('.mp4') || item.url.toLowerCase().endsWith('.mov');
+            const isVideo = /\.(mp4|mov|webm|m4v)$/i.test(item.url);
 
             polaroid.innerHTML = `
                 <div class="polaroid-light-sheen"></div>
@@ -722,7 +722,7 @@ Cannot wait for your Birthday My Karammmaaa ❤️`;
 
     function updateModalMedia() {
         const item = itemsSource[currentModalIdx];
-        const isVideo = item.url.toLowerCase().endsWith('.mp4') || item.url.toLowerCase().endsWith('.mov');
+        const isVideo = /\.(mp4|mov|webm|m4v)$/i.test(item.url);
         
         modalImg.style.display = 'none';
         modalVideo.style.display = 'none';

@@ -476,7 +476,7 @@ const FOLDERS = {
 
 function encodeFilePath(folderPath, fileName) {
     const fullPath = folderPath.endsWith('/') ? folderPath + fileName : folderPath + '/' + fileName;
-    return encodeURI(fullPath);
+    return fullPath;
 }
 
 function isVideoFile(fileName) {
@@ -527,9 +527,11 @@ function openLightbox(folderKey) {
     }
 
     current3DItems = [];
+    currentFolderImages = [];
     
     files.forEach((file, index) => {
         const fileUrl = encodeFilePath(folderInfo.path, file);
+        currentFolderImages.push(fileUrl);
         const item = document.createElement('div');
         
         item.style.cssText = `
@@ -613,6 +615,11 @@ function openLightbox(folderKey) {
                 scale: Math.random() * 0.3 + 0.8, zIndex: 1, duration: 0.8, ease: "power2.out", boxShadow: "0 15px 35px rgba(0,0,0,0.6)"
             });
             glare.style.opacity = '0';
+        });
+
+        item.addEventListener('click', (e) => {
+            e.stopPropagation();
+            openViewer(index);
         });
     });
 }
