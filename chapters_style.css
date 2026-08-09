@@ -3007,7 +3007,7 @@ a {
     transform: scale(1.1);
     box-shadow: 0 20px 40px rgba(0,0,0,0.8), 0 0 40px rgba(212, 175, 55, 0.6), inset 0 2px 10px rgba(255,255,255,0.8);
 }
-@media(max-width: 768px){ .temple-music-box { bottom: 20px; right: 20px; width: 55px; height: 55px;} }
+@media(max-width: 768px){ .temple-music-box { top: 50%; bottom: auto; right: 15px; margin-top: -27.5px; width: 55px; height: 55px;} }
 .temple-music-box.playing { background: radial-gradient(circle at 30% 30%, #FFFFFF 0%, var(--gold-lt) 30%, var(--rose) 100%); animation: musicOrbit 6s linear infinite; box-shadow: 0 15px 35px rgba(0,0,0,0.8), 0 0 50px rgba(212, 175, 55, 0.8), inset 0 2px 15px rgba(255,255,255,0.8); }
 @keyframes musicOrbit { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
