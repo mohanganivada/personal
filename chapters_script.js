@@ -525,18 +525,20 @@ function openLightbox(folderKey) {
         space.innerHTML = `<h2 style="color:#F4C430; text-align:center; padding-top:20vh;">📂 No photos found in ${folderName}</h2>`;
         return;
     }
+    
+    const isLargeGallery = files.length > 10;
+    if (isLargeGallery) {
+        // Build a responsive vertical grid layout 
+        space.style.display = 'grid';
+        space.style.gridTemplateColumns = 'repeat(auto-fit, minmax(220px, 1fr))';
+        space.style.gap = '30px';
+        space.style.overflowY = 'auto';
+        space.style.padding = '80px 40px';
+    }
 
     current3DItems = [];
     currentFolderImages = [];
     
-    if (files.length > 10) {
-        files.forEach((file) => {
-            currentFolderImages.push(encodeFilePath(folderInfo.path, file));
-        });
-        openViewer(0);
-        return;
-    }
-
     files.forEach((file, index) => {
         const fileUrl = encodeFilePath(folderInfo.path, file);
         currentFolderImages.push(fileUrl);
@@ -563,6 +565,15 @@ function openLightbox(folderKey) {
             transition: box-shadow 0.3s;
         `;
         
+        if (isLargeGallery) {
+            item.style.position = 'relative';
+            item.style.left = 'auto';
+            item.style.top = 'auto';
+            item.style.width = '100%';
+            item.style.height = '260px'; // fit inside the vertical grid
+            item.style.transform = 'scale(0)';
+        }
+        
         // Media element
         if (isVideoFile(fileUrl)) {
             const vid = document.createElement('video');
@@ -588,43 +599,60 @@ function openLightbox(folderKey) {
         space.appendChild(item);
         current3DItems.push(item);
         
-        // Scatter physics coordinates
-        const scatterX = (Math.random() - 0.5) * (window.innerWidth * 0.7);
-        const scatterY = (Math.random() - 0.5) * (window.innerHeight * 0.6);
-        const scatterZ = (Math.random() - 0.5) * 500 - 200;
-        const rotX = (Math.random() - 0.5) * 40;
-        const rotY = (Math.random() - 0.5) * 40;
-        const rotZ = (Math.random() - 0.5) * 30;
+        // Scatter physics coordinates (or grid layout)
+        const scatterX = isLargeGallery ? 0 : (Math.random() - 0.5) * (window.innerWidth * 0.7);
+        const scatterY = isLargeGallery ? 0 : (Math.random() - 0.5) * (window.innerHeight * 0.6);
+        const scatterZ = isLargeGallery ? 0 : (Math.random() - 0.5) * 500 - 200;
+        const rotX = isLargeGallery ? 0 : (Math.random() - 0.5) * 40;
+        const rotY = isLargeGallery ? 0 : (Math.random() - 0.5) * 40;
+        const rotZ = isLargeGallery ? 0 : (Math.random() - 0.5) * 30;
         
         // Save base coordinates
         item.dataset.baseX = scatterX; item.dataset.baseY = scatterY; item.dataset.baseZ = scatterZ;
         item.dataset.baseRX = rotX; item.dataset.baseRY = rotY; item.dataset.baseRZ = rotZ;
         
-        gsap.to(item, {
-            x: scatterX, y: scatterY, z: scatterZ,
-            rotationX: rotX, rotationY: rotY, rotationZ: rotZ,
-            scale: Math.random() * 0.3 + 0.8,
-            duration: 1.2 + Math.random() * 0.5,
-            ease: "back.out(1.2)",
-            delay: index * 0.05
-        });
+        if (isLargeGallery) {
+            gsap.to(item, {
+                scale: 1,
+                duration: 0.6,
+                ease: "back.out(1.2)",
+                delay: index * 0.02
+            });
+        } else {
+            gsap.to(item, {
+                x: scatterX, y: scatterY, z: scatterZ,
+                rotationX: rotX, rotationY: rotY, rotationZ: rotZ,
+                scale: Math.random() * 0.3 + 0.8,
+                duration: 1.2 + Math.random() * 0.5,
+                ease: "back.out(1.2)",
+                delay: index * 0.05
+            });
+        }
         
         // Hover/Swipe logic
         item.addEventListener('mouseenter', () => {
             gsap.killTweensOf(item);
-            gsap.to(item, {
-                x: 0, y: 0, z: 200, rotationX: 0, rotationY: 0, rotationZ: 0, scale: 1.8,
-                zIndex: 1000, duration: 0.6, ease: "power2.out", boxShadow: "0 30px 60px rgba(0,0,0,0.9), 0 0 40px rgba(212,175,55,0.4)"
-            });
+            if (isLargeGallery) {
+                gsap.to(item, { scale: 1.05, zIndex: 100, duration: 0.3, ease: "power2.out", boxShadow: "0 25px 45px rgba(0,0,0,0.8), 0 0 30px rgba(212,175,55,0.4)" });
+            } else {
+                gsap.to(item, {
+                    x: 0, y: 0, z: 200, rotationX: 0, rotationY: 0, rotationZ: 0, scale: 1.8,
+                    zIndex: 1000, duration: 0.6, ease: "power2.out", boxShadow: "0 30px 60px rgba(0,0,0,0.9), 0 0 40px rgba(212,175,55,0.4)"
+                });
+            }
             glare.style.opacity = '1';
         });
 
         item.addEventListener('mouseleave', () => {
-             gsap.to(item, {
-                x: item.dataset.baseX, y: item.dataset.baseY, z: item.dataset.baseZ,
-                rotationX: item.dataset.baseRX, rotationY: item.dataset.baseRY, rotationZ: item.dataset.baseRZ,
-                scale: Math.random() * 0.3 + 0.8, zIndex: 1, duration: 0.8, ease: "power2.out", boxShadow: "0 15px 35px rgba(0,0,0,0.6)"
-            });
+            if (isLargeGallery) {
+                gsap.to(item, { scale: 1, zIndex: 1, duration: 0.4, ease: "power2.out", boxShadow: "0 15px 35px rgba(0,0,0,0.6)" });
+            } else {
+                 gsap.to(item, {
+                    x: item.dataset.baseX, y: item.dataset.baseY, z: item.dataset.baseZ,
+                    rotationX: item.dataset.baseRX, rotationY: item.dataset.baseRY, rotationZ: item.dataset.baseRZ,
+                    scale: Math.random() * 0.3 + 0.8, zIndex: 1, duration: 0.8, ease: "power2.out", boxShadow: "0 15px 35px rgba(0,0,0,0.6)"
+                });
+            }
             glare.style.opacity = '0';
         });
 
