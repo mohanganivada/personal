@@ -14,6 +14,8 @@
     <!-- Animation Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Draggable.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Flip.min.js"></script>
     <script>
         if (window.location.search.includes('magicalEntrance=true')) {
             document.documentElement.style.opacity = '0';
@@ -209,25 +211,35 @@
             }
         }
 
-        /* Ancient Manuscript Card */
+        /* Ancient Manuscript Card / Royal Message */
         .manuscript-card {
-            background: rgba(255, 249, 242, 0.05);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(244, 196, 48, 0.3);
-            border-radius: 12px;
-            padding: 40px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), inset 0 0 40px rgba(244, 196, 48, 0.05);
+            background: linear-gradient(135deg, rgba(20, 25, 45, 0.4), rgba(5, 10, 20, 0.8));
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: var(--r-lg);
+            padding: 50px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), inset 0 0 40px rgba(212, 175, 55, 0.05);
             position: relative;
-            margin-bottom: 40px;
+            margin-bottom: 50px;
+            overflow: hidden;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s;
+        }
+        
+        .manuscript-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 35px 80px rgba(0, 0, 0, 0.9), inset 0 0 60px rgba(212, 175, 55, 0.1);
+            border-color: rgba(212, 175, 55, 0.5);
         }
 
         .manuscript-card::before {
             content: '';
             position: absolute;
-            inset: 5px;
-            border: 1px dashed rgba(244, 196, 48, 0.4);
-            border-radius: 8px;
+            inset: 8px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 20px;
             pointer-events: none;
+            box-shadow: inset 0 0 15px rgba(212, 175, 55, 0.05);
         }
     </style>
 </head>
@@ -236,7 +248,23 @@
 
     <!-- Floating particles background -->
     <div id="particles-bg"></div>
-    <div id="scroll-progress"></div>
+    <!-- SVG Golden Thread (Scroll UX) fixed to viewport layer -->
+    <svg id="golden-thread-svg" viewBox="0 0 100 1000" preserveAspectRatio="none" style="position:fixed; top:0; left:15px; width:20px; height:100vh; z-index: 100; pointer-events:none; filter: drop-shadow(0 0 8px rgba(244,196,48,0.8));">
+        <path id="golden-thread-path" d="M10,0 Q20,200 10,400 T10,800 Q0,900 10,1000" fill="none" stroke="url(#goldGradient)" stroke-width="4" stroke-linecap="round" />
+        <defs>
+            <linearGradient id="goldGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#FFFDF2"/>
+                <stop offset="50%" stop-color="#F4C430"/>
+                <stop offset="100%" stop-color="#D4AF37"/>
+            </linearGradient>
+        </defs>
+        <!-- Nodes for blooming effect on chapters -->
+        <circle class="thread-node" cx="10" cy="150" r="0" fill="#FFFDF2" filter="drop-shadow(0 0 10px #F4C430)"/>
+        <circle class="thread-node" cx="12" cy="350" r="0" fill="#FFFDF2" filter="drop-shadow(0 0 10px #F4C430)"/>
+        <circle class="thread-node" cx="8" cy="550" r="0" fill="#FFFDF2" filter="drop-shadow(0 0 10px #F4C430)"/>
+        <circle class="thread-node" cx="12" cy="750" r="0" fill="#FFFDF2" filter="drop-shadow(0 0 10px #F4C430)"/>
+        <circle class="thread-node" cx="10" cy="950" r="0" fill="#FFFDF2" filter="drop-shadow(0 0 10px #F4C430)"/>
+    </svg>
     <div class="cursor-follower"></div>
 
     <!-- Navigation -->

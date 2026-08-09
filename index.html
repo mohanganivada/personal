@@ -11,6 +11,8 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Outfit:wght@300;400;500;600;700;800&family=Caveat:wght@400;700&display=swap"
         rel="stylesheet">
+    <!-- Include GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <link rel="stylesheet" href="style.css">
 
     <!-- SEO & Metadata -->
@@ -37,95 +39,79 @@
             top: 25px;
             right: 25px;
             z-index: 9999;
-            background: rgba(2, 4, 10, 0.4);
-            border: 1px solid rgba(212, 175, 55, 0.25);
+            background: rgba(8, 13, 26, 0.45);
+            border: 1px solid rgba(254, 243, 199, 0.25);
             cursor: pointer;
-            width: 50px;
-            height: 50px;
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s, border 0.3s;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .gramophone-btn:hover {
             transform: scale(1.1);
-            background: rgba(212, 175, 55, 0.15);
-            border: 1px solid rgba(212, 175, 55, 0.6);
+            background: rgba(251, 191, 36, 0.15);
+            border-color: rgba(251, 191, 36, 0.8);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 15px rgba(251, 191, 36, 0.35);
         }
 
         .vinyl-record {
             width: 32px;
             height: 32px;
-            background: #111;
+            background: #090d16;
             border-radius: 50%;
             position: relative;
-            border: 1.5px solid #D4AF37;
+            border: 1.5px solid #fbbf24;
             display: flex;
             justify-content: center;
             align-items: center;
-            box-shadow: 0 0 10px rgba(212, 175, 55, 0.4), inset 0 0 4px rgba(255, 255, 255, 0.2);
-            transition: transform 2s;
-            background-image: repeating-radial-gradient(#111 0px, #222 1.5px, #111 3px);
+            box-shadow: 0 0 10px rgba(251, 191, 36, 0.4), inset 0 0 4px rgba(255, 255, 255, 0.2);
+            transition: transform 0.4s;
+            background-image: repeating-radial-gradient(#090d16 0px, #111827 1.5px, #090d16 3px);
         }
 
-        .vinyl-record::before {
-            content: '';
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background: #B42C2C;
-            border-radius: 50%;
+        .music-note-svg {
+            width: 14px;
+            height: 14px;
+            filter: drop-shadow(0 0 3px rgba(251, 191, 36, 0.5));
+            transition: transform 0.3s;
         }
 
-        .vinyl-record::after {
-            content: '';
-            position: absolute;
-            width: 2.5px;
-            height: 2.5px;
-            background: #FFF;
-            border-radius: 50%;
+        /* Pulse animation when active */
+        .gramophone-btn.playing {
+            animation: musicPulse 2s infinite ease-in-out;
+            border-color: rgba(251, 191, 36, 0.6);
         }
-
-        .needle {
-            position: absolute;
-            top: 7px;
-            right: 6px;
-            width: 2.5px;
-            height: 18px;
-            background: linear-gradient(to bottom, #D4AF37, #9A7B1D);
-            transform-origin: top center;
-            transform: rotate(-50deg);
-            transition: transform 0.5s;
-            border-radius: 2px;
-            box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
-            z-index: 2;
-        }
-
+        
         .gramophone-btn.playing .vinyl-record {
-            animation: spinRecord 1.8s linear infinite;
-        }
-
-        .gramophone-btn.playing .needle {
-            transform: rotate(-15deg);
+            animation: spinRecord 3s linear infinite;
         }
 
         @keyframes spinRecord {
-            100% {
-                transform: rotate(360deg);
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes musicPulse {
+            0%, 100% {
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 10px rgba(251, 191, 36, 0.25);
+            }
+            50% {
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 25px rgba(251, 191, 36, 0.55);
             }
         }
 
         .gramophone-note {
             position: absolute;
-            color: #F4C430;
+            color: #fbbf24;
             font-size: 1rem;
             animation: floatNote 2.5s ease-out forwards;
-            text-shadow: 0 0 5px rgba(244, 196, 48, 0.8);
+            text-shadow: 0 0 5px rgba(251, 191, 36, 0.8);
             pointer-events: none;
         }
 
@@ -134,7 +120,6 @@
                 transform: translate(0, 0) scale(1);
                 opacity: 1;
             }
-
             100% {
                 transform: translate(calc(-15px + 30px*var(--rx)), -50px) scale(1.5) rotate(calc(45deg*var(--rx)));
                 opacity: 0;
@@ -143,8 +128,8 @@
 
         @media (max-width: 768px) {
             .gramophone-btn {
-                width: 42px;
-                height: 42px;
+                width: 40px;
+                height: 40px;
                 top: 15px;
                 right: 15px;
             }
@@ -152,36 +137,30 @@
             .vinyl-record {
                 width: 26px;
                 height: 26px;
-                border: 1px solid #D4AF37;
+                border-width: 1px;
             }
 
-            .vinyl-record::before {
-                width: 8px;
-                height: 8px;
-            }
-
-            .needle {
-                top: 6px;
-                right: 5px;
-                height: 14px;
-                width: 2px;
-            }
-
-            .gramophone-note {
-                font-size: 0.85rem;
+            .music-note-svg {
+                width: 11px;
+                height: 11px;
             }
         }
     </style>
     <button id="floating-music-btn" class="gramophone-btn" aria-label="Toggle Music">
-        <div class="vinyl-record"></div>
-        <div class="needle"></div>
+        <div class="vinyl-record">
+            <svg class="music-note-svg" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 18V5l12-2v13"></path>
+                <circle cx="6" cy="18" r="3"></circle>
+                <circle cx="18" cy="16" r="3"></circle>
+            </svg>
+        </div>
     </button>
     <audio id="bg-piano-music" src="assets/music/Gulabi Kallu Rendu Mullu (PenduJatt.Com.Se).mp3" loop></audio>
 
     <!-- ================= PAGE 0: MAGICAL VRINDAVAN CINEMATIC ENTRANCE ================= -->
     <div id="master-password-experience" class="page-container active cinematic-vrindavan">
         <style>
-            @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Cinzel:wght@400;600&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Cinzel:wght@400;600&display=swap');
 
             .cinematic-vrindavan {
                 position: fixed;
@@ -189,12 +168,11 @@
                 left: 0;
                 width: 100%;
                 height: 100dvh;
-                background: #020813;
-                background-image: radial-gradient(circle at 50% 0%, #0d1b2a 0%, #020813 100%);
+                background: linear-gradient(to bottom, #080d1a 0%, #0f172a 60%, #040711 100%);
                 overflow: hidden;
                 perspective: 2000px;
                 z-index: 50;
-                transition: transform 2s cubic-bezier(0.4, 0, 0.2, 1), opacity 1.5s, filter 1.5s;
+                transition: transform 2.5s cubic-bezier(0.3, 0.8, 0.2, 1), opacity 2s, filter 2s;
                 font-family: 'Cormorant Garamond', serif;
                 color: #FDF6E3;
                 display: flex;
@@ -209,163 +187,239 @@
                 visibility: hidden;
             }
 
-            /* --- 1. DEEP NIGHT SKY & STARS --- */
             .vr-sky {
                 position: absolute;
-                inset: -20%;
+                inset: -10%;
                 pointer-events: none;
-                background-image:
-                    radial-gradient(1.5px 1.5px at 15% 15%, rgba(255, 255, 255, 0.8), transparent),
-                    radial-gradient(2px 2px at 75% 25%, rgba(244, 196, 48, 0.9), transparent),
-                    radial-gradient(2.5px 2.5px at 45% 65%, rgba(255, 255, 255, 0.6), transparent),
-                    radial-gradient(1px 1px at 85% 80%, rgba(200, 220, 255, 0.5), transparent);
-                background-size: 250px 250px;
-                animation: starTwinkle 8s infinite alternate;
-                transform: translate(calc(var(--px) * -0.15), calc(var(--py) * -0.15));
+                z-index: 1;
+                transform: translate(calc(var(--px) * -6px), calc(var(--py) * -3px));
+                transition: transform 0.5s ease-out;
             }
 
-            @keyframes starTwinkle {
-                0% {
-                    opacity: 0.6;
-                }
-
-                100% {
-                    opacity: 1;
-                    filter: brightness(1.5);
-                }
+            .vr-stars-1, .vr-stars-2, .vr-stars-3 {
+                position: absolute;
+                inset: 0;
+                background-repeat: repeat;
             }
 
-            /* --- 2. ENORMOUS CINEMATIC MOON --- */
+            .vr-stars-1 {
+                background-image: 
+                    radial-gradient(1.2px 1.2px at 12% 18%, rgba(255, 255, 255, 0.95), transparent),
+                    radial-gradient(1.5px 1.5px at 32% 43%, rgba(255, 255, 255, 0.85), transparent),
+                    radial-gradient(1.8px 1.8px at 52% 16%, rgba(255, 255, 255, 0.9), transparent),
+                    radial-gradient(1px 1px at 73% 32%, rgba(255, 255, 255, 0.8), transparent),
+                    radial-gradient(1.6px 1.6px at 88% 12%, rgba(255, 255, 255, 0.95), transparent);
+                background-size: 260px 260px;
+                animation: starFade 6s ease-in-out infinite alternate;
+            }
+
+            .vr-stars-2 {
+                background-image: 
+                    radial-gradient(1.5px 1.5px at 17% 72%, rgba(254, 243, 199, 0.75), transparent),
+                    radial-gradient(2px 2px at 48% 62%, rgba(251, 191, 36, 0.9), transparent),
+                    radial-gradient(1.2px 1.2px at 64% 87%, rgba(254, 243, 199, 0.85), transparent),
+                    radial-gradient(2.2px 2.2px at 82% 52%, rgba(255, 255, 255, 0.75), transparent);
+                background-size: 320px 320px;
+                animation: starFade 8s ease-in-out infinite alternate -3s;
+            }
+
+            .vr-stars-3 {
+                background-image: 
+                    radial-gradient(2px 2px at 22% 47%, rgba(255, 255, 255, 0.9), transparent),
+                    radial-gradient(1.2px 1.2px at 38% 82%, rgba(255, 255, 255, 0.7), transparent),
+                    radial-gradient(1.6px 1.6px at 77% 77%, rgba(254, 243, 199, 0.8), transparent),
+                    radial-gradient(1.5px 1.5px at 86% 63%, rgba(255, 255, 255, 0.95), transparent);
+                background-size: 220px 220px;
+                animation: starFade 10s ease-in-out infinite alternate -5s;
+            }
+
+            @keyframes starFade {
+                0% { opacity: 0.35; filter: brightness(0.85); }
+                50% { opacity: 0.7; }
+                100% { opacity: 1; filter: brightness(1.35); }
+            }
+
+            .vr-firefly {
+                position: absolute;
+                width: 4px;
+                height: 4px;
+                background: radial-gradient(circle, #fef08a 0%, #f59e0b 80%, transparent 100%);
+                border-radius: 50%;
+                box-shadow: 
+                    0 0 8px 2px rgba(245, 158, 11, 0.8),
+                    0 0 16px 4px rgba(251, 191, 36, 0.35);
+                opacity: 0;
+                pointer-events: none;
+                z-index: 35;
+                animation: floatGoldDust 22s linear infinite;
+            }
+
+            @keyframes floatGoldDust {
+                0% { transform: translateY(10vh) translateX(0) scale(0.6) rotate(0deg); opacity: 0; }
+                8% { opacity: 0.85; }
+                50% { transform: translateY(-40vh) translateX(60px) scale(1.1) rotate(180deg); opacity: 0.55; }
+                85% { opacity: 0.9; }
+                100% { transform: translateY(-90vh) translateX(-40px) scale(0.6) rotate(360deg); opacity: 0; }
+            }
+
+            .vr-mist {
+                position: absolute;
+                top: 10%;
+                left: -50%;
+                width: 200%;
+                height: 180px;
+                background: radial-gradient(ellipse at center, rgba(139, 92, 246, 0.08) 0%, rgba(30, 27, 75, 0.04) 50%, transparent 70%);
+                filter: blur(25px);
+                opacity: 0.65;
+                animation: cloudDrift 45s linear infinite alternate;
+                transform: translate(calc(var(--px) * -4px), 0);
+                mix-blend-mode: screen;
+                pointer-events: none;
+                z-index: 2;
+            }
+
+            @keyframes cloudDrift {
+                0% { transform: translateX(0); }
+                100% { transform: translateX(15%); }
+            }
+
             .vr-moon-container {
                 position: absolute;
-                top: -10px;
+                top: 6vh;
                 left: 50%;
-                width: 280px;
-                height: 280px;
-                transform: translateX(-50%) translate(calc(var(--px) * -0.05), calc(var(--py) * -0.05));
+                width: 250px;
+                height: 250px;
+                transform: translateX(-50%) translate(calc(var(--px, 0) * -3px), calc(var(--py, 0) * -3px));
                 pointer-events: none;
+                z-index: 3;
+                filter: drop-shadow(0 0 45px rgba(254, 243, 199, 0.35));
             }
 
             .vr-moon {
                 width: 100%;
                 height: 100%;
                 border-radius: 50%;
-                background: radial-gradient(circle at 30% 30%, #FFFFFF 0%, #FFFDF2 20%, #F9D423 70%, #D4AF37 100%);
+                background: radial-gradient(circle at 35% 35%, #FFFFFF 0%, #FAFAF4 28%, #EDE7D4 60%, #C9BEA2 100%);
+                background-image:
+                    radial-gradient(circle at 55% 42%, rgba(139, 131, 110, 0.16) 0%, rgba(139, 131, 110, 0.12) 10%, transparent 18%),
+                    radial-gradient(circle at 38% 68%, rgba(139, 131, 110, 0.14) 0%, rgba(139, 131, 110, 0.1) 12%, transparent 22%),
+                    radial-gradient(circle at 28% 46%, rgba(139, 131, 110, 0.12) 0%, rgba(139, 131, 110, 0.08) 8%, transparent 15%),
+                    radial-gradient(circle at 72% 62%, rgba(125, 115, 95, 0.22) 0%, rgba(125, 115, 95, 0.16) 18%, transparent 42%),
+                    radial-gradient(circle at 35% 35%, #FFFFFF 0%, #FAFAF4 28%, #EDE7D4 60%, #C9BEA2 100%);
                 box-shadow: 
-                    0 0 120px 40px rgba(244, 196, 48, 0.4),
-                    0 0 250px 80px rgba(255, 253, 242, 0.2),
-                    inset -25px -25px 50px rgba(0, 0, 0, 0.6),
-                    inset 10px 10px 30px rgba(255, 255, 255, 0.9);
-                animation: moonPulse 8s ease-in-out infinite alternate;
+                    0 0 35px 5px rgba(255, 255, 255, 0.75),
+                    0 0 75px 20px rgba(254, 244, 210, 0.4),
+                    0 0 150px 45px rgba(245, 222, 179, 0.18),
+                    inset -12px -12px 30px rgba(0, 0, 0, 0.45),
+                    inset 8px 8px 20px rgba(255, 255, 255, 0.95);
+                animation: moonPulse 10s ease-in-out infinite alternate;
             }
 
             @keyframes moonPulse {
-                0% { box-shadow: 0 0 120px 40px rgba(244, 196, 48, 0.4), 0 0 250px 80px rgba(255, 253, 242, 0.2), inset -25px -25px 50px rgba(0, 0, 0, 0.6), inset 10px 10px 30px rgba(255, 255, 255, 0.9); }
-                100% { box-shadow: 0 0 150px 50px rgba(244, 196, 48, 0.6), 0 0 300px 100px rgba(255, 253, 242, 0.3), inset -25px -25px 50px rgba(0, 0, 0, 0.6), inset 10px 10px 30px rgba(255, 255, 255, 1); }
+                0% { 
+                    transform: scale(0.98);
+                    box-shadow: 0 0 35px 5px rgba(255,255,255,0.7), 0 0 75px 20px rgba(254,244,210,0.35), 0 0 150px 45px rgba(245,222,179,0.15), inset -12px -12px 30px rgba(0,0,0,0.45), inset 8px 8px 20px rgba(255,255,255,0.9);
+                }
+                100% { 
+                    transform: scale(1.02);
+                    box-shadow: 0 0 45px 8px rgba(255,255,255,0.85), 0 0 90px 28px rgba(254,244,210,0.5), 0 0 180px 60px rgba(245,222,179,0.22), inset -10px -10px 28px rgba(0,0,0,0.4), inset 12px 12px 25px rgba(255,255,255,1);
+                }
             }
 
-            /* Volumetric God Rays from Moon */
             .vr-moon-rays {
                 position: absolute;
                 top: 50%;
                 left: 50%;
-                width: 700px;
-                height: 700px;
+                width: 650px;
+                height: 650px;
                 transform: translate(-50%, -50%);
-                background: repeating-conic-gradient(from 0deg, rgba(245, 230, 204, 0.05) 0deg, transparent 10deg, rgba(245, 230, 204, 0.05) 20deg);
+                background: repeating-conic-gradient(from 0deg, rgba(254, 243, 199, 0.03) 0deg, transparent 15deg, rgba(254, 243, 199, 0.03) 30deg);
                 border-radius: 50%;
-                filter: blur(20px);
-                animation: slowSpin 60s linear infinite;
+                filter: blur(15px);
+                animation: slowSpin 75s linear infinite;
                 mix-blend-mode: screen;
             }
 
             @keyframes slowSpin {
-                from {
-                    transform: translate(-50%, -50%) rotate(0deg);
-                }
-
-                to {
-                    transform: translate(-50%, -50%) rotate(360deg);
-                }
+                from { transform: translate(-50%, -50%) rotate(0deg); }
+                to { transform: translate(-50%, -50%) rotate(360deg); }
             }
 
-            /* Moving Mist / Clouds */
-            .vr-mist {
-                position: absolute;
-                top: 15%;
-                left: -50%;
-                width: 200%;
-                height: 150px;
-                background: radial-gradient(ellipse at center, rgba(140, 160, 200, 0.1) 0%, transparent 70%);
-                filter: blur(30px);
-                opacity: 0.6;
-                animation: cloudDrift 40s linear infinite alternate;
-                transform: translate(calc(var(--px) * -0.1), 0);
-                mix-blend-mode: screen;
-                pointer-events: none;
-            }
-
-            @keyframes cloudDrift {
-                0% {
-                    transform: translateX(0);
-                }
-
-                100% {
-                    transform: translateX(20%);
-                }
-            }
-
-            /* --- 3. TEMPLE & RIVER SCENE --- */
             .vr-landscape {
                 position: absolute;
                 bottom: 0;
+                left: 0;
                 width: 100%;
-                height: 45vh;
-                min-height: 350px;
+                height: 40vh;
+                min-height: 280px;
                 display: flex;
                 flex-direction: column;
                 justify-content: flex-end;
                 pointer-events: none;
+                z-index: 10;
             }
 
             .vr-temple-silhouette {
                 position: absolute;
-                bottom: 30vh;
-                width: 100vw;
-                height: auto;
-                min-height: 150px;
-                opacity: 0.9;
-                transform: translate(calc(var(--px) * 0.1), calc(var(--py) * 0.05));
+                bottom: 22vh;
+                width: 100%;
+                height: 220px;
+                pointer-events: none;
+                transform-origin: bottom center;
             }
 
-            /* Pure SVG Temple filling horizon */
+            .vr-temple-back {
+                opacity: 0.18;
+                fill: #1e1b4b;
+                z-index: 5;
+                transform: translate(calc(var(--px) * -6px), calc(var(--py) * -2px));
+                filter: blur(1.5px) drop-shadow(0 -3px 8px rgba(0, 0, 0, 0.4));
+                transition: transform 0.4s ease-out;
+            }
+
+            .vr-temple-mid {
+                opacity: 0.45;
+                fill: #0d1222;
+                z-index: 6;
+                transform: translate(calc(var(--px) * -12px), calc(var(--py) * -4px));
+                filter: blur(0.5px) drop-shadow(0 -6px 12px rgba(0, 0, 0, 0.5));
+                transition: transform 0.4s ease-out;
+            }
+
+            .vr-temple-fore {
+                opacity: 0.95;
+                fill: #03060c;
+                z-index: 7;
+                transform: translate(calc(var(--px) * -20px), calc(var(--py) * -7px));
+                filter: drop-shadow(0 -8px 18px rgba(0, 0, 0, 0.85));
+                transition: transform 0.4s ease-out;
+            }
+
             .vr-temple-svg {
                 width: 100%;
                 height: 100%;
                 object-fit: cover;
-                fill: #040A18;
-                filter: drop-shadow(0 -10px 30px rgba(0, 0, 0, 0.8));
             }
 
             .vr-yamuna-river {
-                height: 32vh;
+                height: 22vh;
                 width: 100%;
                 position: relative;
-                background: linear-gradient(to bottom, #010612 0%, #0B192C 100%);
-                border-top: 1px solid rgba(255, 233, 184, 0.1);
+                background: linear-gradient(to bottom, #03060c 0%, #080f1e 40%, #03060c 100%);
+                border-top: 1px solid rgba(254, 243, 199, 0.08);
                 overflow: hidden;
                 pointer-events: none;
+                z-index: 12;
             }
 
-            /* River reflection ripples */
             .river-ripple {
                 position: absolute;
-                width: 40px;
-                height: 2px;
-                background: rgba(245, 230, 204, 0.4);
+                width: 60px;
+                height: 2.5px;
+                background: linear-gradient(90deg, transparent, rgba(254, 243, 199, 0.45) 50%, transparent);
                 border-radius: 50%;
-                filter: blur(1px);
-                animation: riverFlow 6s infinite linear;
+                filter: blur(0.8px);
+                animation: riverFlow 7s infinite linear;
                 opacity: 0;
             }
 
@@ -385,131 +439,111 @@
                 }
             }
 
-            /* Floating Wooden Boat with Golden Lantern */
+            /* Boat and lantern flicker */
             .vr-boat-container {
                 position: absolute;
-                bottom: 15vh;
-                left: -100px;
-                animation: boatSail 45s linear infinite;
-                z-index: 10;
+                bottom: 8vh;
+                left: -120px;
+                animation: boatSail 55s linear infinite;
+                z-index: 15;
             }
 
             .vr-boat-svg {
-                width: 120px;
+                width: 110px;
                 height: auto;
-                fill: #07101E;
-                filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.8));
+                fill: #03060b;
+                filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.75));
             }
 
             .vr-lantern-glow {
                 position: absolute;
-                top: 15px;
-                left: 40px;
-                width: 10px;
-                height: 14px;
-                background: #FFB347;
-                border-radius: 5px;
-                box-shadow: 0 0 30px 10px rgba(255, 179, 71, 0.8);
-                animation: lanternFlicker 3s infinite alternate;
+                top: 13px;
+                left: 36px;
+                width: 8px;
+                height: 12px;
+                background: #f59e0b;
+                border-radius: 50%;
+                box-shadow: 
+                    0 0 25px 8px rgba(245, 158, 11, 0.8),
+                    0 0 50px 18px rgba(251, 191, 36, 0.55);
+                animation: lanternFlicker 2.5s infinite alternate;
             }
 
             @keyframes boatSail {
-                0% {
-                    transform: translateX(-100px) translateY(0);
-                }
-
-                50% {
-                    transform: translateX(60vw) translateY(5px);
-                }
-
-                100% {
-                    transform: translateX(120vw) translateY(0);
-                }
+                0% { transform: translateX(-120px) translateY(0) rotate(0.5deg); }
+                50% { transform: translateX(55vw) translateY(4px) rotate(-0.5deg); }
+                100% { transform: translateX(115vw) translateY(0) rotate(0.5deg); }
             }
 
             @keyframes lanternFlicker {
-
-                0%,
-                100% {
-                    opacity: 0.8;
-                    box-shadow: 0 0 30px 10px rgba(255, 179, 71, 0.8);
+                0%, 100% {
+                    opacity: 0.75;
+                    box-shadow: 0 0 25px 8px rgba(245, 158, 11, 0.75), 0 0 45px 15px rgba(251, 191, 36, 0.5);
                 }
-
                 50% {
                     opacity: 1;
-                    box-shadow: 0 0 40px 15px rgba(255, 200, 100, 1);
+                    box-shadow: 0 0 35px 12px rgba(245, 158, 11, 0.95), 0 0 60px 22px rgba(251, 191, 36, 0.7);
                 }
             }
 
-            /* --- 4. FOREGROUND LUXURY VINES (No Emojis) --- */
+            /* --- 4. ORGANIC HANGING FOLIAGE VINES --- */
             .vr-vines {
                 position: absolute;
-                top: -10px;
-                width: 40vw;
-                max-width: 250px;
-                opacity: 0.8;
-                pointer-events: none;
-                filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.8));
+                top: -5px;
+                width: 25vw;
+                max-width: 260px;
+                filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.65)) drop-shadow(0 5px 12px rgba(20, 40, 20, 0.45));
                 z-index: 20;
                 transform-origin: top center;
-                animation: vineSway 8s ease-in-out infinite alternate;
             }
 
             .vr-vines.left {
                 left: -10px;
+                animation: vineSwayLeft 12s ease-in-out infinite alternate;
             }
 
             .vr-vines.right {
                 right: -10px;
                 transform: scaleX(-1);
-                animation-delay: -4s;
+                animation: vineSwayRight 12s ease-in-out infinite alternate -6s;
             }
 
-            @keyframes vineSway {
-                0% {
-                    transform: rotate(-3deg);
-                }
-
-                100% {
-                    transform: rotate(3deg);
-                }
+            @keyframes vineSwayLeft {
+                0% { transform: rotate(-3deg) scale(0.95); }
+                100% { transform: rotate(2deg) scale(1.03); }
             }
 
             @keyframes vineSwayRight {
-                0% {
-                    transform: scaleX(-1) rotate(-3deg);
-                }
-
-                100% {
-                    transform: scaleX(-1) rotate(3deg);
-                }
+                0% { transform: scaleX(-1) rotate(-3deg) scale(0.95); }
+                100% { transform: scaleX(-1) rotate(2deg) scale(1.03); }
             }
 
-            /* --- 5. TITLES --- */
+            /* --- 5. EMINENT CINEMATIC TYPOGRAPHY --- */
             .vr-hero-text {
                 position: relative;
-                margin-top: 25vh;
+                margin-top: 26vh;
                 text-align: center;
                 z-index: 30;
                 pointer-events: none;
-                transform: translate(calc(var(--px) * 0.05), calc(var(--py) * 0.05));
+                transform: translate(calc(var(--px) * 3px), calc(var(--py) * 2px));
+                transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
             }
 
             .vr-title {
-                font-family: 'Cinzel', serif;
-                font-size: clamp(2.5rem, 6vw, 4.2rem);
-                font-weight: 800;
-                background: linear-gradient(135deg, #FFEFBA, #F9D423, #FFFFFF, #D4AF37);
+                font-family: 'Cinzel Decorative', serif;
+                font-size: clamp(2.3rem, 6vw, 4.3rem);
+                font-weight: 900;
+                background: linear-gradient(90deg, #fef3c7 0%, #fbbf24 45%, #f59e0b 70%, #fef3c7 100%);
                 background-size: 200% auto;
                 -webkit-background-clip: text;
                 background-clip: text;
                 -webkit-text-fill-color: transparent;
                 color: transparent;
-                filter: drop-shadow(0 10px 25px rgba(212, 175, 55, 0.6));
+                filter: drop-shadow(0 5px 15px rgba(245, 158, 11, 0.35));
                 opacity: 0;
                 transform: translateY(30px);
-                animation: cinematicReveal 3s cubic-bezier(0.2, 0.8, 0.2, 1) forwards 0.5s, goldShimmerEnt 5s linear infinite;
-                letter-spacing: 2px;
+                animation: cinematicReveal 2.5s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.5s, goldShimmerEnt 6s linear infinite;
+                letter-spacing: 5px;
             }
 
             @keyframes goldShimmerEnt {
@@ -517,16 +551,16 @@
             }
 
             .vr-subtitle {
-                font-size: 1.3rem;
-                letter-spacing: 6px;
-                color: #E0C895;
+                font-family: 'Cormorant Garamond', serif;
+                font-size: clamp(1.1rem, 2.2vw, 1.6rem);
+                letter-spacing: 4px;
+                color: rgba(254, 243, 199, 0.8);
                 font-style: italic;
-                font-family: 'Playfair Display', serif;
-                margin-top: 15px;
+                margin-top: 12px;
                 opacity: 0;
                 transform: translateY(20px);
-                animation: cinematicReveal 3s cubic-bezier(0.2, 0.8, 0.2, 1) forwards 2s;
-                text-shadow: 0 5px 15px rgba(0,0,0,0.8);
+                animation: cinematicReveal 2.5s cubic-bezier(0.16, 1, 0.3, 1) forwards 1.4s;
+                text-shadow: 0 4px 12px rgba(0, 0, 0, 0.85);
             }
 
             @keyframes cinematicReveal {
@@ -536,168 +570,271 @@
                 }
             }
 
-            /* --- 6. MAGICAL LOTUS ALTAR (The Password Interface) --- */
+            /* --- 6. MAGICAL LOTUS ALTAR & INTERACTION COMPONENT --- */
             .vr-altar-section {
                 position: absolute;
-                bottom: 15vh;
+                bottom: 8vh;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
                 z-index: 40;
-                transform: translate(calc(var(--px) * 0.15), calc(var(--py) * 0.15));
+                transform: translate(calc(var(--px) * 6px), calc(var(--py) * 4px));
+                transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
                 width: 100%;
             }
 
             .vr-lotus-trigger {
-                width: 140px;
-                height: 140px;
+                width: 130px;
+                height: 130px;
                 cursor: pointer;
                 position: relative;
-                transition: transform 1.5s cubic-bezier(0.1, 1, 0.3, 1), filter 1s;
-                filter: drop-shadow(0 0 40px rgba(255, 105, 180, 0.6)) drop-shadow(0 0 15px rgba(244, 196, 48, 0.8));
+                transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1), filter 1.2s;
+                filter: drop-shadow(0 0 35px rgba(244, 63, 94, 0.5)) drop-shadow(0 0 15px rgba(245, 158, 11, 0.65));
                 outline: none;
                 border: none;
                 background: transparent;
-                animation: lotusBreathe 3s ease-in-out infinite alternate;
+                animation: lotusBreathe 4s ease-in-out infinite alternate;
+                z-index: 5;
             }
 
             @keyframes lotusBreathe {
-                0% { filter: drop-shadow(0 0 40px rgba(255, 105, 180, 0.6)) drop-shadow(0 0 15px rgba(244, 196, 48, 0.8)); transform: scale(1); }
-                100% { filter: drop-shadow(0 0 60px rgba(255, 105, 180, 0.9)) drop-shadow(0 0 25px rgba(244, 196, 48, 1)); transform: scale(1.05); }
+                0% { 
+                    filter: drop-shadow(0 0 35px rgba(244, 63, 94, 0.5)) drop-shadow(0 0 15px rgba(245, 158, 11, 0.65)); 
+                    transform: scale(1); 
+                }
+                100% { 
+                    filter: drop-shadow(0 0 50px rgba(244, 63, 94, 0.75)) drop-shadow(0 0 25px rgba(245, 158, 11, 0.85)); 
+                    transform: scale(1.04) translateY(-3px); 
+                }
             }
 
             .vr-lotus-flower-svg {
                 width: 100%;
                 height: 100%;
-                transition: all 1s;
+                transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
                 fill: url(#lotusGrad);
             }
 
             /* Sacred Altar Pedestal */
             .vr-pedestal {
-                width: 250px;
+                width: 220px;
                 height: 2px;
-                background: radial-gradient(circle, rgba(212, 175, 55, 0.8) 0%, transparent 100%);
-                margin-top: -10px;
-                box-shadow: 0 5px 20px 5px rgba(212, 175, 55, 0.4);
+                background: radial-gradient(circle, rgba(251, 191, 36, 0.8) 0%, transparent 100%);
+                margin-top: -8px;
+                box-shadow: 0 4px 15px 3px rgba(251, 191, 36, 0.35);
+                z-index: 2;
             }
 
             .vr-lotus-trigger:hover {
-                transform: scale(1.05) translateY(-5px);
-                filter: drop-shadow(0 0 50px rgba(234, 105, 139, 0.8));
+                transform: scale(1.06) translateY(-4px) rotate(3deg);
+                filter: drop-shadow(0 0 55px rgba(244, 63, 94, 0.85));
             }
 
             .vr-lotus-trigger.opened {
-                transform: scale(1.15) translateY(-90px);
+                transform: scale(1.15) translateY(-85px);
                 pointer-events: none;
-                filter: drop-shadow(0 0 70px rgba(234, 105, 139, 1));
+                filter: drop-shadow(0 0 65px rgba(244, 63, 94, 0.95)) drop-shadow(0 0 30px rgba(251, 191, 36, 0.9));
             }
 
-            /* Animate SVG petals when opened */
+            /* Opened Lotus SVG modifications */
             .vr-lotus-trigger.opened .petal-outer {
-                transform: scaleY(0.7) translateY(10px);
+                transform: scaleY(0.7) translateY(12px);
                 transform-origin: bottom center;
-                fill: #FFA6C9;
-                transition: all 2s;
+                fill: #fda4af; /* light rose */
+                transition: all 1.8s cubic-bezier(0.16, 1, 0.3, 1);
             }
 
             .vr-lotus-trigger.opened .petal-inner {
-                transform: scaleY(0.9);
+                transform: scaleY(0.85) translateY(4px);
                 transform-origin: bottom center;
-                fill: #FFF0F5;
-                transition: all 1.5s;
+                fill: #fff1f2; /* white rose */
+                transition: all 1.4s cubic-bezier(0.16, 1, 0.3, 1);
             }
 
-            /* --- Glowing Capsule Input --- */
-            /* --- Glowing Capsule Input --- */
+            /* --- Custom Authentication Wrapper --- */
             .vr-auth-wrapper {
                 position: absolute;
                 bottom: 0;
-                width: 360px;
+                width: 380px;
                 height: 0;
                 opacity: 0;
                 visibility: hidden;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
-                transition: all 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
-                z-index: 50;
+                transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+                z-index: 10;
             }
 
-            .vr-lotus-trigger.opened~.vr-auth-wrapper {
-                height: 200px;
+            .vr-lotus-trigger.opened ~ .vr-auth-wrapper {
+                height: 220px;
                 opacity: 1;
                 visibility: visible;
-                bottom: -60px;
+                bottom: -55px;
+            }
+
+            /* Sleek Glassmorphism input wrapper */
+            .vr-input-container {
+                position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                border-radius: 99px;
+                transition: all 0.3s;
             }
 
             .vr-capsule-input {
                 width: 100%;
-                background: linear-gradient(135deg, rgba(20, 25, 45, 0.4), rgba(5, 10, 20, 0.6));
-                backdrop-filter: blur(30px);
-                -webkit-backdrop-filter: blur(30px);
-                border: 1px solid rgba(255, 215, 0, 0.5);
-                border-radius: 50px;
-                color: #F9D423;
-                font-family: 'Cinzel', serif;
-                font-weight: 700;
-                font-size: 1.8rem;
+                background: rgba(255, 255, 255, 0.03); /* bg-white/5 but slightly more glass-clear */
+                backdrop-filter: blur(12px); /* backdrop-blur-md */
+                -webkit-backdrop-filter: blur(12px);
+                border: 1px solid rgba(254, 243, 199, 0.25); /* border-amber-300/30 */
+                border-radius: 99px;
+                color: #FFFDF0;
+                font-family: 'Cormorant Garamond', serif;
+                font-size: 1.3rem;
                 text-align: center;
-                padding: 18px 30px;
+                padding: 13px 56px 13px 28px; /* Extra padding right for inline hint trigger button */
                 outline: none;
-                letter-spacing: 12px;
-                text-transform: uppercase;
-                text-shadow: 0 0 10px rgba(249, 212, 35, 0.4);
+                letter-spacing: 2px;
                 box-shadow: 
-                    0 25px 50px rgba(0, 0, 0, 0.8), 
-                    inset 0 0 20px rgba(255, 215, 0, 0.15),
-                    0 0 30px rgba(244, 196, 48, 0.1);
-                transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+                    0 10px 30px rgba(0, 0, 0, 0.35), 
+                    inset 0 1px 1px rgba(255, 255, 255, 0.08);
+                transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             }
 
             .vr-capsule-input::placeholder {
-                color: rgba(253, 246, 227, 0.45);
-                font-size: 1.05rem;
-                letter-spacing: 4px;
+                color: rgba(254, 243, 199, 0.45);
+                font-size: 1rem;
+                letter-spacing: 2px;
                 font-family: 'Outfit', sans-serif;
-                text-transform: uppercase;
+                text-transform: capitalize;
                 transition: all 0.3s ease;
             }
-            
+
             .vr-capsule-input:focus::placeholder {
                 opacity: 0;
-                transform: translateY(-8px);
+                transform: translateY(-5px);
             }
 
+            /* Sleek Input Focus Halo */
             .vr-capsule-input:focus {
-                border-color: rgba(212, 175, 55, 0.9);
-                background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04));
+                border-color: rgba(245, 158, 11, 0.75);
+                background: rgba(255, 255, 255, 0.06);
                 box-shadow: 
-                    0 20px 45px rgba(0, 0, 0, 0.5),
-                    0 0 40px rgba(212, 175, 55, 0.25),
-                    inset 0 0 25px rgba(212, 175, 55, 0.15);
-                transform: translateY(-2px);
+                    0 15px 35px rgba(0, 0, 0, 0.45),
+                    0 0 20px 4px rgba(245, 158, 11, 0.3),
+                    inset 0 1px 1px rgba(255, 255, 255, 0.12);
+                transform: scale(1.02);
             }
 
+            /* Hint Button */
+            .vr-hint-btn {
+                position: absolute;
+                right: 18px;
+                background: transparent;
+                border: none;
+                cursor: pointer;
+                font-size: 1.15rem;
+                outline: none;
+                margin: 0;
+                padding: 0;
+                filter: drop-shadow(0 0 5px rgba(244, 63, 94, 0.6));
+                transition: all 0.3s ease;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 5;
+            }
+
+            .vr-hint-btn:hover {
+                transform: scale(1.22) rotate(15deg);
+                filter: drop-shadow(0 0 10px rgba(251, 191, 36, 0.95));
+            }
+
+            .vr-hint-btn:active {
+                transform: scale(0.92);
+            }
+
+            /* Romantic Clue Tooltip */
+            .vr-clue-tooltip {
+                position: absolute;
+                bottom: 130%;
+                left: 50%;
+                transform: translate(-50%, 8px);
+                background: rgba(8, 13, 26, 0.9);
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                border: 1px solid rgba(251, 191, 36, 0.35);
+                border-radius: 12px;
+                padding: 10px 18px;
+                color: #FEF3C7;
+                font-family: 'Cormorant Garamond', serif;
+                font-size: 0.95rem;
+                font-style: italic;
+                line-height: 1.4;
+                text-align: center;
+                width: 290px;
+                pointer-events: none;
+                opacity: 0;
+                box-shadow: 
+                    0 15px 35px rgba(0, 0, 0, 0.6), 
+                    0 0 15px rgba(251, 191, 36, 0.15);
+                transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                z-index: 100;
+            }
+
+            /* Tooltip arrow indicator */
+            .vr-clue-tooltip::after {
+                content: '';
+                position: absolute;
+                top: 100%;
+                left: 50%;
+                transform: translateX(-50%);
+                border-width: 6px;
+                border-style: solid;
+                border-color: rgba(8, 13, 26, 0.9) transparent transparent transparent;
+            }
+
+            .vr-clue-tooltip.visible,
+            .vr-hint-btn:hover ~ .vr-clue-tooltip {
+                opacity: 1;
+                transform: translate(-50%, 0);
+                pointer-events: auto;
+            }
+
+            /* AWAKEN Pill Button with glowing effect */
             .vr-divine-btn {
                 margin-top: 25px;
-                background: linear-gradient(135deg, #F4C430, #FFFFFF, #D4AF37);
-                background-size: 200% auto;
-                border: 1px solid rgba(255,255,255,0.5);
-                border-radius: 40px;
-                color: #000;
+                background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%);
+                border: 1px solid rgba(255, 255, 255, 0.25);
+                border-radius: 99px;
+                color: #050a14;
                 font-family: 'Cinzel', serif;
-                font-size: 1.25rem;
+                font-size: 1.1rem;
                 font-weight: 800;
-                letter-spacing: 6px;
+                letter-spacing: 5px;
                 text-transform: uppercase;
                 cursor: pointer;
-                padding: 16px 55px;
-                transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+                padding: 13.5px 50px;
+                transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
                 position: relative;
                 overflow: hidden;
-                box-shadow: 0 15px 40px rgba(244, 196, 48, 0.6), inset 0 0 15px rgba(255, 255, 255, 0.8);
-                animation: goldShimmerEnt 3s linear infinite;
+                box-shadow: 
+                    0 10px 30px rgba(245, 158, 11, 0.45), 
+                    0 0 15px rgba(245, 158, 11, 0.22);
+                animation: ctaPulse 3s infinite;
+            }
+
+            @keyframes ctaPulse {
+                0%, 100% {
+                    box-shadow: 0 10px 25px rgba(245, 158, 11, 0.45), 0 0 15px rgba(245, 158, 11, 0.2);
+                }
+                50% {
+                    box-shadow: 0 10px 35px rgba(245, 158, 11, 0.65), 0 0 30px rgba(245, 158, 11, 0.45);
+                    transform: scale(1.02);
+                }
             }
 
             .vr-divine-btn::before {
@@ -707,33 +844,49 @@
                 left: -100%;
                 width: 100%;
                 height: 100%;
-                background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
-                transition: left 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+                background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+                transition: left 0.7s cubic-bezier(0.16, 1, 0.3, 1);
             }
 
             .vr-divine-btn:hover {
-                transform: translateY(-3px) scale(1.03);
-                box-shadow: 0 15px 35px rgba(212, 175, 55, 0.5);
-                color: #000;
+                transform: translateY(-2.5px) scale(1.04);
+                box-shadow: 0 15px 35px rgba(245, 158, 11, 0.6);
+                color: #000000;
             }
 
             .vr-divine-btn:hover::before {
                 left: 100%;
             }
-            
+
             .vr-divine-btn:active {
-                transform: translateY(1px);
-                box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+                transform: translateY(0.5px) scale(0.98);
+                box-shadow: 0 6px 15px rgba(245, 158, 11, 0.3);
+            }
+
+            /* Error shake animation with soft red glow */
+            .shake-error {
+                animation: shakeGlow 0.65s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+                border-color: rgba(239, 68, 68, 0.8) !important;
+                box-shadow: 
+                    0 0 25px rgba(239, 68, 68, 0.5), 
+                    inset 0 0 10px rgba(239, 68, 68, 0.15) !important;
+            }
+
+            @keyframes shakeGlow {
+                10%, 90% { transform: translate3d(-1.5px, 0, 0) scale(1.02); }
+                20%, 80% { transform: translate3d(2.5px, 0, 0) scale(1.02); }
+                30%, 50%, 70% { transform: translate3d(-4px, 0, 0) scale(1.02); }
+                40%, 60% { transform: translate3d(4px, 0, 0) scale(1.02); }
             }
 
             .vr-error-msg {
                 margin-top: 15px;
                 font-family: 'Outfit', sans-serif;
-                font-size: 0.85rem;
+                font-size: 0.82rem;
                 font-weight: 500;
-                letter-spacing: 3px;
+                letter-spacing: 2.5px;
                 color: rgba(255, 77, 109, 1);
-                background: rgba(255, 77, 109, 0.12);
+                background: rgba(255, 77, 109, 0.1);
                 border: 1px solid rgba(255, 77, 109, 0.25);
                 border-radius: 20px;
                 padding: 6px 18px;
@@ -741,104 +894,64 @@
                 transition: opacity 0.5s;
                 text-transform: uppercase;
                 backdrop-filter: blur(5px);
-                box-shadow: 0 5px 15px rgba(255, 77, 109, 0.15);
-            }
-
-            /* --- 7. FIREFLIES & MAGIC PARTICLES --- */
-            .vr-firefly {
-                position: absolute;
-                width: 3px;
-                height: 3px;
-                background: #E2FF99;
-                border-radius: 50%;
-                box-shadow: 0 0 10px 2px #E2FF99;
-                filter: blur(1px);
-                animation: flyWander 15s linear infinite;
-                opacity: 0;
-                pointer-events: none;
-                z-index: 35;
-            }
-
-            @keyframes flyWander {
-                0% {
-                    transform: translate(0, 0) scale(0.8);
-                    opacity: 0;
-                }
-
-                20% {
-                    opacity: 1;
-                }
-
-                50% {
-                    transform: translate(100px, -150px) scale(1.2);
-                    opacity: 0.5;
-                }
-
-                80% {
-                    opacity: 1;
-                }
-
-                100% {
-                    transform: translate(-50px, -300px) scale(0.8);
-                    opacity: 0;
-                }
+                box-shadow: 0 5px 15px rgba(255, 77, 109, 0.1);
             }
 
             @media (max-width: 768px) {
                 .vr-moon-container {
-                    width: 160px;
-                    height: 160px;
-                    top: -10px;
+                    width: 170px;
+                    height: 170px;
+                    top: 4vh;
                 }
 
                 .vr-title {
-                    font-size: 2.2rem;
+                    font-size: 2.1rem;
+                    letter-spacing: 3px;
                 }
 
                 .vr-subtitle {
-                    font-size: 0.9rem;
+                    font-size: 0.95rem;
                     margin-top: 10px;
+                    letter-spacing: 2px;
                 }
 
                 .vr-hero-text {
-                    margin-top: 25vh;
+                    margin-top: 24vh;
                 }
 
                 .vr-lotus-trigger {
-                    width: 110px;
-                    height: 110px;
+                    width: 105px;
+                    height: 105px;
                 }
 
                 .vr-altar-section {
-                    bottom: 25vh;
+                    bottom: 23vh;
                 }
 
-                /* Much higher spacing */
                 .vr-capsule-input {
-                    font-size: 1.1rem;
-                    padding: 15px 20px;
-                    width: 290px;
+                    font-size: 1.15rem;
+                    padding: 12px 50px 12px 22px;
                 }
 
                 .vr-auth-wrapper {
-                    width: 290px;
-                }
-                
-                .vr-lotus-trigger.opened~.vr-auth-wrapper {
-                    bottom: -30px; 
+                    width: 320px;
                 }
 
-                .vr-temple-silhouette {
-                    bottom: 25vh;
+                .vr-lotus-trigger.opened ~ .vr-auth-wrapper {
+                    bottom: -35px; 
                 }
 
                 .vr-vines {
-                    width: 150px;
+                    width: 140px;
                 }
             }
         </style>
 
-        <div class="vr-sky"></div>
+        <div class="vr-sky">
+            <div class="vr-stars-1"></div>
+            <div class="vr-stars-2"></div>
+            <div class="vr-stars-3"></div>
+        </div>
         <div class="vr-mist"></div>
 
         <div class="vr-moon-container">
@@ -846,57 +959,73 @@
             <div class="vr-moon-rays"></div>
         </div>
 
-        <!-- Vines (SVG replaced emojis) -->
+        <!-- Hanging Foliage (Ghibli styled) -->
         <svg class="vr-vines left" viewBox="0 0 200 400" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0,0 C50,100 0,200 50,300 C80,360 40,400 40,400" fill="none" stroke="rgba(40,60,40,0.8)"
-                stroke-width="4" />
-            <path d="M20,50 C40,40 60,60 50,80 C30,90 10,70 20,50" fill="rgba(80,120,80,0.7)" />
-            <path d="M10,150 C30,130 50,150 40,180 C10,190 -10,170 10,150" fill="rgba(60,100,60,0.7)" />
-            <path d="M40,250 C70,230 80,260 60,290 C30,300 20,270 40,250" fill="rgba(70,110,70,0.8)" />
-            <path d="M15,350 C35,330 55,350 45,380 C15,390 -5,370 15,350" fill="rgba(80,110,50,0.7)" />
+            <path d="M0,0 C30,40 20,90 45,130 C60,160 40,210 55,260 C70,300 90,340 75,380" fill="none" stroke="#040907" stroke-width="4.5" stroke-linecap="round"/>
+            <path d="M45,130 C60,120 70,140 55,155 C35,160 30,145 45,130 Z" fill="#0A3620" opacity="0.9"/>
+            <path d="M40,90 C60,75 75,90 60,110 C45,120 30,105 40,90 Z" fill="#124E31" opacity="0.85"/>
+            <path d="M55,260 C75,250 85,270 70,290 C50,300 40,285 55,260 Z" fill="#155D3B" opacity="0.9"/>
+            <path d="M50,210 C70,195 80,215 65,235 C50,245 40,230 50,210 Z" fill="#1B4D3E" opacity="0.8"/>
+            <path d="M75,380 C90,370 100,390 85,405 C70,410 65,395 75,380 Z" fill="#0A3620" opacity="0.95"/>
+            <circle cx="50" cy="110" r="4.5" fill="#fbbf24" filter="drop-shadow(0 0 6px #f59e0b)"/>
+            <circle cx="68" cy="275" r="3.5" fill="#fb7185" filter="drop-shadow(0 0 5px #f43f5e)"/>
         </svg>
         <svg class="vr-vines right" viewBox="0 0 200 400" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0,0 C50,100 0,200 50,300 C80,360 40,400 40,400" fill="none" stroke="rgba(40,60,40,0.8)"
-                stroke-width="4" />
-            <path d="M20,50 C40,40 60,60 50,80 C30,90 10,70 20,50" fill="rgba(80,120,80,0.7)" />
-            <path d="M10,150 C30,130 50,150 40,180 C10,190 -10,170 10,150" fill="rgba(60,100,60,0.7)" />
-            <path d="M40,250 C70,230 80,260 60,290 C30,300 20,270 40,250" fill="rgba(70,110,70,0.8)" />
-            <path d="M15,350 C35,330 55,350 45,380 C15,390 -5,370 15,350" fill="rgba(80,110,50,0.7)" />
+            <path d="M0,0 C30,40 20,90 45,130 C60,160 40,210 55,260 C70,300 90,340 75,380" fill="none" stroke="#040907" stroke-width="4.5" stroke-linecap="round"/>
+            <path d="M45,130 C60,120 70,140 55,155 C35,160 30,145 45,130 Z" fill="#0A3620" opacity="0.9"/>
+            <path d="M40,90 C60,75 75,90 60,110 C45,120 30,105 40,90 Z" fill="#124E31" opacity="0.85"/>
+            <path d="M55,260 C75,250 85,270 70,290 C50,300 40,285 55,260 Z" fill="#155D3B" opacity="0.9"/>
+            <path d="M50,210 C70,195 80,215 65,235 C50,245 40,230 50,210 Z" fill="#1B4D3E" opacity="0.8"/>
+            <path d="M75,380 C90,370 100,390 85,405 C70,410 65,395 75,380 Z" fill="#0A3620" opacity="0.95"/>
+            <circle cx="50" cy="110" r="4.5" fill="#fbbf24" filter="drop-shadow(0 0 6px #f59e0b)"/>
+            <circle cx="68" cy="275" r="3.5" fill="#fb7185" filter="drop-shadow(0 0 5px #f43f5e)"/>
         </svg>
 
         <div class="vr-hero-text">
-            <h1 class="vr-title">Vrindavan Awaits</h1>
+            <h1 class="vr-title">VRINDAVAN AWAITS</h1>
             <p class="vr-subtitle">One sacred word to unlock our story</p>
         </div>
 
         <div class="vr-landscape">
-            <!-- Temple Silhouette -->
-            <div class="vr-temple-silhouette">
-                <svg class="vr-temple-svg" viewBox="0 0 1200 300" preserveAspectRatio="none"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path d="M0,300 L0,200 Q50,180 100,200 T200,160 T300,180 L300,300 Z" />
-                    <path d="M250,300 L250,120 Q300,50 350,120 L350,300 Z" />
-                    <path d="M320,300 L320,80 Q400,-20 480,80 L480,300 Z" /> <!-- Main Dome -->
-                    <path d="M450,300 L450,140 Q500,80 550,140 L550,300 Z" />
-                    <path d="M700,300 L700,100 Q760,20 820,100 L820,300 Z" /> <!-- Second Dome -->
-                    <path d="M800,300 L800,150 Q850,100 900,150 L900,300 Z" />
-                    <path d="M900,300 L900,200 Q1000,170 1100,220 T1200,180 L1200,300 Z" />
-                    <circle cx="400" cy="15" r="5" fill="#D4AF37" />
-                    <line x1="400" y1="15" x2="400" y2="40" stroke="#D4AF37" stroke-width="2" />
-                    <circle cx="760" cy="35" r="4" fill="#D4AF37" />
-                    <line x1="760" y1="35" x2="760" y2="55" stroke="#D4AF37" stroke-width="2" />
-                </svg>
-            </div>
-            <!-- River -->
+            <!-- Parallax Depth Silhouettes -->
+            <svg class="vr-temple-silhouette vr-temple-back" viewBox="0 0 1200 220" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0,220 L0,150 Q45,130 90,150 T180,120 T270,135 L270,220 Z"/>
+                <path d="M240,220 L240,95 Q285,50 330,95 L330,220 Z"/>
+                <path d="M310,220 L310,55 Q375,-25 440,55 L440,220 Z"/>
+                <path d="M620,220 L620,75 Q675,18 730,75 L730,220 Z"/>
+                <path d="M860,220 L860,160 Q930,125 1010,160 L1200,130 L1200,220 Z"/>
+            </svg>
+
+            <svg class="vr-temple-silhouette vr-temple-mid" viewBox="0 0 1200 220" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0,220 L0,175 Q60,150 120,175 T280,175 L280,220 Z"/>
+                <path d="M400,220 L400,105 Q450,40 500,105 L500,220 Z"/>
+                <path d="M470,220 L470,125 Q510,70 550,125 L550,220 Z"/>
+                <path d="M740,220 L740,90 Q790,25 840,90 L840,220 Z"/>
+                <path d="M810,220 L810,135 Q850,90 890,135 L890,220 Z"/>
+                <path d="M960,220 L960,170 Q1060,140 1160,180 L1200,170 L1200,220 Z"/>
+            </svg>
+
+            <svg class="vr-temple-silhouette vr-temple-fore" viewBox="0 0 1200 220" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0,220 L0,190 Q30,180 60,190 T180,190 L240,190 L240,220 Z"/>
+                <path d="M150,220 L150,150 Q175,128 200,150 L200,220 Z"/>
+                <path d="M510,220 L510,80 Q580,-15 650,80 L650,220 Z"/>
+                <!-- Spires -->
+                <circle cx="580" cy="15" r="4.5" fill="#f59e0b"/>
+                <line x1="580" y1="15" x2="580" y2="40" stroke="#f59e0b" stroke-width="2.2"/>
+                <circle cx="200" cy="120" r="3.5" fill="#f59e0b"/>
+                <line x1="200" y1="120" x2="200" y2="135" stroke="#f59e0b" stroke-width="1.8"/>
+            </svg>
+
+            <!-- Yamuna River & Boat -->
             <div class="vr-yamuna-river">
-                <div class="river-ripple" style="top:20%; left:20%; animation-delay: 0s;"></div>
-                <div class="river-ripple" style="top:50%; left:60%; animation-delay: 2s; width:80px;"></div>
-                <div class="river-ripple" style="top:80%; left:40%; animation-delay: 4s; width:60px;"></div>
-                <!-- Boat -->
+                <div class="river-ripple" style="top:25%; left:15%; animation-delay: 0s;"></div>
+                <div class="river-ripple" style="top:55%; left:65%; animation-delay: 2.2s; width:75px;"></div>
+                <div class="river-ripple" style="top:85%; left:35%; animation-delay: 4.4s; width:55px;"></div>
                 <div class="vr-boat-container">
-                    <svg class="vr-boat-svg" viewBox="0 0 100 50" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M10,20 C40,40 60,40 90,20 L80,40 C60,50 40,50 20,40 Z" />
-                        <path d="M48,5 L48,25" stroke="#333" stroke-width="2" />
+                    <svg class="vr-boat-svg" viewBox="0 0 120 60" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10,25 C35,45 85,45 110,25 L100,45 C75,55 45,55 20,45 Z" />
+                        <path d="M35,25 C35,10 85,10 85,25" fill="none" stroke="#03060b" stroke-width="4"/>
+                        <path d="M58,6 L58,25" stroke="#03060b" stroke-width="2" />
                     </svg>
                     <div class="vr-lantern-glow"></div>
                 </div>
@@ -908,20 +1037,31 @@
                 <svg class="vr-lotus-flower-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
                     <defs>
                         <linearGradient id="lotusGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                            <stop offset="0%" stop-color="#FF4D6D" />
-                            <stop offset="100%" stop-color="#C77DFF" />
+                            <stop offset="0%" stop-color="#f43f5e" />
+                            <stop offset="100%" stop-color="#c084fc" />
                         </linearGradient>
                     </defs>
                     <path class="petal-outer" d="M50,90 C20,70 10,40 50,10 C90,40 80,70 50,90 Z" />
-                    <path class="petal-inner" d="M50,90 C30,75 25,50 50,20 C75,50 70,75 50,90 Z" fill="#FFA6C9" />
-                    <path class="petal-core" d="M50,90 C40,80 35,60 50,30 C65,60 60,80 50,90 Z" fill="#FFEBF0" />
+                    <path class="petal-inner" d="M50,90 C30,75 25,50 50,20 C75,50 70,75 50,90 Z" fill="#fda4af" />
+                    <path class="petal-core" d="M50,90 C40,80 35,60 50,30 C65,60 60,80 50,90 Z" fill="#fff1f2" />
                 </svg>
             </button>
             <div class="vr-pedestal"></div>
 
             <div class="vr-auth-wrapper">
-                <input type="text" id="vr-secret-input" class="vr-capsule-input" placeholder="Type softly..."
-                    autocomplete="off">
+                <div class="vr-input-container">
+                    <input type="password" id="vr-secret-input" class="vr-capsule-input" placeholder="Type softly..." autocomplete="off">
+                    <button class="vr-hint-btn" id="vr-hint-btn" aria-label="Passcode hint">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                            <line x1="12" y1="17" x2="12.01" y2="17"/>
+                        </svg>
+                    </button>
+                    <div class="vr-clue-tooltip" id="vr-clue-tooltip">
+                        Combine your favorite nicknames for each other... 🤍
+                    </div>
+                </div>
                 <button id="vr-unlock-trigger" class="vr-divine-btn">Awaken</button>
                 <div id="vr-error-toast" class="vr-error-msg">Silence... Try again.</div>
             </div>
@@ -966,6 +1106,26 @@
                     setTimeout(() => inp.focus(), 1200);
                     try { if (window.sounds?.tap) window.sounds.tap(); } catch (e) { }
                 });
+
+                // Tooltip trigger hint toggle
+                const hintBtn = document.getElementById('vr-hint-btn');
+                const tooltip = document.getElementById('vr-clue-tooltip');
+                let tooltipTimeout;
+                if (hintBtn && tooltip) {
+                    hintBtn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        tooltip.classList.toggle('visible');
+                        clearTimeout(tooltipTimeout);
+                        if (tooltip.classList.contains('visible')) {
+                            tooltipTimeout = setTimeout(() => {
+                                tooltip.classList.remove('visible');
+                            }, 4500);
+                        }
+                    });
+                    document.addEventListener('click', () => {
+                        tooltip.classList.remove('visible');
+                    });
+                }
 
                 const fireAuth = () => {
                     if (btn.disabled) return;
@@ -1019,9 +1179,17 @@
                         }, 3500);
 
                     } else {
+                        // Shake error on card
+                        const inputContainer = document.querySelector('.vr-input-container');
+                        if (inputContainer) {
+                            inputContainer.classList.add('shake-error');
+                            setTimeout(() => {
+                                inputContainer.classList.remove('shake-error');
+                            }, 650);
+                        }
                         err.style.opacity = '1';
-                        lotus.classList.remove('opened');
-                        inp.blur(); inp.value = '';
+                        inp.focus();
+                        inp.select();
                         try { if (window.sounds?.error) window.sounds.error(); } catch (e) { }
                         setTimeout(() => err.style.opacity = '0', 3000);
                     }
@@ -1044,24 +1212,60 @@
         <!-- Custom Styling for Page 1 Vrindavan Theme -->
         <style>
             .vrindavan-theme {
-                background: radial-gradient(circle at 15% 50%, #162238 0%, #060b14 60%, #020408 100%);
+                /* Luxury Obsidian & Gold Mesh Ambient */
+                background: linear-gradient(135deg, #050505, #150920, #0a0118, #050505);
+                background-size: 300% 300%;
+                animation: luxuryAmbient 15s ease infinite;
                 color: #FDF6E3;
                 position: relative;
                 overflow: hidden;
+            }
+
+            @keyframes luxuryAmbient {
+                0% { background-position: 0% 50%; }
+                50% { background-position: 100% 50%; }
+                100% { background-position: 0% 50%; }
+            }
+            
+            /* Ambient glowing orbs */
+            .vrindavan-theme::before, .vrindavan-theme::after {
+                content: '';
+                position: absolute;
+                border-radius: 50%;
+                filter: blur(120px);
+                z-index: 0;
+                pointer-events: none;
+                animation: orbFloat 20s infinite alternate cubic-bezier(0.4, 0, 0.2, 1);
+            }
+            .vrindavan-theme::before {
+                width: 60vw; height: 60vw;
+                background: radial-gradient(circle, rgba(212,175,55,0.08), transparent 70%);
+                top: -20%; left: -10%;
+            }
+            .vrindavan-theme::after {
+                width: 50vw; height: 50vw;
+                background: radial-gradient(circle, rgba(138,43,226,0.08), transparent 70%);
+                bottom: -20%; right: -10%;
+                animation-delay: -10s;
+            }
+            @keyframes orbFloat {
+                0% { transform: translate(0, 0) scale(1); }
+                100% { transform: translate(5vw, 10vh) scale(1.1); }
             }
 
             .divine-floating-particle {
                 position: absolute;
                 pointer-events: none;
                 z-index: 0;
-                filter: drop-shadow(0 0 10px rgba(255, 233, 184, 0.4));
+                filter: drop-shadow(0 0 10px rgba(255, 233, 184, 0.6));
                 animation: divineRise linear infinite forwards;
+                opacity: 0;
             }
 
             @keyframes divineRise {
                 0% { transform: translateY(110vh) rotate(0deg) scale(0.8); opacity: 0; }
-                10% { opacity: 0.6; }
-                90% { opacity: 0.6; }
+                10% { opacity: 0.8; }
+                80% { opacity: 0.8; }
                 100% { transform: translateY(-10vh) rotate(360deg) scale(1.2); opacity: 0; }
             }
 
@@ -1071,8 +1275,8 @@
                 right: 0;
                 width: 1px;
                 height: 90%;
-                background: linear-gradient(to bottom, transparent, rgba(244,196,48,0.2), #F4C430, rgba(244,196,48,0.2), transparent);
-                box-shadow: 0 0 20px rgba(244, 196, 48, 0.6);
+                background: linear-gradient(to bottom, transparent, rgba(255, 215, 0, 0.2), #D4AF37, rgba(255, 215, 0, 0.2), transparent);
+                box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
                 opacity: 0.7;
             }
 
@@ -1207,6 +1411,24 @@
                 box-shadow: 0 25px 50px rgba(0, 0, 0, 0.9), inset 0 0 0 1px rgba(255, 215, 0, 0.2), inset 0 0 20px rgba(255, 255, 255, 0.05);
             }
 
+            .vr-face::after {
+                content: '';
+                position: absolute;
+                inset: 0;
+                background: radial-gradient(circle at var(--gx, 50%) var(--gy, 50%), rgba(255, 255, 255, 0.35) 0%, transparent 60%);
+                pointer-events: none;
+                z-index: 20;
+                opacity: 0;
+                transition: opacity 0.3s;
+                mix-blend-mode: overlay;
+                border-radius: inherit;
+                overflow: hidden;
+            }
+
+            .vr-polaroid-wrapper:hover .vr-face::after {
+                opacity: 1;
+            }
+
             .vr-front {
                 background: linear-gradient(135deg, rgba(20, 25, 45, 0.7), rgba(5, 10, 20, 0.9));
                 backdrop-filter: blur(20px);
@@ -1334,60 +1556,48 @@
 
             /* Divine PIN Lock Screen */
             .divine-lock-card {
-                background: linear-gradient(145deg, rgba(15, 22, 38, 0.75), rgba(5, 8, 15, 0.9)) !important;
-                backdrop-filter: blur(30px);
-                -webkit-backdrop-filter: blur(30px);
+                background: linear-gradient(145deg, rgba(20, 20, 25, 0.65), rgba(5, 5, 10, 0.85)) !important;
+                backdrop-filter: blur(16px);
+                -webkit-backdrop-filter: blur(16px);
                 border: 1px solid rgba(255, 215, 0, 0.2) !important;
                 border-radius: 35px !important;
-                box-shadow: 0 35px 70px rgba(0, 0, 0, 0.95), inset 0 0 40px rgba(255, 215, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+                box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 
+                            0 0 30px rgba(255, 215, 0, 0.1),
+                            inset 0 0 30px rgba(212, 175, 55, 0.05),
+                            inset 0 1px 1px rgba(255, 215, 0, 0.3) !important;
                 color: #FDF6E3;
-                overflow: hidden;
+                overflow: visible !important;
                 position: relative;
+                margin-top: 50px;
             }
-
-            .divine-lock-card::before {
+            .divine-lock-card::after {
                 content: '';
                 position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 2px;
-                background: linear-gradient(90deg, transparent, #F4C430, #FFFFFF, #F4C430, transparent);
-                box-shadow: 0 0 20px #F4C430;
-                opacity: 0.8;
+                inset: -2px;
+                border-radius: 36px;
+                z-index: -1;
+                background: linear-gradient(135deg, rgba(255,215,0,0.5), transparent 40%, transparent 60%, rgba(212,175,55,0.4));
+                filter: blur(8px);
+                opacity: 0.5;
+                pointer-events: none;
             }
 
             .divine-profile-ring {
-                width: 85px;
-                height: 85px;
-                margin: 0 auto 20px;
+                width: 90px;
+                height: 90px;
+                margin: -70px auto 20px; /* Lift it up to overlap the card */
                 border-radius: 50%;
-                padding: 3px;
+                padding: 4px;
                 background: linear-gradient(135deg, #F4C430, #FFFFFF, #D4AF37);
-                box-shadow: 0 10px 30px rgba(244, 196, 48, 0.6), inset 0 0 10px rgba(0,0,0,0.5);
+                box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4), inset 0 0 10px rgba(0,0,0,0.5);
                 position: relative;
-                animation: ringFloat 4s ease-in-out infinite;
-                z-index: 2;
+                animation: avatarMusicPulse 4s ease-in-out infinite alternate;
+                z-index: 5;
             }
 
-            .divine-profile-ring::before {
-                content: '';
-                position: absolute;
-                inset: -6px;
-                border-radius: 50%;
-                background: transparent;
-                border: 1px dashed rgba(244, 196, 48, 0.5);
-                animation: spinDash 15s linear infinite;
-                z-index: -1;
-            }
-            
-            @keyframes spinDash {
-                100% { transform: rotate(360deg); }
-            }
-
-            @keyframes ringFloat {
-                0%, 100% { transform: translateY(0); }
-                50% { transform: translateY(-8px); box-shadow: 0 15px 40px rgba(244, 196, 48, 0.8); }
+            @keyframes avatarMusicPulse {
+                0% { transform: scale(1); box-shadow: 0 10px 25px rgba(255, 215, 0, 0.3), 0 0 0 0 rgba(255, 215, 0, 0.4); }
+                100% { transform: scale(1.05); box-shadow: 0 15px 40px rgba(255, 215, 0, 0.5), 0 0 0 15px rgba(255, 215, 0, 0); }
             }
 
             .divine-lock-title {
@@ -1418,20 +1628,45 @@
             }
 
             .pin-dot.divine-dot {
-                width: 14px;
-                height: 14px;
-                border-radius: 50%;
-                border: 2px solid rgba(244, 196, 48, 0.4);
-                background: rgba(0, 0, 0, 0.4);
+                width: 25px;
+                height: 25px;
+                border: none;
+                background: transparent;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 0px; 
                 transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-                box-shadow: inset 0 0 5px rgba(0,0,0,0.8);
+                color: transparent;
+                position: relative;
             }
-
+            .pin-dot.divine-dot::before {
+                content: '';
+                position: absolute;
+                width: 12px; height: 12px;
+                background: rgba(255,215,0,0.1);
+                border-radius: 50%;
+                transition: 0.3s;
+                border: 1px solid rgba(255,215,0,0.3);
+            }
+            .pin-dot.divine-dot.filled::before {
+                opacity: 0;
+                transform: scale(0);
+            }
             .pin-dot.divine-dot.filled {
-                background: #F4C430;
-                border-color: #FFF;
-                box-shadow: 0 0 20px #F4C430, 0 0 40px #FFDF73;
-                transform: scale(1.3);
+                font-size: 20px;
+                background: transparent;
+                border-color: transparent;
+                box-shadow: none;
+                filter: drop-shadow(0 0 10px rgba(255,215,0,0.6));
+            }
+            .pin-dot.divine-dot.filled::after {
+                content: '💛';
+                animation: bloomHeart 0.5s cubic-bezier(0.3, 2, 0.4, 1) forwards;
+            }
+            @keyframes bloomHeart {
+                0% { transform: scale(0) rotate(-15deg); opacity: 0; }
+                100% { transform: scale(1) rotate(0deg); opacity: 1; }
             }
 
             .keypad-grid {
@@ -1443,8 +1678,8 @@
             }
 
             .keypad-button.divine-key-btn {
-                background: rgba(255, 255, 255, 0.02);
-                border: 1px solid rgba(244, 196, 48, 0.15);
+                background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.05), rgba(0, 0, 0, 0.4));
+                border: 1px solid rgba(255, 215, 0, 0.15);
                 border-radius: 50%;
                 width: 80px;
                 height: 80px;
@@ -1456,31 +1691,48 @@
                 transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
                 position: relative;
                 overflow: hidden;
-                box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+                box-shadow: 
+                    inset 2px 2px 5px rgba(255, 255, 255, 0.08),
+                    inset -3px -3px 8px rgba(0, 0, 0, 0.6),
+                    0 8px 20px rgba(0,0,0,0.5);
                 margin: auto;
                 padding: 0;
                 backdrop-filter: blur(10px);
             }
-
-            .keypad-button.divine-key-btn::after {
+            .keypad-button.divine-key-btn::before {
                 content: '';
                 position: absolute;
-                inset: 0;
-                border-radius: 50%;
-                background: radial-gradient(circle, rgba(244, 196, 48, 0.25) 0%, transparent 70%);
+                top: 0; left: 0; width: 100%; height: 100%;
+                background: radial-gradient(circle, rgba(255,215,0,0.2) 0%, transparent 70%);
                 opacity: 0;
-                transition: opacity 0.4s;
+                transform: scale(0.5);
+                transition: opacity 0.4s, transform 0.4s;
+            }
+            
+            .divine-lock-card.success-pulse {
+                animation: divineUnlockPulse 0.5s ease-out forwards;
+                border-color: rgba(255, 255, 255, 0.8) !important;
+                box-shadow: 0 0 50px rgba(255, 215, 0, 0.8), inset 0 0 40px rgba(255, 255, 255, 0.3) !important;
+            }
+            
+            @keyframes divineUnlockPulse {
+                0% { transform: scale(1); filter: brightness(1); }
+                50% { transform: scale(1.03); filter: brightness(1.3); }
+                100% { transform: scale(1); filter: brightness(1.2); }
             }
 
             .keypad-button.divine-key-btn:hover {
-                background: rgba(244, 196, 48, 0.1);
-                border-color: rgba(244, 196, 48, 0.8);
-                box-shadow: 0 0 25px rgba(244, 196, 48, 0.3), inset 0 0 15px rgba(244, 196, 48, 0.2);
-                transform: scale(1.08) translateY(-3px);
+                transform: scale(1.08) translateY(-4px);
+                border-color: rgba(255, 215, 0, 0.6);
+                box-shadow: 
+                    inset 2px 2px 8px rgba(255, 255, 255, 0.15),
+                    inset -3px -3px 10px rgba(0, 0, 0, 0.7),
+                    0 15px 30px rgba(255, 215, 0, 0.2),
+                    0 0 20px rgba(255, 215, 0, 0.15);
             }
-
-            .keypad-button.divine-key-btn:hover::after {
+            .keypad-button.divine-key-btn:hover::before {
                 opacity: 1;
+                transform: scale(1.2);
             }
 
             .keypad-button.divine-key-btn:active {
@@ -1715,31 +1967,102 @@
                 document.addEventListener('DOMContentLoaded', () => {
                     const gallery = document.querySelector('.vr-scattered-gallery');
                     if (!gallery) return;
-                    const wrappers = gallery.querySelectorAll('.vr-polaroid-wrapper');
-                    const positions = ['pos-1', 'pos-2', 'pos-3', 'pos-4', 'pos-5'];
-                    let rotateInterval;
+                    
+                    let wrappers = Array.from(gallery.querySelectorAll('.vr-polaroid-wrapper'));
+                    
+                    function animateFan() {
+                        const isMobile = window.innerWidth < 768;
+                        const spread = isMobile ? 40 : 80;
+                        const baseScale = isMobile ? 0.75 : 0.95;
+                        const curveY = isMobile ? 15 : 20;
+                        const yOffset = isMobile ? 15 : 30;
+                        const rotAngle = isMobile ? 10 : 12;
 
-                    // Initial setup
-                    wrappers.forEach((w, i) => w.classList.add(positions[i]));
-
-                    function startRotation() {
-                        positions.unshift(positions.pop()); // Rotate the stack logic
                         wrappers.forEach((w, i) => {
-                            w.className = 'vr-polaroid-wrapper ' + positions[i];
+                            // Apply new z-index so top card is always on top
+                            w.style.zIndex = wrappers.length - i;
+                            
+                            if(i >= 5) {
+                                gsap.to(w, { opacity: 0, duration: 0.8, scale: baseScale - 0.1 });
+                                return;
+                            }
+                            const offsetX = (i - 2) * spread; 
+                            gsap.to(w, {
+                                x: offsetX,
+                                y: Math.abs(i - 2) * curveY - yOffset, // curve them up slightly
+                                rotation: (i - 2) * rotAngle, // fan angle
+                                scale: baseScale,
+                                opacity: i < 5 ? 1 : 0,
+                                duration: 1.2,
+                                ease: "power3.out",
+                                boxShadow: "0 30px 60px rgba(0,0,0,0.8)"
+                            });
                         });
                     }
 
-                    rotateInterval = setInterval(startRotation, 2500);
+                    // Handle window resize dynamically
+                    window.addEventListener('resize', () => {
+                        animateFan();
+                    });
 
+                    // Initial fan out
+                    animateFan();
+
+                    // Auto-rotate logic (clockwise cycling)
+                    let rotateInterval = setInterval(() => {
+                        const topW = wrappers.shift();
+                        wrappers.push(topW);
+                        animateFan();
+                    }, 3000);
+
+                    // Pause auto-rotate on hover of gallery
                     gallery.addEventListener('mouseenter', () => clearInterval(rotateInterval));
-                    gallery.addEventListener('mouseleave', () => rotateInterval = setInterval(startRotation, 2500));
+                    gallery.addEventListener('mouseleave', () => {
+                        rotateInterval = setInterval(() => {
+                            const topW = wrappers.shift();
+                            wrappers.push(topW);
+                            animateFan();
+                        }, 3000);
+                    });
 
-                    // Add click functionality to cycle manually
-                    wrappers.forEach((w) => {
+                    // 3D Parallax Tilt Effect using GSAP (on individual cards)
+                    wrappers.forEach(w => {
+                        w.addEventListener('mousemove', (e) => {
+                            const inner = w.querySelector('.vr-polaroid-inner');
+                            const rect = w.getBoundingClientRect();
+                            const x = e.clientX - rect.left - rect.width/2;
+                            const y = e.clientY - rect.top - rect.height/2;
+                            
+                            const rotateX = (y / (rect.height / 2)) * -20;
+                            const rotateY = (x / (rect.width / 2)) * 20;
+                            
+                            const gx = ((x / rect.width) + 0.5) * 100;
+                            const gy = ((y / rect.height) + 0.5) * 100;
+                            
+                            gsap.to(inner, {
+                                rotateX, rotateY,
+                                '--gx': `${gx}%`, '--gy': `${gy}%`,
+                                duration: 0.3, ease: 'power1.out', transformPerspective: 1000
+                            });
+                        });
+                        w.addEventListener('mouseleave', () => {
+                            const inner = w.querySelector('.vr-polaroid-inner');
+                            gsap.to(inner, { rotateX: 0, rotateY: 0, '--gx':'50%', '--gy':'50%', duration: 0.5, ease: 'power2.out' });
+                        });
+                        
+                        // Click to cycle manually
                         w.addEventListener('click', () => {
-                            startRotation();
+                            const topW = wrappers.shift();
+                            wrappers.push(topW);
+                            animateFan();
+                            
+                            // Reset interval
                             clearInterval(rotateInterval);
-                            rotateInterval = setInterval(startRotation, 2500);
+                            rotateInterval = setInterval(() => {
+                                const topW = wrappers.shift();
+                                wrappers.push(topW);
+                                animateFan();
+                            }, 3000);
                         });
                     });
                     
@@ -1757,7 +2080,30 @@
                         p.style.animationDelay = (Math.random() * 2) + 's';
                         loginExp.appendChild(p);
                         setTimeout(() => p.remove(), 25000);
-                    }, 500); // spawn a subtle particle every half second
+                    }, 500); 
+
+                    // Stardust Cursor Trail
+                    document.addEventListener('mousemove', (e) => {
+                        if (!loginExp.classList.contains('active')) return;
+                        if (Math.random() > 0.4) return; // throttle emission
+                        const star = document.createElement('div');
+                        star.innerHTML = '✨';
+                        star.style.position = 'fixed';
+                        star.style.left = e.clientX + 'px';
+                        star.style.top = e.clientY + 'px';
+                        star.style.fontSize = (Math.random() * 10 + 8) + 'px';
+                        star.style.pointerEvents = 'none';
+                        star.style.zIndex = '9999';
+                        star.style.transition = 'transform 1s ease-out, opacity 1s ease-out';
+                        document.body.appendChild(star);
+                        
+                        // Scatter out
+                        requestAnimationFrame(() => {
+                            star.style.transform = `translate(${(Math.random()-0.5)*40}px, ${(Math.random()-0.5)*40 + 20}px) scale(0)`;
+                            star.style.opacity = '0';
+                        });
+                        setTimeout(() => star.remove(), 1000);
+                    });
                 });
             </script>
 
@@ -1862,7 +2208,7 @@
                     </button>
                 </div>
 
-                <p class="divine-hint" style="z-index: 1; position: relative;">Six strokes of destiny await ��</p>
+                <p class="divine-hint" style="z-index: 1; position: relative;">Six strokes of destiny await ✨</p>
             </div>
         </div>
     </div>

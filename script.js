@@ -261,8 +261,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 .then(() => {
                     playingMusic = true;
                     musicBtn.classList.add('playing');
-                    musicBtn.querySelector('.btn-icon').textContent = '🔊';
-                    musicBtn.querySelector('.btn-text').textContent = 'Playing';
+                    const btnIcon = musicBtn.querySelector('.btn-icon');
+                    const btnText = musicBtn.querySelector('.btn-text');
+                    if (btnIcon) btnIcon.textContent = '🔊';
+                    if (btnText) btnText.textContent = 'Playing';
                 })
                 .catch(() => {
                     console.log("Music blocked by browser policy.");
@@ -271,8 +273,10 @@ document.addEventListener('DOMContentLoaded', () => {
             audioEl.pause();
             playingMusic = false;
             musicBtn.classList.remove('playing');
-            musicBtn.querySelector('.btn-icon').textContent = '🔇';
-            musicBtn.querySelector('.btn-text').textContent = 'Muted';
+            const btnIcon = musicBtn.querySelector('.btn-icon');
+            const btnText = musicBtn.querySelector('.btn-text');
+            if (btnIcon) btnIcon.textContent = '🔇';
+            if (btnText) btnText.textContent = 'Muted';
         }
     }
 
@@ -343,6 +347,51 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!btn || enteredPin.length >= maxPinLength && btn.dataset.val !== 'backspace') return;
         
         sounds.tap();
+
+        // GSAP Micro-interactions
+        if (typeof gsap !== 'undefined') {
+            gsap.fromTo(btn, 
+                { scale: 0.75, boxShadow: "0 0 40px rgba(255,215,0,0.8), inset 0 0 20px rgba(255,255,255,0.5)" }, 
+                { scale: 1, boxShadow: "0 8px 20px rgba(0,0,0,0.5)", duration: 0.6, ease: "elastic.out(1, 0.4)" }
+            );
+            
+            // Background ambient flash
+            gsap.to('.vrindavan-theme', {
+                boxShadow: "inset 0 0 100px rgba(212,175,55,0.15)",
+                duration: 0.15,
+                yoyo: true,
+                repeat: 1
+            });
+        }
+
+        // Emit golden stardust
+        for(let i=0; i<5; i++){
+            const star = document.createElement('div');
+            star.innerText = '✨';
+            star.style.position = 'fixed';
+            const rect = btn.getBoundingClientRect();
+            star.style.left = (rect.left + rect.width/2 - 5) + 'px';
+            star.style.top = (rect.top + rect.height/2 - 5) + 'px';
+            star.style.fontSize = (Math.random()*8 + 8) + 'px';
+            star.style.pointerEvents = 'none';
+            star.style.zIndex = '9999';
+            document.body.appendChild(star);
+            
+            if(typeof gsap !== 'undefined') {
+                gsap.to(star, {
+                    x: (Math.random()-0.5)*100,
+                    y: (Math.random()-0.5)*100 - 30,
+                    opacity: 0,
+                    rotation: Math.random()*180,
+                    scale: 1.5,
+                    duration: 0.8 + Math.random()*0.5,
+                    ease: "power2.out",
+                    onComplete: () => star.remove()
+                });
+            } else {
+                setTimeout(() => star.remove(), 1000);
+            }
+        }
         
         const val = btn.dataset.val;
 
@@ -352,13 +401,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 updatePinDots();
             }
         } else if (val === 'heart') {
-            // Secret Easter egg: typing custom love
             e.stopPropagation();
         } else {
             enteredPin += val;
             updatePinDots();
             if (enteredPin.length === maxPinLength) {
-                setTimeout(verifyPinCode, 250);
+                if (enteredPin === hardcodedPin) {
+                    lockCard.classList.add('success-pulse');
+                }
+                setTimeout(verifyPinCode, 400); 
             }
         }
     });
@@ -400,53 +451,40 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             
             // 2. Love Shower falling above the overlay
-            setTimeout(triggerLoveShower, 600);
+            setTimeout(triggerLoveShower, 400);
             
-            // 3. Graceful animating Love Text
+            // 3. Graceful animating Love Text & GSAP Timeline
             const loveText = document.createElement('div');
             loveText.innerHTML = `
-                <style>
-                    @keyframes throbHeart { 0% { transform: scale(1); filter: drop-shadow(0 0 20px rgba(255,77,109,0.8)); } 50% { transform: scale(1.3); filter: drop-shadow(0 0 60px rgba(255,77,109,1)); } 100% { transform: scale(1); filter: drop-shadow(0 0 20px rgba(255,77,109,0.8)); } }
-                    @keyframes celestialGlow { 0% { text-shadow: 0 5px 30px rgba(212, 175, 55, 0.8), 0 0 15px rgba(255, 255, 255, 0.5); } 50% { text-shadow: 0 5px 60px rgba(244, 196, 48, 1), 0 0 40px rgba(255, 255, 255, 0.9); } 100% { text-shadow: 0 5px 30px rgba(212, 175, 55, 0.8), 0 0 15px rgba(255, 255, 255, 0.5); } }
-                    @keyframes spinningAura { 0% { transform: translate(-50%, -50%) rotate(0deg); opacity: 0.5; } 50% { opacity: 0.9; } 100% { transform: translate(-50%, -50%) rotate(360deg); opacity: 0.5; } }
-                </style>
-                <div style="position:absolute; top:50%; left:50%; width:300vw; height:300px; background: radial-gradient(circle, rgba(212, 175, 55, 0.15) 0%, transparent 60%); z-index:-1; animation: spinningAura 8s linear infinite;"></div>
-                <div style="animation: celestialGlow 3s ease-in-out infinite;">Unlocking our beautiful timeline...</div>
-                <br>
-                <span style="font-size:3.5rem; display:inline-block; margin-top:20px; animation: throbHeart 1.2s ease-in-out infinite;">❤️</span>
+                <div class="divine-aura" style="position:absolute; top:50%; left:50%; width:150vw; height:150vh; transform:translate(-50%,-50%); background: radial-gradient(circle at center, rgba(212, 175, 55, 0.12) 0%, transparent 50%); opacity:0; pointer-events:none;"></div>
+                <div style="position:absolute; top:45%; left:50%; width:100%; transform:translate(-50%,-50%); text-align:center; z-index:2;">
+                    <h2 class="w1" style="font-family:'Cinzel', serif; font-size:clamp(2rem, 5vw, 4.5rem); font-weight:900; background:linear-gradient(to right, #FFFDF2, #F4C430, #D4AF37); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; opacity:0; filter:blur(15px); margin:0; text-shadow:0 10px 40px rgba(244,196,48,0.4);">A universe of memories...</h2>
+                    <h2 class="w2" style="font-family:'Playfair Display', serif; font-size:clamp(1.5rem, 4vw, 2.5rem); font-weight:600; color:#E0C895; opacity:0; filter:blur(15px); margin-top:24px; font-style:italic; letter-spacing:3px;">awaits my Karamma.</h2>
+                </div>
+                <div class="magic-heart" style="position:absolute; top:65%; left:50%; transform:translate(-50%,-50%) scale(0); font-size:5rem; filter:drop-shadow(0 0 30px rgba(255,77,109,0.8)); z-index:3;">❤️</div>
             `;
-            loveText.style.cssText = `
-                position: fixed; top: 50vh; left: 50vw;
-                transform: translate(-50%, -40%) scale(0.95) translateY(20px);
-                color: #FFFDF2;
-                font-family: 'Cinzel', serif;
-                font-size: 2.5rem;
-                font-weight: 800;
-                z-index: 10000;
-                opacity: 0;
-                transition: all 2.5s cubic-bezier(0.2, 0.8, 0.2, 1);
-                text-align: center;
-                letter-spacing: 3px;
-                width: 90vw;
-            `;
+            loveText.style.cssText = `position: fixed; inset: 0; z-index: 10000; pointer-events: none;`;
             document.body.appendChild(loveText);
             
-            // Fade in text while making it slowly rise and scale up
-            setTimeout(() => { 
-                loveText.style.opacity = '1';
-                loveText.style.transform = 'translate(-50%, -50%) scale(1) translateY(0px)';
-            }, 1000);
+            if (typeof gsap !== 'undefined') {
+                const tl = gsap.timeline();
+                tl.to('.divine-aura', {opacity: 1, duration: 2.5, scale: 1.2, ease: "power1.inOut"})
+                  .to('.w1', {opacity: 1, filter: "blur(0px)", y: -15, duration: 2, ease: "power2.out"}, "-=2")
+                  .to('.w2', {opacity: 1, filter: "blur(0px)", y: -10, duration: 2, ease: "power2.out"}, "-=1")
+                  .to('.magic-heart', {scale: 1, duration: 1.5, ease: "back.out(1.5)"}, "-=1.2")
+                  .to('.magic-heart', {scale: 1.15, filter: "drop-shadow(0 0 70px rgba(255,77,109,1))", repeat: -1, yoyo: true, duration: 0.9, ease: "sine.inOut"}, "-=0.5")
+                  .to(['.w1', '.w2'], {opacity: 0, filter: "blur(20px)", y: -40, duration: 1.8, ease: "power2.in"}, "+=2")
+                  .to(document.body, {opacity: 0, duration: 2, ease: "power2.inOut"}, "-=0.8");
+            } else {
+                // Fallback if GSAP is missing
+                setTimeout(() => { loveText.style.opacity = '1'; }, 1000);
+                setTimeout(() => { document.body.style.opacity = '0'; }, 4800);
+            }
 
-            // 4. Final fade to completely black before redirecting
-            setTimeout(() => {
-                document.body.style.transition = 'opacity 2.2s cubic-bezier(0.4, 0, 0.2, 1)';
-                document.body.style.opacity = '0';
-            }, 4800);
-            
             // 5. Navigate to Chapters
             setTimeout(() => {
                 window.location.href = 'chapters.html?magicalEntrance=true';
-            }, 7000);
+            }, 8500);
             
         } else {
             sounds.error();
