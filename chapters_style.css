@@ -1919,9 +1919,9 @@ a {
 }
 
 @media (max-width: 520px) {
-    .hero-stacked-gallery {
-        width: 220px;
-        height: 300px;
+    .divine-arch-wrapper {
+        transform: scale(0.85);
+        margin-bottom: 20px;
     }
 }
 
