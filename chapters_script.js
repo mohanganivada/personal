@@ -591,12 +591,12 @@ function openLightbox(folderKey) {
             const vid = document.createElement('video');
             vid.src = fileUrl; vid.muted = true; vid.loop = true; vid.autoplay = true; 
             vid.setAttribute('playsinline', '');
-            vid.style.cssText = "width:100%; height:100%; object-fit:cover;";
+            vid.style.cssText = "width:100%; height:100%; object-fit:contain;";
             item.appendChild(vid);
             vid.play().catch(()=>{});
         } else {
             const img = document.createElement('img');
-            img.src = fileUrl; img.style.cssText = "width:100%; height:100%; object-fit:cover;";
+            img.src = fileUrl; img.style.cssText = "width:100%; height:100%; object-fit:contain;";
             item.appendChild(img);
         }
         
@@ -623,11 +623,13 @@ function openLightbox(folderKey) {
         item.dataset.baseRX = rotX; item.dataset.baseRY = rotY; item.dataset.baseRZ = rotZ;
         
         if (isLargeGallery) {
+            const tilt = (Math.random() * 8) - 4; // slight scrapbook rotation
             gsap.to(item, {
                 scale: 1,
-                duration: 0.6,
-                ease: "back.out(1.2)",
-                delay: index * 0.02
+                rotationZ: tilt,
+                duration: 0.8,
+                ease: "back.out(1.5)",
+                delay: index * 0.1
             });
         } else {
             gsap.to(item, {
@@ -644,7 +646,7 @@ function openLightbox(folderKey) {
         item.addEventListener('mouseenter', () => {
             gsap.killTweensOf(item);
             if (isLargeGallery) {
-                gsap.to(item, { scale: 1.05, zIndex: 100, duration: 0.3, ease: "power2.out", boxShadow: "0 25px 45px rgba(0,0,0,0.8), 0 0 30px rgba(212,175,55,0.4)" });
+                gsap.to(item, { scale: 1.08, rotationZ: 0, zIndex: 100, duration: 0.3, ease: "power2.out", boxShadow: "0 25px 45px rgba(0,0,0,0.8), 0 0 30px rgba(212,175,55,0.6)" });
             } else {
                 gsap.to(item, {
                     x: 0, y: 0, z: 200, rotationX: 0, rotationY: 0, rotationZ: 0, scale: 1.8,
@@ -656,7 +658,8 @@ function openLightbox(folderKey) {
 
         item.addEventListener('mouseleave', () => {
             if (isLargeGallery) {
-                gsap.to(item, { scale: 1, zIndex: 1, duration: 0.4, ease: "power2.out", boxShadow: "0 15px 35px rgba(0,0,0,0.6)" });
+                const tilt = (Math.random() * 8) - 4;
+                gsap.to(item, { scale: 1, rotationZ: tilt, zIndex: 1, duration: 0.4, ease: "back.out(1.2)", boxShadow: "0 15px 35px rgba(0,0,0,0.6)" });
             } else {
                  gsap.to(item, {
                     x: item.dataset.baseX, y: item.dataset.baseY, z: item.dataset.baseZ,
