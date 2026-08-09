@@ -480,7 +480,7 @@ function encodeFilePath(folderPath, fileName) {
 }
 
 function isVideoFile(fileName) {
-    return /\\.(mp4|mov|webm|m4v)$/i.test(fileName);
+    return /\.(mp4|mov|webm|m4v)(\?|#|\s|$)/i.test(fileName);
 }
 
 let currentFolderImages = [];
