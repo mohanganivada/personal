@@ -474,6 +474,15 @@ const FOLDERS = {
     }
 };
 
+function encodeFilePath(folderPath, fileName) {
+    const fullPath = folderPath.endsWith('/') ? folderPath + fileName : folderPath + '/' + fileName;
+    return encodeURI(fullPath);
+}
+
+function isVideoFile(fileName) {
+    return /\\.(mp4|mov|webm|m4v)$/i.test(fileName);
+}
+
 let currentFolderImages = [];
 let currentViewerIndex = 0;
 
