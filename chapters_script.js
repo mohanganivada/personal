@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const bg = document.getElementById('particles-bg');
         if (!bg) return;
         const colors = ['#F4F1E1', '#F4C430', '#FF4D6D', '#74ebd5'];
-        const hearts = ['✨', '❀', '🪷', '·', '⋆'];
+        const hearts = ['✨', '❀', '🪷', '·', '⋆', '🌹'];
         for (let i = 0; i < 40; i++) {
             const el = document.createElement('div');
             el.classList.add('particle');
@@ -217,7 +217,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const container = document.getElementById('balloons');
         if (!container) return;
         const colors = ['#ff4d6d', '#f4c430', '#c77dff', '#ff8fab', '#4cc9f0', '#80ffdb'];
-        const additionalSymbols = ['👑', '🌸', '✨', '💖', '']; // User requested her symbols
+        const additionalSymbols = ['👑', '🌸', '✨', '💖', '🌹', '']; // User requested her symbols
         for (let i = 0; i < 20; i++) {
             const b = document.createElement('div');
             const useSymbol = Math.random() > 0.5;
