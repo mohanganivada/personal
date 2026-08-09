@@ -289,7 +289,7 @@ a {
     cursor: pointer;
 }
 
-/* ===== HERO SECTION ===== */
+/* ===== HERO SECTION (ULTRA PREMIUM) ===== */
 .hero-section {
     min-height: 100vh;
     display: flex;
@@ -298,7 +298,8 @@ a {
     text-align: center;
     position: relative;
     overflow: hidden;
-    padding: 100px 24px 60px;
+    padding: 140px 24px 80px;
+    background: radial-gradient(ellipse at top center, rgba(30,10,25,1) 0%, var(--bg) 100%);
 }
 
 .hero-section::before {
@@ -306,71 +307,118 @@ a {
     position: absolute;
     inset: 0;
     background:
-        radial-gradient(ellipse at 30% 50%, rgba(255, 77, 109, 0.15) 0%, transparent 60%),
-        radial-gradient(ellipse at 70% 50%, rgba(199, 125, 255, 0.1) 0%, transparent 60%);
+        radial-gradient(ellipse at 50% 30%, rgba(212, 175, 55, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 100%, rgba(255, 77, 109, 0.08) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
 }
 
 .hero-content {
     position: relative;
     z-index: 2;
-    max-width: 700px;
+    max-width: 800px;
+    width: 100%;
 }
 
 .birthday-badge {
+    position: relative;
     display: inline-flex;
     align-items: center;
     gap: 12px;
-    padding: 10px 28px;
-    background: rgba(212, 175, 55, 0.08);
-    border: 1px solid rgba(212, 175, 55, 0.3);
+    padding: 12px 35px;
+    background: linear-gradient(135deg, rgba(20,25,45,0.7), rgba(10,12,20,0.9));
+    border: 1px solid rgba(212, 175, 55, 0.6);
     border-radius: 100px;
-    font-size: 0.95rem;
-    font-weight: 700;
-    letter-spacing: 2px;
+    font-size: 1.05rem;
+    font-weight: 800;
+    letter-spacing: 3px;
     color: var(--gold-lt);
     text-transform: uppercase;
-    margin-bottom: 34px;
-    animation: pulse-border 3s ease infinite;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 10px 30px rgba(212, 175, 55, 0.15), inset 0 0 15px rgba(212, 175, 55, 0.1);
+    margin-bottom: 50px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.8), 0 0 25px rgba(212, 175, 55, 0.2), inset 0 0 15px rgba(212, 175, 55, 0.15);
+    overflow: hidden;
 }
 
-@keyframes pulse-border {
-    0%, 100% {
-        box-shadow: 0 10px 30px rgba(212, 175, 55, 0.15), inset 0 0 15px rgba(212, 175, 55, 0.1);
-        border-color: rgba(212, 175, 55, 0.3);
-    }
-    50% {
-        box-shadow: 0 15px 40px rgba(212, 175, 55, 0.3), inset 0 0 25px rgba(212, 175, 55, 0.2);
-        border-color: rgba(212, 175, 55, 0.7);
-    }
+.birthday-badge::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 60%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    animation: gold-sweep 3s ease infinite;
+    pointer-events: none;
+}
+
+@keyframes gold-sweep {
+    0% { left: -100%; }
+    40%, 100% { left: 200%; }
+}
+
+/* Divine Photo Arch Wrapper */
+.divine-arch-wrapper {
+    position: relative;
+    margin: 0 auto 50px;
+    width: 290px;
+    height: 380px;
+}
+
+.divine-glow {
+    position: absolute;
+    inset: -50px;
+    background: radial-gradient(circle, rgba(212, 175, 55, 0.25) 0%, transparent 70%);
+    border-radius: 50%;
+    z-index: 0;
+    filter: blur(25px);
+    animation: pulse-divine 4s ease-in-out infinite;
+}
+
+@keyframes pulse-divine {
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.15); opacity: 1; }
+}
+
+.hero-cursive-subtitle {
+    font-family: var(--font-d);
+    font-size: 2.5rem;
+    color: var(--rose);
+    margin-bottom: -15px;
+    z-index: 3;
+    position: relative;
+    text-shadow: 0 5px 15px rgba(0,0,0,0.6);
+    background: linear-gradient(90deg, #FDF6E3, #D4AF37);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .hero-title {
     font-family: var(--font-h);
-    font-size: clamp(3rem, 10vw, 5.8rem);
+    font-size: clamp(3.5rem, 11vw, 7.5rem);
     line-height: 1.05;
     margin-bottom: 24px;
     font-weight: 900;
-    text-shadow: 0 10px 30px rgba(0,0,0,0.8);
+    text-shadow: 0 15px 40px rgba(0,0,0,0.9);
+    position: relative;
+    z-index: 4;
 }
 
 .gradient-text {
-    display: block;
-    background: linear-gradient(180deg, #FFFFFF 0%, #FAFAF4 40%, var(--lilac) 100%);
+    display: inline-block;
+    background: linear-gradient(180deg, #FFFFFF 0%, #FAFAF4 50%, var(--lilac) 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    filter: drop-shadow(0 2px 10px rgba(255,255,255,0.1));
+    filter: drop-shadow(0 5px 15px rgba(255,255,255,0.15));
 }
 
 .gradient-text-2 {
-    display: block;
-    background: linear-gradient(to right, var(--gold-lt), var(--gold), var(--rose));
+    display: inline-block;
+    background: linear-gradient(to right, #FFFDF2, var(--gold), var(--rose));
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    filter: drop-shadow(0 5px 25px rgba(244,196,48,0.3));
+    filter: drop-shadow(0 10px 35px rgba(244,196,48,0.4));
 }
 
 .hero-subtitle {
@@ -1760,24 +1808,31 @@ a {
 
 /* ===== NEW STYLES: HERO IMAGE ROW ===== */
 .hero-stacked-gallery {
-    position: relative;
-    width: 260px;
-    height: 340px;
-    margin: 0 auto 50px;
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    pointer-events: none;
+    z-index: 2;
+    animation: celestial-float 5s ease-in-out infinite;
+}
+
+@keyframes celestial-float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-12px) rotate(1deg); }
 }
 
 .stack-photo {
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    width: 270px;
+    height: 360px;
+    left: 50%;
+    top: 50%;
+    margin-left: -135px;
+    margin-top: -180px;
     border-radius: var(--r-md);
-    border: 1px solid rgba(212, 175, 55, 0.4);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), inset 0 0 15px rgba(255, 255, 255, 0.05);
+    object-fit: cover;
+    box-shadow: 0 25px 45px rgba(0,0,0,0.8), 0 0 30px rgba(244, 196, 48, 0.4);
+    border: 3px solid rgba(255,255,255,0.15);
     transition: all 0.7s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
