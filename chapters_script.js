@@ -529,6 +529,14 @@ function openLightbox(folderKey) {
     current3DItems = [];
     currentFolderImages = [];
     
+    if (files.length > 10) {
+        files.forEach((file) => {
+            currentFolderImages.push(encodeFilePath(folderInfo.path, file));
+        });
+        openViewer(0);
+        return;
+    }
+
     files.forEach((file, index) => {
         const fileUrl = encodeFilePath(folderInfo.path, file);
         currentFolderImages.push(fileUrl);
@@ -558,8 +566,11 @@ function openLightbox(folderKey) {
         // Media element
         if (isVideoFile(fileUrl)) {
             const vid = document.createElement('video');
-            vid.src = fileUrl; vid.muted = true; vid.loop = true; vid.autoplay = true; vid.style.cssText = "width:100%; height:100%; object-fit:cover;";
+            vid.src = fileUrl; vid.muted = true; vid.loop = true; vid.autoplay = true; 
+            vid.setAttribute('playsinline', '');
+            vid.style.cssText = "width:100%; height:100%; object-fit:cover;";
             item.appendChild(vid);
+            vid.play().catch(()=>{});
         } else {
             const img = document.createElement('img');
             img.src = fileUrl; img.style.cssText = "width:100%; height:100%; object-fit:cover;";
@@ -627,6 +638,8 @@ function openLightbox(folderKey) {
 function closeLightbox() {
     const overlay = document.getElementById('lightbox-overlay');
     if (overlay) {
+        const delay = current3DItems.length > 0 ? 800 : 0;
+        
         // Explode pieces away
         current3DItems.forEach((item, i) => {
             gsap.to(item, {
@@ -643,7 +656,7 @@ function closeLightbox() {
                 gsap.to(activeFolder, { opacity: 1, scale: 1, duration: 0.8, pointerEvents: 'auto', ease: "elastic.out(1, 0.5)" });
                 activeFolder = null;
             }
-        }, 800);
+        }, delay);
     }
 }
 
@@ -691,6 +704,10 @@ function closeViewer() {
     }
     viewer.style.display = 'none';
     viewer.classList.remove('open');
+    
+    if (current3DItems.length === 0) {
+        closeLightbox();
+    }
 }
 
 function updateViewerMedia() {
