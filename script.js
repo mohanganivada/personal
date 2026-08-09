@@ -657,7 +657,7 @@ Cannot wait for your Birthday My Karammmaaa ❤️`;
                 <div class="polaroid-light-sheen"></div>
                 <div class="gallery-img-wrap">
                     ${isVideo ? `
-                        <video src="${item.url}" muted playsinline loop style="width:100%;height:100%;object-fit:cover;"></video>
+                        <video src="${item.url}" autoplay muted playsinline loop style="width:100%;height:100%;object-fit:cover;"></video>
                         <div class="gallery-video-indicator">▶</div>
                     ` : `
                         <img src="${item.url}" alt="Memory photo" loading="lazy">
