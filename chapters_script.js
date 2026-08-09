@@ -510,11 +510,22 @@ function openLightbox(folderKey) {
         gsap.to(activeFolder, { opacity: 0, scale: 0.8, duration: 0.5, pointerEvents: 'none' });
     }
 
-    // Prepare 3D space backdrop
+    // Prepare 3D space backdrop AND inline photo viewer (to avoid destroying it)
     const overlay = document.getElementById('lightbox-overlay');
     overlay.classList.add('open');
     document.body.style.overflow = 'hidden';
-    overlay.innerHTML = '<button style="position:absolute; top:20px; right:30px; font-size:2rem; background:none; border:none; color:#D4AF37; z-index:9999; cursor:pointer;" onclick="closeLightbox()">✕</button><div id="gsap-3d-space" style="position:absolute; width:100%; height:100%; top:0; left:0; perspective: 1200px; padding: 50px;"></div>';
+    overlay.innerHTML = `
+        <button style="position:absolute; top:20px; right:30px; font-size:2.5rem; background:none; border:none; color:#D4AF37; z-index:9999; cursor:pointer;" onclick="closeLightbox()">✕</button>
+        <div id="gsap-3d-space" style="position:absolute; width:100%; height:100%; top:0; left:0; perspective: 1200px; padding: 50px;"></div>
+        <!-- Built-in Viewer fallback to ensure it survives innerHTML rewrites -->
+        <div class="photo-viewer" id="photo-viewer" style="display:none; position:fixed; inset:0; z-index:10000; background:rgba(2,8,19,0.98); align-items:center; justify-content:center; backdrop-filter:blur(10px);">
+            <button class="viewer-close" onclick="closeViewer()" style="position:absolute;top:20px;right:30px;font-size:3rem;color:#D4AF37;background:none;border:none;cursor:pointer;z-index:10001;filter:drop-shadow(0 0 10px rgba(0,0,0,0.8));">✕</button>
+            <button class="viewer-prev" onclick="prevPhoto()" style="position:absolute;left:30px;font-size:4rem;color:#FFF;background:none;border:none;cursor:pointer;z-index:10001;filter:drop-shadow(0 2px 15px rgba(0,0,0,0.9));">‹</button>
+            <img id="viewer-img" src="" alt="Photo" style="display:none; max-width:85vw; max-height:85vh; object-fit:contain; border-radius:12px; box-shadow:0 15px 40px rgba(244,196,48,0.3);">
+            <video id="viewer-vid" src="" controls autoplay loop playsinline webkit-playsinline style="display:none; max-width:85vw; max-height:85vh; object-fit:contain; border-radius:12px; box-shadow:0 15px 40px rgba(244,196,48,0.3);"></video>
+            <button class="viewer-next" onclick="nextPhoto()" style="position:absolute;right:30px;font-size:4rem;color:#FFF;background:none;border:none;cursor:pointer;z-index:10001;filter:drop-shadow(0 2px 15px rgba(0,0,0,0.9));">›</button>
+        </div>
+    `;
     
     const space = document.getElementById('gsap-3d-space');
 
@@ -526,7 +537,8 @@ function openLightbox(folderKey) {
         return;
     }
     
-    const isLargeGallery = files.length > 10;
+    // Universally use normal vertical grid logic to prevent popping chaos
+    const isLargeGallery = true;
     if (isLargeGallery) {
         // Build a responsive vertical grid layout 
         space.style.display = 'grid';
@@ -588,11 +600,10 @@ function openLightbox(folderKey) {
             item.appendChild(img);
         }
         
-        // Golden glare element
+        // Glare element - NO background to solve yellow tint issues, just for smooth structural transition
         const glare = document.createElement('div');
         glare.style.cssText = `
             position: absolute; inset:0; pointer-events:none; opacity:0; transition: opacity 0.5s;
-            background: radial-gradient(circle at center, rgba(255, 215, 0, 0.3) 0%, transparent 70%); mix-blend-mode: overlay;
         `;
         item.appendChild(glare);
         
@@ -779,13 +790,12 @@ function nextPhoto() {
     updateViewerMedia();
 }
 
-// Keyboard support
+// Add document level clicks and gestures for photo viewer since DOM nodes were recreated dynamically
 document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') {
-        const viewer = document.getElementById('photo-viewer');
-        if (viewer && viewer.classList.contains('open')) closeViewer();
-        else closeLightbox();
-    }
+    const viewer = document.getElementById('photo-viewer');
+    if (!viewer || viewer.style.display === 'none') return;
+    
+    if (e.key === 'Escape') closeViewer();
     if (e.key === 'ArrowLeft') prevPhoto();
     if (e.key === 'ArrowRight') nextPhoto();
 });
